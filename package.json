@@ -1,0 +1,57 @@
+{
+  "name": "redis-smq-monitor",
+  "description": "A monitoring tool for RedisSMQ message queue",
+  "version": "1.0.2",
+  "dependencies": {
+    "d3": "5.12.0",
+    "finalhandler": "1.1.2",
+    "react": "16.10.2",
+    "react-dom": "16.10.2",
+    "recharts": "1.8.5",
+    "redis": "2.8.0",
+    "semantic-ui-react": "0.88.1",
+    "serve-static": "1.14.1",
+    "socket.io": "2.3.0",
+    "socket.io-client": "2.3.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.6.4",
+    "@babel/core": "7.6.4",
+    "@babel/preset-env": "7.6.3",
+    "@babel/preset-react": "7.6.3",
+    "@hot-loader/react-dom": "16.10.2",
+    "babel-loader": "8.0.6",
+    "css-loader": "3.2.0",
+    "file-loader": "4.2.0",
+    "react-hot-loader": "4.12.15",
+    "style-loader": "1.0.0",
+    "webpack": "4.41.2",
+    "webpack-cli": "3.3.9",
+    "webpack-dev-server": "3.8.2"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --mode development --host 0.0.0.0",
+    "dev-build": "webpack --mode development",
+    "build": "webpack --mode production"
+  },
+  "main": "./server.js",
+  "author": "Weyoss <weyoss@protonmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "redis",
+    "message queue",
+    "message",
+    "queue",
+    "job queue",
+    "jobs",
+    "redis-smq"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/weyoss/redis-smq-monitor.git"
+  },
+  "homepage": "https://github.com/weyoss/redis-smq-monitor",
+  "bugs": {
+    "url": "https://github.com/weyoss/redis-smq-monitor/issues"
+  }
+}

@@ -1,0 +1,19 @@
+html, body {
+    min-width: 800px;
+}
+
+.MainPage .padding {
+    padding: 2em;
+}
+
+.MainPage .margin {
+    margin: 2em;
+}
+
+.MainPage .wrapper {
+    width: 100%;
+}
+
+.MainPage .margin-bottom {
+    margin-bottom: 2em;
+}
