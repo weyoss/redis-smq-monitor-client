@@ -33,7 +33,7 @@ function server(config = {}) {
             });
             const io = Socket(server, socketOpts);
 
-            const { redis: options = {} } = config;
+            const options = config.redis && config.redis.options || {};
             const client = redis.createClient(options);
             client.on('ready', () => {
                 client.subscribe('stats');
