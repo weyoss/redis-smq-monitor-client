@@ -5,6 +5,7 @@
   "dependencies": {
     "d3": "5.12.0",
     "finalhandler": "1.1.2",
+    "ioredis": "4.16.0",
     "react": "16.10.2",
     "react-dom": "16.10.2",
     "recharts": "1.8.5",
@@ -15,7 +16,7 @@
     "socket.io-client": "2.3.0"
   },
   "devDependencies": {
-    "@babel/cli": "7.6.4",
+    "@babel/cli": "7.8.4",
     "@babel/core": "7.6.4",
     "@babel/preset-env": "7.6.3",
     "@babel/preset-react": "7.6.3",
@@ -27,7 +28,7 @@
     "style-loader": "1.0.0",
     "webpack": "4.41.2",
     "webpack-cli": "3.3.9",
-    "webpack-dev-server": "3.8.2"
+    "webpack-dev-server": "3.10.3"
   },
   "scripts": {
     "start": "webpack-dev-server --mode development --host 0.0.0.0",

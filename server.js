@@ -4,8 +4,25 @@ const path = require('path');
 const Socket = require('socket.io');
 const http = require('http');
 const redis = require('redis');
+const IORedis = require('ioredis');
 const serveStatic = require('serve-static');
 const finalHandler = require('finalhandler');
+
+
+function redisClient(config, cb) {
+    const { redis: redisParams = {} } = config;
+    let driver = 'redis';
+    let driverOptions = {};
+    if (redisParams.driver) {
+        driver = redisParams.driver;
+        if (redisParams.options) driverOptions = redisParams.options;
+    } else driverOptions = redisParams;
+    const client = (driver === 'ioredis') ? new IORedis(driverOptions)
+        : redis.createClient(driverOptions);
+    client.on('ready', () => {
+        cb(client);
+    });
+}
 
 /**
  *
@@ -32,18 +49,16 @@ function server(config = {}) {
                 serve(req, res, finalHandler(req, res));
             });
             const io = Socket(server, socketOpts);
-
-            const { redis: options = {} } = config;
-            const client = redis.createClient(options);
-            client.on('ready', () => {
+            redisClient(config, (client) => {
+                console.log(`Successfully connected to RedisSMQ server.`);
                 client.subscribe('stats');
-            });
-            client.on('message', (channel, message) => {
-                const json = JSON.parse(message);
-                io.emit('stats', json);
+                client.on('message', (channel, message) => {
+                    const json = JSON.parse(message);
+                    io.emit('stats', json);
+                });
             });
             server.listen(port, host, () => {
-                console.log(`Listening for new connections  on ${host}:${port}...`);
+                console.log(`Listening for HTTP connections on ${host}:${port}...`);
                 cb && cb();
             });
         },
