@@ -1,7 +1,7 @@
 {
   "name": "redis-smq-monitor",
   "description": "A monitoring tool for RedisSMQ message queue",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "dependencies": {
     "d3": "5.12.0",
     "finalhandler": "1.1.2",
