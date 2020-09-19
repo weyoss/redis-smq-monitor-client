@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "target": "es6",
+        "sourceMap": true,
+        "declaration": false,
+        "esModuleInterop": true,
+        "outDir": "./build",
+        "rootDir": "./src/server",
+        "strict": true,
+        "removeComments": true
+    },
+    "include": ["src/server/**/*.ts"],
+    "exclude": ["node_modules", "build", "dist", "test", "*.md", "src/**/*.test.ts"]
+}

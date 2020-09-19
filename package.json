@@ -1,58 +1,92 @@
 {
-  "name": "redis-smq-monitor",
-  "description": "A monitoring tool for RedisSMQ message queue",
-  "version": "1.0.4",
-  "dependencies": {
-    "d3": "5.12.0",
-    "finalhandler": "1.1.2",
-    "ioredis": "4.16.0",
-    "react": "16.10.2",
-    "react-dom": "16.10.2",
-    "recharts": "1.8.5",
-    "redis": "2.8.0",
-    "semantic-ui-react": "0.88.1",
-    "serve-static": "1.14.1",
-    "socket.io": "2.3.0",
-    "socket.io-client": "2.3.0"
-  },
-  "devDependencies": {
-    "@babel/cli": "7.8.4",
-    "@babel/core": "7.6.4",
-    "@babel/preset-env": "7.6.3",
-    "@babel/preset-react": "7.6.3",
-    "@hot-loader/react-dom": "16.10.2",
-    "babel-loader": "8.0.6",
-    "css-loader": "3.2.0",
-    "file-loader": "4.2.0",
-    "react-hot-loader": "4.12.15",
-    "style-loader": "1.0.0",
-    "webpack": "4.41.2",
-    "webpack-cli": "3.3.9",
-    "webpack-dev-server": "3.11.0"
-  },
-  "scripts": {
-    "start": "webpack-dev-server --mode development --host 0.0.0.0",
-    "dev-build": "webpack --mode development",
-    "build": "webpack --mode production"
-  },
-  "main": "./server.js",
-  "author": "Weyoss <weyoss@protonmail.com>",
-  "license": "MIT",
-  "keywords": [
-    "redis",
-    "message queue",
-    "message",
-    "queue",
-    "job queue",
-    "jobs",
-    "redis-smq"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/weyoss/redis-smq-monitor.git"
-  },
-  "homepage": "https://github.com/weyoss/redis-smq-monitor",
-  "bugs": {
-    "url": "https://github.com/weyoss/redis-smq-monitor/issues"
-  }
+    "name": "redis-smq-monitor",
+    "description": "A monitoring tool for RedisSMQ message queue",
+    "version": "1.0.4",
+    "main": "./dist/index.js",
+    "author": "Weyoss <weyoss@protonmail.com>",
+    "license": "MIT",
+    "keywords": [
+        "redis",
+        "message queue",
+        "message",
+        "queue",
+        "job queue",
+        "jobs",
+        "redis-smq"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/weyoss/redis-smq-monitor.git"
+    },
+    "homepage": "https://github.com/weyoss/redis-smq-monitor",
+    "bugs": {
+        "url": "https://github.com/weyoss/redis-smq-monitor/issues"
+    },
+    "types": "./src/server/types/index.d.ts",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start:dev": "run-p start:server start:webpack",
+        "start:server": "TS_NODE_PROJECT='tsconfig-server.json' nodemon src/client/tools/ws-server-launcher.ts",
+        "start:webpack": "webpack-dev-server --progress --color --open",
+        "prebuild": "npm run build:clean",
+        "build": "run-p build:client build:server",
+        "build:clean": "rimraf ./build && mkdir build",
+        "build:client": "webpack -p --progress --colors",
+        "build:server": "tsc --project tsconfig-server.json"
+    },
+    "devDependencies": {
+        "@babel/core": "7.11.6",
+        "@types/finalhandler": "1.1.0",
+        "@types/ioredis": "4.17.4",
+        "@types/node": "13.13.21",
+        "@types/react": "16.9.49",
+        "@types/react-dom": "16.9.8",
+        "@types/react-redux": "7.1.9",
+        "@types/react-router": "5.1.8",
+        "@types/react-router-dom": "5.1.5",
+        "@types/recharts": "1.8.15",
+        "@types/redis": "2.8.27",
+        "@types/redux-immutable-state-invariant": "2.1.1",
+        "@types/serve-static": "1.13.5",
+        "@types/socket.io": "2.1.11",
+        "@types/socket.io-client": "1.4.33",
+        "babel-loader": "8.1.0",
+        "bootstrap": "4.5.2",
+        "clean-webpack-plugin": "3.0.0",
+        "css-loader": "3.6.0",
+        "file-loader": "6.1.0",
+        "html-loader": "1.3.0",
+        "html-webpack-plugin": "4.4.1",
+        "mini-css-extract-plugin": "0.9.0",
+        "nodemon": "2.0.4",
+        "npm-run-all": "4.1.5",
+        "prettier": "2.1.2",
+        "react": "16.13.1",
+        "react-dom": "16.13.1",
+        "react-hot-loader": "4.12.21",
+        "react-redux": "7.2.1",
+        "react-router": "5.2.0",
+        "react-router-dom": "5.2.0",
+        "recharts": "1.8.5",
+        "redux": "4.0.5",
+        "redux-immutable-state-invariant": "2.1.0",
+        "redux-thunk": "2.3.0",
+        "rimraf": "3.0.2",
+        "socket.io-client": "2.3.0",
+        "style-loader": "1.2.1",
+        "ts-loader": "6.2.2",
+        "ts-node": "9.0.0",
+        "typescript": "3.9.7",
+        "url-loader": "4.1.0",
+        "webpack": "4.44.1",
+        "webpack-cli": "3.3.12",
+        "webpack-dev-server": "3.11.0"
+    },
+    "dependencies": {
+        "finalhandler": "1.1.2",
+        "ioredis": "4.17.3",
+        "redis": "3.0.2",
+        "serve-static": "1.14.1",
+        "socket.io": "2.3.0"
+    }
 }

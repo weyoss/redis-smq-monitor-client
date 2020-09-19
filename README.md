@@ -1,5 +1,5 @@
 
-![RedisSMQ Monitor](./screenshots/monitor.png)
+![RedisSMQ Monitor](./screenshots/monitor.png?hash=1236)
 
 # RedisSMQ Monitor
 

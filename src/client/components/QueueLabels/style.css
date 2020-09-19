@@ -1,0 +1,24 @@
+.queueLabels ul,
+.queueLabels ul li {
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.queueLabels ul > li {
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.queueLabels > ul > li {
+    margin-bottom: 24px;
+}
+
+.queueLabels .embedded {
+    margin-left: 24px;
+}
+
+.queueLabels a.active {
+    text-decoration: underline;
+}

@@ -1,59 +1,122 @@
-const path = require("path");
-const webpack = require("webpack");
+const webpack = require('webpack');
+const path = require('path');
+const pkg = require('./package.json');
+
+// variables
+const env = process.env.NODE_ENV || 'development';
+const isProduction = process.argv.indexOf('-p') >= 0 || env === 'production';
+const sourcePath = path.join(__dirname, './src/client');
+const outPath = path.join(__dirname, './build');
+
+// plugins
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-    entry: ['react-hot-loader/patch', './src'],
-    mode: "development",
+    mode: isProduction ? 'production' : 'development',
+    context: sourcePath,
+    entry: {
+        app: './index.tsx'
+    },
+    output: {
+        path: `${outPath}/assets/`,
+        publicPath: '/',
+        filename: isProduction ? '[contenthash].js' : '[hash].js',
+        chunkFilename: isProduction ? '[name].[contenthash].js' : '[name].[hash].js'
+    },
+    target: 'web',
+    resolve: {
+        extensions: ['.js', '.ts', '.tsx']
+    },
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
-                exclude: /(node_modules|bower_components)/,
-                loader: "babel-loader",
-                options: { presets: ["@babel/env"] }
+                test: /\.tsx?$/,
+                use: [
+                    !isProduction && {
+                        loader: 'babel-loader',
+                        options: { plugins: ['react-hot-loader/babel'] }
+                    },
+                    'ts-loader'
+                ].filter(Boolean)
             },
             {
                 test: /\.css$/,
-                use: ["style-loader", "css-loader"]
+                use: [
+                    isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+                    {
+                        loader: 'css-loader',
+                        query: {
+                            sourceMap: !isProduction,
+                            importLoaders: 1
+                        }
+                    }
+                ]
             },
+            // static assets
+            { test: /\.html$/, use: 'html-loader' },
+            { test: /\.(a?png|svg)$/, use: 'url-loader?limit=10000' },
             {
-                test: /\.(png|jpe?g|gif)$/i,
-                loader: 'file-loader',
-                options: {
-                    outputPath: "images/",
-                    publicPath: "/images",
-                },
-            },
-            {
-                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'file-loader',
-                options: {
-                    outputPath: "fonts/",
-                    publicPath: "/fonts"
-                }
+                test: /\.(jpe?g|gif|bmp|mp3|mp4|ogg|wav|eot|ttf|woff|woff2)$/,
+                use: 'file-loader'
             }
         ]
     },
-    resolve: {
-        extensions: ["*", ".js", ".jsx"],
-        alias: {
-            'react-dom': '@hot-loader/react-dom',
+    optimization: {
+        splitChunks: {
+            chunks: 'all'
         },
+        runtimeChunk: true
     },
-    output: {
-        path: path.resolve(__dirname, "dist/"),
-        publicPath: "/scripts",
-        filename: "scripts/bundle.js"
-    },
+    plugins: [
+        new webpack.EnvironmentPlugin({
+            WS_URL: isProduction ? '' : 'http://0.0.0.0:4000',
+            NODE_ENV: env,
+            DEBUG: false
+        }),
+        new CleanWebpackPlugin(),
+        new MiniCssExtractPlugin({
+            filename: '[hash].css',
+            disable: !isProduction
+        }),
+        new HtmlWebpackPlugin({
+            template: './index.html',
+            minify: {
+                minifyJS: true,
+                minifyCSS: true,
+                minifyURLs: true,
+                removeComments: true,
+                removeRedundantAttributes: true,
+                removeStyleLinkTypeAttributes: true,
+                useShortDoctype: true,
+                collapseWhitespace: true,
+                collapseInlineTagWhitespace: true
+            },
+            append: {
+                head: `<script src="https://cdn.polyfill.io/v3/polyfill.min.js"></script>`
+            },
+            meta: {
+                title: pkg.name,
+                description: pkg.description,
+                keywords: Array.isArray(pkg.keywords) ? pkg.keywords.join(',') : undefined
+            }
+        })
+    ],
     devServer: {
-        contentBase: path.join(__dirname, "dist/"),
-        port: 3000,
-        publicPath: "http://0.0.0.0:3000",
+        contentBase: sourcePath,
+        hot: true,
+        inline: true,
         historyApiFallback: {
-            index: 'index.html'
+            disableDotRule: true
         },
-        watchContentBase: true
+        stats: 'minimal',
+        clientLogLevel: 'warning',
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+            'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
+        }
     },
-    plugins: [new webpack.HotModuleReplacementPlugin()],
-    watch: true
+    devtool: isProduction ? undefined : 'cheap-module-source-map'
 };
