@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.1.2 (2020-09-20)
+
+* Fixed root directory for static files
+* Fallback to index.html if the requested path does not exist
+
 ## 1.1.1 (2020-09-20)
 
 * Fixed package.json main entry.
