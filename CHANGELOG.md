@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.1.1 (2020-09-20)
+
+* Fixed package.json main entry.
+* Improved error handling, websocket, and commonjs export type for the server.
+
 ## 1.1.0 (2020-09-20)
 
 * Migrated React codebase to TypeScript.
