@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 const socket_io_1 = __importDefault(require("socket.io"));
 const http_1 = __importDefault(require("http"));
 const serve_static_1 = __importDefault(require("serve-static"));
-const finalhandler_1 = __importDefault(require("finalhandler"));
+const fs_1 = require("fs");
 const redis_1 = __importDefault(require("./redis"));
 function server(config) {
     if (!config) {
@@ -20,12 +20,20 @@ function server(config) {
     const { host = '0.0.0.0', port = 7210, socketOpts = {} } = config.monitor;
     return {
         listen(cb) {
+            const fallback = (req, res) => {
+                return () => {
+                    fs_1.readFile(`${__dirname}/assets/index.html`, (err, content) => {
+                        res.writeHead(200, { 'Content-Type': 'text/html' });
+                        res.end(content);
+                    });
+                };
+            };
             const serve = serve_static_1.default(`${__dirname}/assets/`, {
                 index: 'index.html',
                 dotfiles: 'deny'
             });
             const server = http_1.default.createServer((req, res) => {
-                serve(req, res, finalhandler_1.default(req, res));
+                serve(req, res, fallback(req, res));
             });
             const io = socket_io_1.default(server, socketOpts);
             console.log('Connecting to Redis server...');

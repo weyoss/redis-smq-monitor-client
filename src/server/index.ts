@@ -1,7 +1,7 @@
 import Socket from 'socket.io';
-import http from 'http';
+import http, { IncomingMessage, ServerResponse } from 'http';
 import ServeStatic from 'serve-static';
-import finalHandler from 'finalhandler';
+import { readFile } from 'fs';
 import { ConfigInterface } from './config/contract';
 import getRedisClient from './redis';
 
@@ -27,12 +27,20 @@ function server(config?: ConfigInterface) {
          * @param {function} cb
          */
         listen(cb?: Function) {
+            const fallback = (req: IncomingMessage, res: ServerResponse) => {
+                return () => {
+                    readFile(`${__dirname}/assets/index.html`, (err, content) => {
+                        res.writeHead(200, { 'Content-Type': 'text/html' });
+                        res.end(content);
+                    });
+                };
+            };
             const serve = ServeStatic(`${__dirname}/assets/`, {
                 index: 'index.html',
                 dotfiles: 'deny'
             });
             const server = http.createServer((req: any, res: any) => {
-                serve(req, res, finalHandler(req, res));
+                serve(req, res, fallback(req, res));
             });
             const io = Socket(server, socketOpts);
 
