@@ -1,0 +1,15 @@
+test
+tsconfig.json
+tsconfig-server.json
+webpack.config.js
+tslint.json
+.prettierrc
+jest.config.js
+.idea
+.eslintignore
+.eslintrc.js
+.gitignore
+index.d.ts
+src/**/*
+!src/server/**/contract.ts
+!src/server/**/index.d.ts
