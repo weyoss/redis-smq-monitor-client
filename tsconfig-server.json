@@ -12,5 +12,5 @@
         "removeComments": true
     },
     "include": ["src/server/**/*.ts"],
-    "exclude": ["node_modules", "build", "dist", "test", "*.md", "src/**/*.test.ts"]
+    "exclude": ["./node_modules", "build", "dist", "test", "*.md", "src/**/*.test.ts"]
 }

@@ -2,7 +2,6 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 const socket_io_1 = __importDefault(require("socket.io"));
 const http_1 = __importDefault(require("http"));
 const serve_static_1 = __importDefault(require("serve-static"));
@@ -29,20 +28,25 @@ function server(config) {
                 serve(req, res, finalhandler_1.default(req, res));
             });
             const io = socket_io_1.default(server, socketOpts);
-            redis_1.default(config, (client) => {
-                console.log(`Successfully connected to RedisSMQ server.`);
+            console.log('Connecting to Redis server...');
+            redis_1.default(config, (err, client) => {
+                if (err) {
+                    console.log('An error occurred while trying to connect to Redis server.');
+                    throw err;
+                }
+                console.log('Successfully connected to Redis server.');
                 client.subscribe('stats');
                 client.on('message', (channel, message) => {
                     const json = JSON.parse(message);
                     io.emit('stats', json);
                 });
-            });
-            server.listen(port, host, () => {
-                console.log(`Listening for HTTP connections on ${host}:${port}...`);
-                cb && cb();
+                server.listen(port, host, () => {
+                    console.log(`Listening for HTTP connections on ${host}:${port}...`);
+                    cb && cb();
+                });
             });
         }
     };
 }
-exports.default = server;
+module.exports = server;
 //# sourceMappingURL=index.js.map

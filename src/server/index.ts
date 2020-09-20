@@ -35,20 +35,26 @@ function server(config?: ConfigInterface) {
                 serve(req, res, finalHandler(req, res));
             });
             const io = Socket(server, socketOpts);
-            getRedisClient(config, (client) => {
-                console.log(`Successfully connected to RedisSMQ server.`);
+
+            console.log('Connecting to Redis server...');
+            getRedisClient(config, (err, client) => {
+                if (err) {
+                    console.log('An error occurred while trying to connect to Redis server.');
+                    throw err;
+                }
+                console.log('Successfully connected to Redis server.');
                 client.subscribe('stats');
                 client.on('message', (channel, message) => {
                     const json = JSON.parse(message);
                     io.emit('stats', json);
                 });
-            });
-            server.listen(port, host, () => {
-                console.log(`Listening for HTTP connections on ${host}:${port}...`);
-                cb && cb();
+                server.listen(port, host, () => {
+                    console.log(`Listening for HTTP connections on ${host}:${port}...`);
+                    cb && cb();
+                });
             });
         }
     };
 }
-
-export default server;
+//@ts-ignore
+export = server;

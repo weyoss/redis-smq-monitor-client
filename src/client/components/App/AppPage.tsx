@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from '../Header';
 import Footer from '../Footer';
-import ErrorBoundary from '../ErrorBoundary';
 import Routes from '../../routes';
 import { BrowserRouter } from 'react-router-dom';
 import QueueLabels from '../QueueLabels';
@@ -35,11 +34,9 @@ const PageContent = ({ loading }: { loading: boolean }) => {
 
 const AppPage: React.FC<AppPropsInterface> = ({ loading }) => {
     return (
-        <ErrorBoundary>
-            <BrowserRouter>
-                <PageContent loading={loading} />
-            </BrowserRouter>
-        </ErrorBoundary>
+        <BrowserRouter>
+            <PageContent loading={loading} />
+        </BrowserRouter>
     );
 };
 

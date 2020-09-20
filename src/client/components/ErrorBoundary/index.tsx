@@ -10,7 +10,6 @@ export default class ErrorBoundary extends React.Component<PropsWithChildren<{}>
             errorInfo
         });
         // Report error here
-        // ...
     }
 
     render() {

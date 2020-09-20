@@ -22,7 +22,8 @@ function getRedisClient(config, cb) {
     else {
         client = redis_1.default.createClient(redisOpts);
     }
-    client.on('ready', () => cb(client));
+    client.on('ready', () => cb(null, client));
+    client.on('error', cb);
 }
 exports.default = getRedisClient;
 //# sourceMappingURL=redis.js.map

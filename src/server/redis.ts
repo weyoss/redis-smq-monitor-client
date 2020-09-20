@@ -2,7 +2,10 @@ import { ConfigInterface, RedisClientType, RedisDriver, RedisOptionsInterface } 
 import IORedis, { RedisOptions } from 'ioredis';
 import Redis, { ClientOpts } from 'redis';
 
-export default function getRedisClient(config: ConfigInterface, cb: (client: RedisClientType) => void) {
+export default function getRedisClient(
+    config: ConfigInterface,
+    cb: (err: Error | null, client: RedisClientType) => void
+) {
     const redisOpts = config.redis as RedisOptionsInterface;
     let client: RedisClientType | null = null;
     if (redisOpts.driver) {
@@ -17,5 +20,6 @@ export default function getRedisClient(config: ConfigInterface, cb: (client: Red
     } else {
         client = Redis.createClient(redisOpts as ClientOpts);
     }
-    client.on('ready', () => cb(client as RedisClientType));
+    client.on('ready', () => cb(null, client as RedisClientType));
+    client.on('error', cb);
 }
