@@ -20,7 +20,7 @@ function server(config) {
     const { host = '0.0.0.0', port = 7210, socketOpts = {} } = config.monitor;
     return {
         listen(cb) {
-            const serve = serve_static_1.default(`./assets/`, {
+            const serve = serve_static_1.default(`${__dirname}/assets/`, {
                 index: 'index.html',
                 dotfiles: 'deny'
             });

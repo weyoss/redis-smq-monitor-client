@@ -27,7 +27,7 @@ function server(config?: ConfigInterface) {
          * @param {function} cb
          */
         listen(cb?: Function) {
-            const serve = ServeStatic(`./assets/`, {
+            const serve = ServeStatic(`${__dirname}/assets/`, {
                 index: 'index.html',
                 dotfiles: 'deny'
             });
