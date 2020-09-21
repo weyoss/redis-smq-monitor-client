@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.1.3 (2020-09-21)
+
+* Improved queue listing.
+* Handled application state during a cold start.
+
 ## 1.1.2 (2020-09-20)
 
 * Fixed root directory for static files
