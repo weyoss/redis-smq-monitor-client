@@ -54,10 +54,14 @@ nav,
 
 #app .mainContainer .sidePanel {
     flex-basis: 250px;
+    max-width: 250px;
+    min-width: 250px;
+    width: 250px;
     flex-grow: 0;
     flex-shrink: 0;
     background: #f8f8f8;
     padding: 24px;
+    font-size: 0.8em;
 }
 
 #app .homeLink {

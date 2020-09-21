@@ -18,30 +18,25 @@ footer {
 .chartContainer .recharts-cartesian-axis-ticks {
     font-size: 0.8em;
 }
-.queueLabels ul,
-.queueLabels ul li {
-    display: block;
-    list-style: none;
+.queueList {
+    width: 100%;
+}
+
+.queueList .nsGroup {
+    margin-bottom: 2em;
+    width: 100%;
+}
+
+.queueList .nsGroup h5 {
+    padding: 0.5em;
     margin: 0;
-    padding: 0;
 }
 
-.queueLabels ul > li {
-    margin-top: 12px;
-    margin-bottom: 12px;
+.queueList .nsGroup .list-group .list-group-item {
+    padding: 0.25rem 0.5rem;
+    overflow: hidden;
 }
 
-.queueLabels > ul > li {
-    margin-bottom: 24px;
-}
-
-.queueLabels .embedded {
-    margin-left: 24px;
-}
-
-.queueLabels a.active {
-    text-decoration: underline;
-}
 h1,
 h2,
 h3 {
@@ -98,10 +93,14 @@ nav,
 
 #app .mainContainer .sidePanel {
     flex-basis: 250px;
+    max-width: 250px;
+    min-width: 250px;
+    width: 250px;
     flex-grow: 0;
     flex-shrink: 0;
     background: #f8f8f8;
     padding: 24px;
+    font-size: 0.8em;
 }
 
 #app .homeLink {

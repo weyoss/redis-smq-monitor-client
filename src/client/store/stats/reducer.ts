@@ -2,6 +2,7 @@ import { ActionType, StatsStateInterface } from './contract';
 import { Reducer } from 'redux';
 
 export const initialState: StatsStateInterface = {
+    loading: true,
     rates: {
         input: 0,
         processing: 0,
@@ -17,6 +18,7 @@ export const statsReducer: Reducer<StatsStateInterface> = (state = initialState,
         const stats = action.stats;
         return {
             ...state,
+            loading: false,
             ...stats
         };
     }

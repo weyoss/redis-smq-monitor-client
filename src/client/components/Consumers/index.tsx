@@ -1,5 +1,4 @@
 import React from 'react';
-import { Consumers } from '../../models/Consumers';
 import { ConsumersPropsInterface } from './contract';
 
 function formatBytes(bytes: number, decimals = 2) {
@@ -14,13 +13,13 @@ function formatBytes(bytes: number, decimals = 2) {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
 
-function render(consumers: Consumers) {
+const ConsumerList: React.FC<ConsumersPropsInterface> = ({ consumers }) => {
     const data = [];
     for (const id in consumers) {
         const consumer = consumers[id];
         data.push(
             <tr key={consumer.id}>
-                <td>{consumer.id}</td>
+                <td className={'text-break'}>{consumer.id}</td>
                 <td>
                     {consumer.resources.pid} /
                     <br />
@@ -92,13 +91,13 @@ function render(consumers: Consumers) {
             </table>
         </>
     );
-}
+};
 
-const Consumers: React.FC<ConsumersPropsInterface> = ({ consumers }) => {
+const Consumers: React.FC<ConsumersPropsInterface> = (props) => {
     return (
         <div className={'consumers'}>
             <h3>Consumers</h3>
-            {render(consumers)}
+            <ConsumerList {...props} />
         </div>
     );
 };

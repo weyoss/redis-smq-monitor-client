@@ -3,7 +3,7 @@ import Header from '../Header';
 import Footer from '../Footer';
 import Routes from '../../routes';
 import { BrowserRouter } from 'react-router-dom';
-import QueueLabels from '../QueueLabels';
+import QueueListing from '../QueueList';
 import { AppPropsInterface } from './contract';
 import Spinner from '../Spinner';
 import HomeLink from '../HomeLink';
@@ -11,7 +11,15 @@ import HomeLink from '../HomeLink';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 
-const PageContent = ({ loading }: { loading: boolean }) => {
+const Content: React.FC<AppPropsInterface> = ({ stateLoading }) => {
+    if (stateLoading) {
+        return <Spinner loading={stateLoading} />;
+    }
+    return <Routes />;
+};
+
+const PageContent: React.FC<AppPropsInterface> = (props) => {
+    const { loading } = props;
     if (loading) {
         return <Spinner loading={loading} />;
     }
@@ -20,11 +28,11 @@ const PageContent = ({ loading }: { loading: boolean }) => {
             <Header />
             <div className="mainContainer">
                 <div className={'sidePanel'}>
-                    <QueueLabels />
+                    <QueueListing />
                 </div>
                 <div className={'page'}>
                     <HomeLink />
-                    <Routes />
+                    <Content {...props} />
                 </div>
             </div>
             <Footer />
@@ -32,10 +40,10 @@ const PageContent = ({ loading }: { loading: boolean }) => {
     );
 };
 
-const AppPage: React.FC<AppPropsInterface> = ({ loading }) => {
+const AppPage: React.FC<AppPropsInterface> = (props) => {
     return (
         <BrowserRouter>
-            <PageContent loading={loading} />
+            <PageContent {...props} />
         </BrowserRouter>
     );
 };

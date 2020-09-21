@@ -4,4 +4,6 @@ export enum ActionType {
     UPDATE_STATS = 'UPDATE_STATS'
 }
 
-export interface StatsStateInterface extends Stats {}
+export interface StatsStateInterface extends Stats {
+    loading: boolean;
+}

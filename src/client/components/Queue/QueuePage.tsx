@@ -2,7 +2,6 @@ import React from 'react';
 import { QueuePagePropsInterface } from './contract';
 import Consumers from '../Consumers';
 import Producers from '../Producers';
-import { Link } from 'react-router-dom';
 import Timeline from '../Timeline';
 
 const QueuePage: React.FC<QueuePagePropsInterface> = ({ queue, rates }) => {
@@ -11,10 +10,6 @@ const QueuePage: React.FC<QueuePagePropsInterface> = ({ queue, rates }) => {
             <div>
                 <h2>Queue not found!</h2>
                 <p>The queue you are looking for does not exists.</p>
-                <hr />
-                <p>
-                    <Link to={'/'}>Go home</Link>
-                </p>
             </div>
         );
     }

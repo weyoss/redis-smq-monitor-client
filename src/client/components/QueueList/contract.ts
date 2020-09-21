@@ -5,7 +5,8 @@ export interface activeQueueMatchParamsInterface {
     ns: string;
 }
 
-export interface QueueLabelsPagePropsInterface {
+export interface QueueListPagePropsInterface {
     queues: Queues;
     activeQueue: activeQueueMatchParamsInterface | null;
+    loading: boolean;
 }
