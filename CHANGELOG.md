@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.1.4 (2020-09-23)
+
+* Reset timeline when switching between queues.
+
 ## 1.1.3 (2020-09-21)
 
 * Improved queue listing.
