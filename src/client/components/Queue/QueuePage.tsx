@@ -22,7 +22,7 @@ const QueuePage: React.FC<QueuePagePropsInterface> = ({ queue, rates }) => {
                 The following metrics are gathered from the <b>{name}</b> queue under the <b>{namespace}</b> namespace.
             </p>
             <hr />
-            <Timeline rates={rates} />
+            <Timeline rates={rates} scope={`${namespace}-${name}`} />
             <hr />
             <h3>Queue metrics</h3>
             <table className="table">

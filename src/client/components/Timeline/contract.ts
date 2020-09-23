@@ -3,6 +3,7 @@ import { Timeline } from '../../models/Timeline';
 
 export interface TimelinePropsInterface {
     rates: Rates;
+    scope?: string;
 }
 
 export interface TimelinePagePropsInterface {
