@@ -1,0 +1,109 @@
+footer {
+    display: block;
+    font-size: 12px;
+    color: lightslategray;
+    margin-top: 12px;
+}
+.chartContainer {
+    width: 100%;
+    height: 300px;
+    position: relative;
+}
+
+.chartContainer .recharts-responsive-container {
+    margin: 0 auto;
+}
+
+.chartContainer .recharts-legend-wrapper,
+.chartContainer .recharts-cartesian-axis-ticks {
+    font-size: 0.8em;
+}
+.queueList {
+    width: 100%;
+}
+
+.queueList .nsGroup {
+    margin-bottom: 2em;
+    width: 100%;
+}
+
+.queueList .nsGroup h5 {
+    padding: 0.5em;
+    margin: 0;
+}
+
+.queueList .nsGroup .list-group .list-group-item {
+    padding: 0.25rem 0.5rem;
+    overflow: hidden;
+}
+
+h1,
+h2,
+h3 {
+    margin-bottom: 1em;
+}
+
+h1 {
+    margin-bottom: 0.8em;
+}
+
+nav,
+.navbar {
+    padding: 0;
+    margin: 0 24px;
+}
+
+.table {
+    font-size: 0.9em;
+}
+
+.table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table th {
+    text-align: center;
+}
+
+.fullWidth {
+    width: 100%;
+}
+
+#app {
+    margin: 0;
+    padding: 24px;
+}
+
+#app .mainContainer {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+#app .mainContainer > div {
+    display: block;
+    width: 0;
+}
+
+#app .mainContainer .page {
+    padding: 24px;
+    background: #EEE;
+    flex: 1;
+}
+
+#app .mainContainer .sidePanel {
+    flex-basis: 250px;
+    max-width: 250px;
+    min-width: 250px;
+    width: 250px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    background: #f8f8f8;
+    padding: 24px;
+    font-size: 0.8em;
+}
+
+#app .homeLink {
+    margin-bottom: 12px;
+}
+
