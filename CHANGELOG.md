@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.1.5 (2020-09-23)
+
+* Fixed broken build.
+
 ## 1.1.4 (2020-09-23)
 
 * Reset timeline when switching between queues.
