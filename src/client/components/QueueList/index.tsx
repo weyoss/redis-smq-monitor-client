@@ -1,10 +1,10 @@
 import React from 'react';
 import QueueListPage from './QueueListPage';
-import { useSelector } from 'react-redux';
 import { ApplicationStateInterface } from '../../store/contract';
 import { useRouteMatch } from 'react-router';
 import { activeQueueMatchParamsInterface } from './contract';
 import { StatsStateInterface } from '../../store/stats/contract';
+import useSelector from '../../hooks/useSelector';
 
 const QueueList: React.FC = () => {
     const { queues, loading } = useSelector<ApplicationStateInterface, StatsStateInterface>((state) => state.stats);

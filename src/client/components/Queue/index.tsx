@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Queue } from '../../models/Queue';
 import { ApplicationStateInterface } from '../../store/contract';
 import QueuePage from './QueuePage';
@@ -8,6 +7,7 @@ import { Queues } from '../../models/Queues';
 import { Rates } from '../../models/Rates';
 import { Consumer } from '../../models/Consumer';
 import { Producer } from '../../models/Producer';
+import useSelector from '../../hooks/useSelector';
 
 const Queue: React.FC<QueuePropsInterface> = ({ match }) => {
     const queues = useSelector<ApplicationStateInterface, Queues>((state) => state.stats.queues);
