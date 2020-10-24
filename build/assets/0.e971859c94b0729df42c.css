@@ -18,6 +18,20 @@ footer {
 .chartContainer .recharts-cartesian-axis-ticks {
     font-size: 0.8em;
 }
+.chartContainer {
+    width: 100%;
+    height: 300px;
+    position: relative;
+}
+
+.chartContainer .recharts-responsive-container {
+    margin: 0 auto;
+}
+
+.chartContainer .recharts-legend-wrapper,
+.chartContainer .recharts-cartesian-axis-ticks {
+    font-size: 0.8em;
+}
 .queueList {
     width: 100%;
 }

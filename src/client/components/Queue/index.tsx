@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Queue } from '../../models/Queue';
 import { ApplicationStateInterface } from '../../store/contract';
 import QueuePage from './QueuePage';
 import { QueuePropsInterface } from './contract';
-import { Queues } from '../../models/Queues';
 import { Rates } from '../../models/Rates';
 import { Consumer } from '../../models/Consumer';
 import { Producer } from '../../models/Producer';
 import useSelector from '../../hooks/useSelector';
+import { Queue } from '../../models/Queue';
 
 const Queue: React.FC<QueuePropsInterface> = ({ match }) => {
-    const queues = useSelector<ApplicationStateInterface, Queues>((state) => state.stats.queues);
-    const { ns, qn } = match.params;
-    const selectedQueue = queues[ns] && queues[ns][qn];
+    const { namespace, queueName } = match.params;
+    const queue = useSelector<ApplicationStateInterface, Queue | undefined>((state) => {
+        const queues = state.stats.queues;
+        return queues[namespace] && queues[namespace][queueName];
+    });
 
     const [rates, updateRates] = useState<Rates>({
         processing: 0,
@@ -28,20 +29,20 @@ const Queue: React.FC<QueuePropsInterface> = ({ match }) => {
             acknowledged: 0,
             unacknowledged: 0
         };
-        for (const consumerId in selectedQueue?.consumers) {
-            const { rates: cRates } = selectedQueue?.consumers[consumerId] as Consumer;
+        for (const consumerId in queue?.consumers) {
+            const { rates: cRates } = queue?.consumers[consumerId] as Consumer;
             r.acknowledged += cRates.acknowledged;
             r.processing += cRates.processing;
             r.unacknowledged += cRates.unacknowledged;
         }
-        for (const producerId in selectedQueue?.producers) {
-            const { rates: pRates } = selectedQueue?.producers[producerId] as Producer;
+        for (const producerId in queue?.producers) {
+            const { rates: pRates } = queue?.producers[producerId] as Producer;
             r.input += pRates.input;
         }
         updateRates(r);
-    }, [selectedQueue]);
+    }, [queue]);
 
-    return <QueuePage queue={selectedQueue} rates={rates} />;
+    return <QueuePage queue={queue} rates={rates} />;
 };
 
 export default Queue;

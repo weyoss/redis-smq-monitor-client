@@ -1,12 +1,8 @@
 import { Queues } from '../../models/Queues';
-
-export interface activeQueueMatchParamsInterface {
-    qn: string;
-    ns: string;
-}
+import { QueueRouteParamsInterface } from '../../routes/contract';
 
 export interface QueueListPagePropsInterface {
     queues: Queues;
-    activeQueue: activeQueueMatchParamsInterface | null;
+    matchedQueueParams: QueueRouteParamsInterface | null;
     loading: boolean;
 }

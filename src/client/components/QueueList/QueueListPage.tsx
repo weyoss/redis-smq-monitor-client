@@ -2,28 +2,31 @@ import React from 'react';
 import { QueueListPagePropsInterface } from './contract';
 import { Link } from 'react-router-dom';
 import { Queue } from '../../models/Queue';
+import { generateRoutePath } from '../../routes/routes';
 
 import './style.css';
 import Spinner from '../Spinner';
 
-const List: React.FC<QueueListPagePropsInterface> = ({ queues, activeQueue, loading }) => {
+const List: React.FC<QueueListPagePropsInterface> = ({ queues, matchedQueueParams, loading }) => {
     if (loading) {
         return <Spinner loading={loading} />;
     }
-
     const data = [];
     for (const ns in queues) {
         const nsQueues = queues[ns];
         const li = [];
         for (const queueName in nsQueues) {
             const queue = nsQueues[queueName] as Queue;
-            const isActiveQueue = activeQueue && activeQueue.qn === queue.name && activeQueue.ns === queue.namespace;
+            const isActiveQueue =
+                matchedQueueParams &&
+                matchedQueueParams.queueName === queue.name &&
+                matchedQueueParams.namespace === queue.namespace;
             const className = isActiveQueue ? 'active ' : '';
             li.push(
                 <Link
                     key={`${ns}-${queueName}`}
                     className={`${className}text-break list-group-item list-group-item-action d-flex justify-content-between align-items-center`}
-                    to={`/ns/${ns}/qn/${queueName}`}
+                    to={generateRoutePath('queue', { queueName, namespace: ns })}
                 >
                     {queue.name} <span className="badge badge-primary badge-pill">{queue.size}</span>
                 </Link>

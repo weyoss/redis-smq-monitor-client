@@ -1,10 +1,10 @@
+import { ConsumerRates } from './Rates';
+
 export interface Consumer {
     id: string;
-    rates: {
-        processing: number;
-        acknowledged: number;
-        unacknowledged: number;
-    };
+    namespace: string;
+    queueName: string;
+    rates: ConsumerRates;
     resources: {
         pid: number;
         hostname: string;

@@ -1,6 +1,7 @@
-import Timeline from '../Timeline';
 import React from 'react';
 import { OverviewPagePropsInterface } from './contract';
+import RatesTable from '../RatesTable';
+import RatesChart from '../RatesChart';
 
 const OverviewPage: React.FC<OverviewPagePropsInterface> = ({ rates }) => {
     return (
@@ -11,7 +12,8 @@ const OverviewPage: React.FC<OverviewPagePropsInterface> = ({ rates }) => {
                 the queue listing, to view its metrics.
             </p>
             <hr />
-            <Timeline rates={rates} />
+            <RatesChart rates={rates} />
+            <RatesTable rates={rates} />
         </div>
     );
 };

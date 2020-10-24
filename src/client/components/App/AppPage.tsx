@@ -6,7 +6,6 @@ import { BrowserRouter } from 'react-router-dom';
 import QueueListing from '../QueueList';
 import { AppPropsInterface } from './contract';
 import Spinner from '../Spinner';
-import HomeLink from '../HomeLink';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
@@ -31,7 +30,6 @@ const PageContent: React.FC<AppPropsInterface> = (props) => {
                     <QueueListing />
                 </div>
                 <div className={'page'}>
-                    <HomeLink />
                     <Content {...props} />
                 </div>
             </div>

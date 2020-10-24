@@ -1,7 +1,7 @@
 import React from 'react';
 import { QueuePagePropsInterface } from './contract';
-import Consumers from '../Consumers';
-import Producers from '../Producers';
+import ConsumerList from '../ConsumerList';
+import ProducerList from '../ProducerList';
 import Timeline from '../Timeline';
 
 const QueuePage: React.FC<QueuePagePropsInterface> = ({ queue, rates }) => {
@@ -13,7 +13,6 @@ const QueuePage: React.FC<QueuePagePropsInterface> = ({ queue, rates }) => {
             </div>
         );
     }
-
     const { namespace, name, size, erroredMessages, consumers, producers } = queue;
     return (
         <div className={'queue fullWidth'}>
@@ -43,8 +42,10 @@ const QueuePage: React.FC<QueuePagePropsInterface> = ({ queue, rates }) => {
                     </tr>
                 </tbody>
             </table>
-            <Consumers consumers={consumers} />
-            <Producers producers={producers} />
+            <h3>Consumers</h3>
+            <ConsumerList consumers={consumers} />
+            <h3>Producers</h3>
+            <ProducerList producers={producers} />
         </div>
     );
 };

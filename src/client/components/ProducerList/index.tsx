@@ -1,8 +1,7 @@
 import React from 'react';
 import { ProducersPropsInterface } from './contract';
-import { Producers } from '../../models/producers';
 
-function render(producers: Producers) {
+const RenderList: React.FC<ProducersPropsInterface> = ({ producers }) => {
     const items = [];
     for (const id in producers) {
         const producer = producers[id];
@@ -27,15 +26,14 @@ function render(producers: Producers) {
             <tbody>{items}</tbody>
         </table>
     );
-}
+};
 
-const Producers: React.FC<ProducersPropsInterface> = ({ producers }) => {
+const ProducerList: React.FC<ProducersPropsInterface> = (props) => {
     return (
         <div className={'Producers margin-bottom'}>
-            <h3>Producers</h3>
-            {render(producers)}
+            <RenderList {...props} />
         </div>
     );
 };
 
-export default Producers;
+export default ProducerList;

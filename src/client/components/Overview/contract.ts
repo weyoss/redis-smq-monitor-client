@@ -1,3 +1,5 @@
-import { TimelinePropsInterface } from '../Timeline/contract';
+import { Rates } from '../../models/Rates';
 
-export interface OverviewPagePropsInterface extends TimelinePropsInterface {}
+export interface OverviewPagePropsInterface {
+    rates: Rates;
+}

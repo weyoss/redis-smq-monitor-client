@@ -1,25 +1,27 @@
 import React from 'react';
 import { ConsumersPropsInterface } from './contract';
+import { generateRoutePath } from '../../routes/routes';
+import { Link } from 'react-router-dom';
+import { formatBytes } from '../../tools/utils';
 
-function formatBytes(bytes: number, decimals = 2) {
-    if (bytes === 0) return '0 Bytes';
-
-    const k = 1024;
-    const dm = decimals < 0 ? 0 : decimals;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-}
-
-const ConsumerList: React.FC<ConsumersPropsInterface> = ({ consumers }) => {
+const RenderList: React.FC<ConsumersPropsInterface> = ({ consumers }) => {
     const data = [];
     for (const id in consumers) {
         const consumer = consumers[id];
         data.push(
             <tr key={consumer.id}>
-                <td className={'text-break'}>{consumer.id}</td>
+                <td className={'text-break'}>
+                    <Link
+                        key={consumer.id}
+                        to={generateRoutePath('consumer', {
+                            consumerId: consumer.id,
+                            namespace: consumer.namespace,
+                            queueName: consumer.queueName
+                        })}
+                    >
+                        {consumer.id}
+                    </Link>
+                </td>
                 <td>
                     {consumer.resources.pid} /
                     <br />
@@ -93,13 +95,12 @@ const ConsumerList: React.FC<ConsumersPropsInterface> = ({ consumers }) => {
     );
 };
 
-const Consumers: React.FC<ConsumersPropsInterface> = (props) => {
+const ConsumerList: React.FC<ConsumersPropsInterface> = (props) => {
     return (
         <div className={'consumers'}>
-            <h3>Consumers</h3>
-            <ConsumerList {...props} />
+            <RenderList {...props} />
         </div>
     );
 };
 
-export default Consumers;
+export default ConsumerList;

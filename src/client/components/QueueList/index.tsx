@@ -1,16 +1,16 @@
 import React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router';
 import QueueListPage from './QueueListPage';
 import { ApplicationStateInterface } from '../../store/contract';
-import { useRouteMatch } from 'react-router';
-import { activeQueueMatchParamsInterface } from './contract';
 import { StatsStateInterface } from '../../store/stats/contract';
 import useSelector from '../../hooks/useSelector';
+import { matchRouteParams } from '../../routes/routes';
+import { QueueRouteParamsInterface } from '../../routes/contract';
 
-const QueueList: React.FC = () => {
+const QueueList: React.FC<RouteComponentProps> = (props) => {
     const { queues, loading } = useSelector<ApplicationStateInterface, StatsStateInterface>((state) => state.stats);
-    const match = useRouteMatch<activeQueueMatchParamsInterface>('/ns/:ns/qn/:qn');
-    const params = match ? match.params : null;
-    return <QueueListPage queues={queues} activeQueue={params} loading={loading} />;
+    const params = matchRouteParams<QueueRouteParamsInterface>('queue', props.location.pathname);
+    return <QueueListPage queues={queues} matchedQueueParams={params} loading={loading} />;
 };
 
-export default QueueList;
+export default withRouter(QueueList);
