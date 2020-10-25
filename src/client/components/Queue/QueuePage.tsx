@@ -2,7 +2,7 @@ import React from 'react';
 import { QueuePagePropsInterface } from './contract';
 import ConsumerList from '../ConsumerList';
 import ProducerList from '../ProducerList';
-import Timeline from '../Timeline';
+import RatesChart from '../RatesChart';
 
 const QueuePage: React.FC<QueuePagePropsInterface> = ({ queue, rates }) => {
     if (!queue) {
@@ -21,7 +21,7 @@ const QueuePage: React.FC<QueuePagePropsInterface> = ({ queue, rates }) => {
                 The following metrics are gathered from the <b>{name}</b> queue under the <b>{namespace}</b> namespace.
             </p>
             <hr />
-            <Timeline rates={rates} scope={`${namespace}-${name}`} />
+            <RatesChart rates={rates} scope={`${namespace}-${name}`} />
             <hr />
             <h3>Queue metrics</h3>
             <table className="table">
