@@ -16,6 +16,8 @@ nav,
 
 .table {
     font-size: 0.9em;
+    min-width: 900px !important;
+
 }
 
 .table td {
