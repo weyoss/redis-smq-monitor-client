@@ -4,29 +4,29 @@ import { UPlotDataType } from '../UPlotChart/contract';
 import UplotChart from '../UPlotChart';
 
 const RatesChart: React.FC<{ rates: Rates | ConsumerRates | ProducerRates; scope?: string }> = ({ rates, scope }) => {
-    const r = rates as Rates;
+    const { input = 0, acknowledged = 0, unacknowledged = 0, processing = 0 } = rates as Rates;
     const data: UPlotDataType = [
         {
             label: 'Input',
-            value: r.input,
+            value: input,
             color: '#1f78b4',
             scale: 'msg/sec'
         },
         {
             label: 'Processing',
-            value: r.processing,
+            value: processing,
             color: '#e8a838',
             scale: 'msg/sec'
         },
         {
             label: 'Acknowledged',
-            value: r.acknowledged,
+            value: acknowledged,
             color: '#61cdbb',
             scale: 'msg/sec'
         },
         {
             label: 'Unacknowledged',
-            value: r.unacknowledged,
+            value: unacknowledged,
             color: '#f47560',
             scale: 'msg/sec'
         }

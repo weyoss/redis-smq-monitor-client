@@ -15,7 +15,7 @@ const initialState = (duration: number, totalLines: number) => {
 
 const UplotChart: React.FC<UPlotPropsInterface> = ({ data, scope, duration = 1800 }) => {
     const [timeline, updateTimeline] = useState(initialState(duration, data.length));
-    const [UPlotInstance, setUPlotInstance] = useState<uPlot | null>(null);
+    const [uPlotInstance, setUPlotInstance] = useState<uPlot | null>(null);
     const plotRef = createRef<HTMLDivElement>();
 
     useEffect(() => {
@@ -77,7 +77,7 @@ const UplotChart: React.FC<UPlotPropsInterface> = ({ data, scope, duration = 180
     }, [scope]);
 
     useEffect(() => {
-        UPlotInstance?.setData(timeline);
+        uPlotInstance?.setData(timeline);
     }, [timeline]);
 
     useEffect(() => {
@@ -98,11 +98,13 @@ const UplotChart: React.FC<UPlotPropsInterface> = ({ data, scope, duration = 180
     }, [duration]);
 
     useEffect(() => {
-        if (UPlotInstance) {
-            UPlotInstance.setSize({ width: 0, height: 0 });
-            const htmlElement = plotRef.current!;
-            const { clientWidth, clientHeight } = htmlElement;
-            UPlotInstance.setSize({ width: clientWidth, height: clientHeight - 50 });
+        if (uPlotInstance) {
+            uPlotInstance.setSize({ width: 0, height: 0 });
+            const holder = plotRef.current!.parentElement!;
+            setImmediate(() => {
+                const { clientWidth, clientHeight } = holder;
+                uPlotInstance.setSize({ width: clientWidth, height: clientHeight - 50 });
+            });
         }
     }, [window.innerWidth, window.innerHeight]);
 
