@@ -10,7 +10,7 @@ import getRedisClient from './redis';
  * @param {object} config
  * @return {object}
  */
-function server(config?: ConfigInterface) {
+export default function Server(config?: ConfigInterface) {
     if (!config) {
         throw new Error('Configuration object is required.');
     }
@@ -64,5 +64,4 @@ function server(config?: ConfigInterface) {
         }
     };
 }
-//@ts-ignore
-export = server;
+export * as Monitor from './config/contract';
