@@ -3,8 +3,8 @@ const path = require('path');
 const pkg = require('./package.json');
 
 // variables
-const env = process.env.NODE_ENV || 'development';
-const isProduction = process.argv.indexOf('-p') >= 0 || env === 'production';
+const isProduction = process.argv.indexOf('production') >= 0;
+const env = isProduction ? 'production' : 'development';
 const sourcePath = path.join(__dirname, './src/client');
 const outPath = path.join(__dirname, './build');
 
@@ -47,7 +47,7 @@ module.exports = {
                     isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
                     {
                         loader: 'css-loader',
-                        query: {
+                        options: {
                             sourceMap: !isProduction,
                             importLoaders: 1
                         }
