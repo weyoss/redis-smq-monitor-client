@@ -1,5 +1,4 @@
-import io from 'socket.io-client';
-import Socket = SocketIOClient.Socket;
+import { io, Socket } from 'socket.io-client';
 
 const wsURL = process.env.WS_URL as string;
 let socket: Socket | undefined;

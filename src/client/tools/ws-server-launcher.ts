@@ -5,7 +5,7 @@ const instance = server({
     redis: {
         driver: RedisDriver.REDIS,
         options: {
-            host: '192.168.23.129'
+            host: 'localhost'
         }
     },
     monitor: {

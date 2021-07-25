@@ -1,4 +1,4 @@
-import Socket from 'socket.io';
+import { Server } from 'socket.io';
 import http, { IncomingMessage, ServerResponse } from 'http';
 import ServeStatic from 'serve-static';
 import { readFile } from 'fs';
@@ -42,7 +42,12 @@ function server(config?: ConfigInterface) {
             const server = http.createServer((req: any, res: any) => {
                 serve(req, res, fallback(req, res));
             });
-            const io = Socket(server, socketOpts);
+            const io = new Server(server, {
+                ...socketOpts,
+                cors: {
+                    origin: '*'
+                }
+            });
 
             console.log('Connecting to Redis server...');
             getRedisClient(config, (err, client) => {

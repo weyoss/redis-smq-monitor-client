@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { Socket } from 'socket.io-client';
 import AppPage from './AppPage';
 import websocket from '../../websocket';
 import { Stats } from '../../models/Stats';
 import { useDispatch } from 'react-redux';
 import { updateStats } from '../../store/stats/action';
-import Socket = SocketIOClient.Socket;
 import { ApplicationStateInterface } from '../../store/contract';
 import { StatsStateInterface } from '../../store/stats/contract';
 import useSelector from '../../hooks/useSelector';

@@ -22,8 +22,8 @@ module.exports = {
     output: {
         path: `${outPath}/assets/`,
         publicPath: '/',
-        filename: isProduction ? '[contenthash].js' : '[hash].js',
-        chunkFilename: isProduction ? '[name].[contenthash].js' : '[name].[hash].js'
+        filename: isProduction ? '[contenthash].js' : '[chunkhash].js',
+        chunkFilename: isProduction ? '[name].[contenthash].js' : '[name].[chunkhash].js'
     },
     target: 'web',
     resolve: {
@@ -47,7 +47,7 @@ module.exports = {
                     isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
                     {
                         loader: 'css-loader',
-                        query: {
+                        options: {
                             sourceMap: !isProduction,
                             importLoaders: 1
                         }
@@ -71,14 +71,13 @@ module.exports = {
     },
     plugins: [
         new webpack.EnvironmentPlugin({
-            WS_URL: isProduction ? '' : 'http://0.0.0.0:4000',
+            WS_URL: isProduction ? '' : 'http://localhost:4000',
             NODE_ENV: env,
             DEBUG: false
         }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
-            filename: '[hash].css',
-            disable: !isProduction
+            filename: '[hash].css'
         }),
         new HtmlWebpackPlugin({
             template: './index.html',
