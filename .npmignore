@@ -1,6 +1,5 @@
 .idea
 src/**
-types/**
 .gitignore
 tsconfig-server.json
 webpack.config.js
@@ -8,3 +7,4 @@ webpack.config.js
 tsconfig.json
 index.ts
 .npmignore
+!types/**
