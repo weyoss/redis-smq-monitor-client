@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2.0.0
+
+* Fixed inconsistent typing between redis-smq and redis-smq-monitor.
+* Fixed small issues in consumer listing.
+* Refactored monitor server.
+
 ## 1.1.5 (2020-09-23)
 
 * Fixed broken build.
