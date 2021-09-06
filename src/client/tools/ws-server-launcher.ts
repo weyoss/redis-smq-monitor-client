@@ -1,9 +1,9 @@
-import server from '../../server';
-import { RedisDriver } from '../../server/config/contract';
+import { MonitorServer } from '../../server';
+import { RedisClientName } from '../../../types';
 
-const instance = server({
+const instance = MonitorServer({
     redis: {
-        driver: RedisDriver.REDIS,
+        client: RedisClientName.REDIS,
         options: {
             host: 'localhost'
         }

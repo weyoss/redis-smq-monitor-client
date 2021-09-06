@@ -4,9 +4,9 @@ const pkg = require('./package.json');
 
 // variables
 const env = process.env.NODE_ENV || 'development';
-const isProduction = process.argv.indexOf('-p') >= 0 || env === 'production';
+const isProduction = env === 'production';
 const sourcePath = path.join(__dirname, './src/client');
-const outPath = path.join(__dirname, './build');
+const outPath = path.join(__dirname, './dist');
 
 // plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -77,7 +77,7 @@ module.exports = {
         }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
-            filename: '[hash].css'
+            filename: '[name].[contenthash].css'
         }),
         new HtmlWebpackPlugin({
             template: './index.html',
@@ -91,9 +91,6 @@ module.exports = {
                 useShortDoctype: true,
                 collapseWhitespace: true,
                 collapseInlineTagWhitespace: true
-            },
-            append: {
-                head: `<script src="https://cdn.polyfill.io/v3/polyfill.min.js"></script>`
             },
             meta: {
                 title: pkg.name,

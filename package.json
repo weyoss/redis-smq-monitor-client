@@ -1,8 +1,7 @@
 {
     "name": "redis-smq-monitor",
     "description": "A monitoring tool for RedisSMQ message queue",
-    "version": "1.1.5",
-    "main": "./build/index.js",
+    "version": "2.0.0",
     "author": "Weyoss <weyoss@protonmail.com>",
     "license": "MIT",
     "keywords": [
@@ -22,7 +21,8 @@
     "bugs": {
         "url": "https://github.com/weyoss/redis-smq-monitor/issues"
     },
-    "types": "./src/server/types/index.d.ts",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start:dev": "run-p start:server start:webpack",
@@ -30,9 +30,9 @@
         "start:webpack": "webpack serve --progress --open",
         "prebuild": "npm run build:clean",
         "build": "run-p build:client build:server",
-        "build:clean": "rimraf ./build && mkdir build",
-        "build:client": "webpack --progress",
-        "build:server": "tsc --project tsconfig-server.json"
+        "build:clean": "rimraf ./dist && mkdir ./dist",
+        "build:client": "NODE_ENV=production webpack --progress",
+        "build:server": "NODE_ENV=production tsc --project tsconfig-server.json"
     },
     "devDependencies": {
         "@babel/core": "7.11.6",

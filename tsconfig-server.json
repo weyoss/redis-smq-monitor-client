@@ -1,16 +1,19 @@
 {
     "compilerOptions": {
-        "moduleResolution": "node",
         "module": "commonjs",
+        "declaration": true,
+        "removeComments": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
         "target": "es6",
         "sourceMap": true,
-        "declaration": false,
-        "esModuleInterop": true,
-        "outDir": "./build",
-        "rootDir": "./src/server",
+        "outDir": "./dist",
+        "incremental": true,
         "strict": true,
-        "removeComments": true
+        "skipLibCheck": true,
+        "strictPropertyInitialization": true
     },
-    "include": ["src/server/**/*.ts"],
-    "exclude": ["./node_modules", "build", "dist", "test", "*.md", "src/**/*.test.ts"]
+    "exclude": ["node_modules", "dist", "**/*spec.ts", "examples", "src/client"]
 }

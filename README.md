@@ -32,7 +32,7 @@ RedisSMQ Monitor accepts the same configuration parameters as RedisSMQ. A config
 
 const config = {
     redis: {
-        driver: 'redis',
+        client: 'redis',
         options: {
             host: '127.0.0.1',
             port: 6379,
@@ -62,10 +62,7 @@ Please referer to [RedisSMQ configuration](https://github.com/weyoss/redis-smq#c
 'use strict';
 
 const config = require('./config');
-const { monitor } = require('redis-smq'); 
-
-// If installed separately from RedisSMQ
-// const monitor = require('redis-smq-monitor'); 
+const { MonitorServer } = require('redis-smq-monitor');
 
 monitor(config).listen(() => {
     console.log('It works!')

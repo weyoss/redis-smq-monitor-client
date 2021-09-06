@@ -19,7 +19,7 @@ const List: React.FC<QueueListPagePropsInterface> = ({ queues, matchedQueueParam
             const queue = nsQueues[queueName] as Queue;
             const isActiveQueue =
                 matchedQueueParams &&
-                matchedQueueParams.queueName === queue.name &&
+                matchedQueueParams.queueName === queue.queueName &&
                 matchedQueueParams.namespace === queue.namespace;
             const className = isActiveQueue ? 'active ' : '';
             li.push(
@@ -28,7 +28,7 @@ const List: React.FC<QueueListPagePropsInterface> = ({ queues, matchedQueueParam
                     className={`${className}text-break list-group-item list-group-item-action d-flex justify-content-between align-items-center`}
                     to={generateRoutePath('queue', { queueName, namespace: ns })}
                 >
-                    {queue.name} <span className="badge badge-primary badge-pill">{queue.size}</span>
+                    {queue.queueName} <span className="badge badge-primary badge-pill">{queue.size}</span>
                 </Link>
             );
         }

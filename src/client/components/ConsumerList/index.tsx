@@ -27,7 +27,11 @@ const RenderList: React.FC<ConsumersPropsInterface> = ({ consumers }) => {
                     <br />
                     {consumer.resources.hostname}
                 </td>
-                <td>{consumer.resources.ipAddress.join('<br />')}</td>
+                <td>
+                    {consumer.resources.ipAddress.map((ip, index) => (
+                        <div key={index}>{ip}</div>
+                    ))}
+                </td>
                 <td>{consumer.rates.processing}</td>
                 <td>{consumer.rates.acknowledged}</td>
                 <td>{consumer.rates.unacknowledged}</td>

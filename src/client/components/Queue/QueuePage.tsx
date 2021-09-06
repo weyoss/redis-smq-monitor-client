@@ -13,15 +13,16 @@ const QueuePage: React.FC<QueuePagePropsInterface> = ({ queue, rates }) => {
             </div>
         );
     }
-    const { namespace, name, size, erroredMessages, consumers, producers } = queue;
+    const { namespace, queueName, size, erroredMessages, consumers, producers } = queue;
     return (
         <div className={'queue fullWidth'}>
-            <h2>Individual Queue Metrics / {name} </h2>
+            <h2>Individual Queue Metrics / {queueName} </h2>
             <p>
-                The following metrics are gathered from the <b>{name}</b> queue under the <b>{namespace}</b> namespace.
+                The following metrics are gathered from the <b>{queueName}</b> queue under the <b>{namespace}</b>{' '}
+                namespace.
             </p>
             <hr />
-            <RatesChart rates={rates} scope={`${namespace}-${name}`} />
+            <RatesChart rates={rates} scope={`${namespace}-${queueName}`} />
             <hr />
             <h3>Queue metrics</h3>
             <table className="table">

@@ -1,16 +1,13 @@
-import { Server } from 'socket.io';
+import { Server as SocketServer } from 'socket.io';
 import http, { IncomingMessage, ServerResponse } from 'http';
 import ServeStatic from 'serve-static';
 import { readFile } from 'fs';
-import { ConfigInterface } from './config/contract';
-import getRedisClient from './redis';
+import { IConfig } from '../../types';
+import { RedisClient } from './redis-client';
 
-/**
- *
- * @param {object} config
- * @return {object}
- */
-function server(config?: ConfigInterface) {
+const assetsDir = `${__dirname}/../../assets`;
+
+export function MonitorServer(config?: IConfig) {
     if (!config) {
         throw new Error('Configuration object is required.');
     }
@@ -29,20 +26,20 @@ function server(config?: ConfigInterface) {
         listen(cb?: Function) {
             const fallback = (req: IncomingMessage, res: ServerResponse) => {
                 return () => {
-                    readFile(`${__dirname}/assets/index.html`, (err, content) => {
+                    readFile(`${assetsDir}/index.html`, (err, content) => {
                         res.writeHead(200, { 'Content-Type': 'text/html' });
                         res.end(content);
                     });
                 };
             };
-            const serve = ServeStatic(`${__dirname}/assets/`, {
+            const serve = ServeStatic(assetsDir, {
                 index: 'index.html',
                 dotfiles: 'deny'
             });
             const server = http.createServer((req: any, res: any) => {
                 serve(req, res, fallback(req, res));
             });
-            const io = new Server(server, {
+            const io = new SocketServer(server, {
                 ...socketOpts,
                 cors: {
                     origin: '*'
@@ -50,7 +47,7 @@ function server(config?: ConfigInterface) {
             });
 
             console.log('Connecting to Redis server...');
-            getRedisClient(config, (err, client) => {
+            RedisClient(config, (err, client) => {
                 if (err) {
                     console.log('An error occurred while trying to connect to Redis server.');
                     throw err;
@@ -69,5 +66,3 @@ function server(config?: ConfigInterface) {
         }
     };
 }
-//@ts-ignore
-export = server;

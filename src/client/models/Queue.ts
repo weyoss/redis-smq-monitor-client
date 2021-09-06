@@ -3,7 +3,7 @@ import { Producers } from './producers';
 
 export interface Queue {
     namespace: string;
-    name: string;
+    queueName: string;
     size: number;
     erroredMessages: number;
     consumers: Consumers;
