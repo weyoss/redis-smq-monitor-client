@@ -1,6 +1,10 @@
 # CHANGELOG
 
-## 2.0.0
+## 2.0.1 (2021-09-06)
+
+* Fixed .npmignore
+
+## 2.0.0 (2021-09-06)
 
 * Fixed inconsistent typing between redis-smq and redis-smq-monitor.
 * Fixed small issues in consumer listing.
