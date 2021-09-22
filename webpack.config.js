@@ -21,7 +21,7 @@ module.exports = {
     },
     output: {
         path: `${outPath}/assets/`,
-        publicPath: '/',
+        publicPath: '/assets',
         filename: isProduction ? '[contenthash].js' : '[chunkhash].js',
         chunkFilename: isProduction ? '[name].[contenthash].js' : '[name].[chunkhash].js'
     },

@@ -1,1 +1,1 @@
-export { MonitorServer } from './src/server';
+export { Middleware } from './src/server/middleware';

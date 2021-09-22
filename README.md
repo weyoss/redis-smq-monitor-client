@@ -9,23 +9,16 @@ The RedisSMQ Monitor is an interface which let you monitor and debug your
 Starting from version RedisSMQ v1.1.0, the monitor has split up into a standalone project and was packaged under
 [RedisSMQ Monitor](https://github.com/weyoss/redis-smq-monitor)
 
-RedisSMQ includes the monitor as part of its package. 
-
 ## Installation
 
-Normally you should not care about installing this package separately from RedisSMQ. 
-
-If you have RedisSMQ installed and running you can get the monitor out of box. 
-
-But for any reason if you need to use this package without installing RedisSMQ then you can install it as follow:
+RedisSMQ includes `redis-smq-monitor` as an integral part of its package. To use the monitor utility, you should install
+`redis-smq` and then run the monitor server.
 
 ```text
-npm install redis-smq-monitor --save
+npm install redis-smq --save
 ```
 
 # Configuration
-
-RedisSMQ Monitor accepts the same configuration parameters as RedisSMQ. A configuration object may look like:
 
 ```javascript
 'use strict';
@@ -49,11 +42,6 @@ const config = {
 modules.export = config;
 ```
 
-The `config.redis` parameters should be provided to indicate to the monitor the redis driver to use and the 
-Redis server to connect to. 
-
-If not provided, by default the monitor will try to connect to localhost using `redis` driver.
-
 Please referer to [RedisSMQ configuration](https://github.com/weyoss/redis-smq#configuration) for more details.
 
 ## Usage
@@ -62,7 +50,7 @@ Please referer to [RedisSMQ configuration](https://github.com/weyoss/redis-smq#c
 'use strict';
 
 const config = require('./config');
-const { MonitorServer } = require('redis-smq-monitor');
+const { MonitorServer } = require('redis-smq');
 
 monitor(config).listen(() => {
     console.log('It works!')
