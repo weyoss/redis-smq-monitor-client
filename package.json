@@ -1,7 +1,7 @@
 {
     "name": "redis-smq-monitor",
     "description": "A monitoring tool for RedisSMQ message queue",
-    "version": "2.0.1",
+    "version": "3.0.0",
     "author": "Weyoss <weyoss@protonmail.com>",
     "license": "MIT",
     "keywords": [

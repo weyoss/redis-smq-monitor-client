@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 3.0.0 (2021-09-22)
+
+* Moved redis-smq-monitor server to redis-smq.
+* Clean up.
+
 ## 2.0.1 (2021-09-06)
 
 * Fixed .npmignore
