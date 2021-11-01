@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 4.0.0 (2021-11-02)
+
+* Updated models to match metrics from redis-smq v4.
+
 ## 3.0.0 (2021-09-22)
 
 * Moved redis-smq-monitor server to redis-smq.
