@@ -4,8 +4,10 @@ import { Producers } from './producers';
 export interface Queue {
     namespace: string;
     queueName: string;
-    size: number;
-    erroredMessages: number;
+    acknowledgedMessages: number;
+    deadLetteredMessages: number;
+    pendingMessages: number;
+    pendingMessagesWithPriority: number;
     consumers: Consumers;
     producers: Producers;
 }

@@ -7,7 +7,7 @@ const FooterPage: React.FC<FooterPropsInterface> = ({ version, license }) => (
     <footer>
         {`RedisSMQ Monitor v${version}`}
         <br />
-        &copy; Weyoss 2017 - 2020. Licensed under {license}.
+        &copy; Weyoss 2017 - 2021. Licensed under {license}.
     </footer>
 );
 

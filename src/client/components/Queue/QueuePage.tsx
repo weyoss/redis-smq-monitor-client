@@ -13,7 +13,16 @@ const QueuePage: React.FC<QueuePagePropsInterface> = ({ queue, rates }) => {
             </div>
         );
     }
-    const { namespace, queueName, size, erroredMessages, consumers, producers } = queue;
+    const {
+        namespace,
+        queueName,
+        acknowledgedMessages,
+        deadLetteredMessages,
+        pendingMessages,
+        pendingMessagesWithPriority,
+        consumers,
+        producers
+    } = queue;
     return (
         <div className={'queue fullWidth'}>
             <h2>Individual Queue Metrics / {queueName} </h2>
@@ -28,16 +37,20 @@ const QueuePage: React.FC<QueuePagePropsInterface> = ({ queue, rates }) => {
             <table className="table">
                 <thead className={'thead-light'}>
                     <tr>
-                        <th>Size</th>
-                        <th>Failed messages</th>
+                        <th>Pending messages</th>
+                        <th>Pending messages with priority</th>
+                        <th>Acknowledged messages</th>
+                        <th>Dead-lettered messages</th>
                         <th>Consumers</th>
                         <th>Producers</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{size}</td>
-                        <td>{erroredMessages}</td>
+                        <td>{pendingMessages}</td>
+                        <td>{pendingMessagesWithPriority}</td>
+                        <td>{acknowledgedMessages}</td>
+                        <td>{deadLetteredMessages}</td>
                         <td>{Object.keys(consumers).length}</td>
                         <td>{Object.keys(producers).length}</td>
                     </tr>
