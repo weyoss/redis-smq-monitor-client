@@ -1,10 +1,12 @@
 import React from 'react';
-import { QueuePagePropsInterface } from './contract';
-import ConsumerList from '../ConsumerList';
-import ProducerList from '../ProducerList';
-import RatesChart from '../RatesChart';
+import { IQueuePageProps } from './contract';
+import ConsumerList from './ConsumerList';
+import ProducerList from './ProducerList';
+import RatesChart from '../common/RatesChart';
+import { generateRoutePath } from '../../routes/routes';
+import { Link } from 'react-router-dom';
 
-const QueuePage: React.FC<QueuePagePropsInterface> = ({ queue, rates }) => {
+const QueuePage: React.FC<IQueuePageProps> = ({ queue, rates }) => {
     if (!queue) {
         return (
             <div>
@@ -25,7 +27,20 @@ const QueuePage: React.FC<QueuePagePropsInterface> = ({ queue, rates }) => {
     } = queue;
     return (
         <div className={'queue fullWidth'}>
-            <h2>Individual Queue Metrics / {queueName} </h2>
+            <h2>
+                {queueName}@{namespace}
+            </h2>
+            <div className={'mb-3'}>
+                <Link
+                    key={`${namespace}-${queueName}-pending-messages`}
+                    to={generateRoutePath('queuePendingMessages', {
+                        namespace,
+                        queueName
+                    })}
+                >
+                    &rarr; Pending messages
+                </Link>
+            </div>
             <p>
                 The following metrics are gathered from the <b>{queueName}</b> queue under the <b>{namespace}</b>{' '}
                 namespace.
@@ -35,7 +50,7 @@ const QueuePage: React.FC<QueuePagePropsInterface> = ({ queue, rates }) => {
             <hr />
             <h3>Queue metrics</h3>
             <table className="table">
-                <thead className={'thead-light'}>
+                <thead className={'table-light'}>
                     <tr>
                         <th>Pending messages</th>
                         <th>Pending messages with priority</th>

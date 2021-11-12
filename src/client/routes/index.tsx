@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import routes from './routes';
-import Breadcrumbs from '../components/Breadcrumbs';
+import Breadcrumbs from '../components/common/Breadcrumbs';
 
 export default function Routes() {
     return (

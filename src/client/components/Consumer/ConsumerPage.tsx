@@ -1,10 +1,14 @@
 import React from 'react';
-import { ConsumerPagePropsInterface } from './contract';
-import RatesTable from '../RatesTable';
-import RatesChart from '../RatesChart';
-import ConsumerResourcesChart from '../ConsumerResourcesChart';
+import RatesTable from '../common/RatesTable';
+import RatesChart from '../common/RatesChart';
+import ConsumerResourcesChart from './ConsumerResourcesChart';
+import { IConsumer } from '../../types/IConsumer';
 
-const ConsumerPage: React.FC<ConsumerPagePropsInterface> = ({ consumer }) => {
+interface IProps {
+    consumer: IConsumer | undefined;
+}
+
+const ConsumerPage: React.FC<IProps> = ({ consumer }) => {
     if (!consumer) {
         return (
             <div>
@@ -18,7 +22,7 @@ const ConsumerPage: React.FC<ConsumerPagePropsInterface> = ({ consumer }) => {
             <h2>ID: {consumer.id}</h2>
             <h3>Info</h3>
             <table className={'table .consumers'}>
-                <thead className={'thead-light'}>
+                <thead className={'table-light'}>
                     <tr>
                         <th rowSpan={3}>PID</th>
                         <th rowSpan={3}>Hostname</th>

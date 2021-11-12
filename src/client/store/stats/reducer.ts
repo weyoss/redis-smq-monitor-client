@@ -1,7 +1,7 @@
-import { ActionType, StatsStateInterface } from './contract';
+import { EActionType, IStatsState } from './contract';
 import { Reducer } from 'redux';
 
-export const initialState: StatsStateInterface = {
+export const initialState: IStatsState = {
     loading: true,
     rates: {
         input: 0,
@@ -12,14 +12,14 @@ export const initialState: StatsStateInterface = {
     queues: {}
 };
 
-export const statsReducer: Reducer<StatsStateInterface> = (state = initialState, action) => {
+export const statsReducer: Reducer<IStatsState> = (state = initialState, action) => {
     const { type } = action;
-    if (type === ActionType.UPDATE_STATS) {
+    if (type === EActionType.UPDATE_STATS) {
         const stats = action.stats;
         return {
             ...state,
-            loading: false,
-            ...stats
+            ...stats,
+            loading: false
         };
     }
     return state;

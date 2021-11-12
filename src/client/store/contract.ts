@@ -1,5 +1,5 @@
-import { StatsStateInterface } from './stats/contract';
+import { IStatsState } from './stats/contract';
 
-export interface ApplicationStateInterface {
-    stats: StatsStateInterface;
+export interface IApplicationState {
+    stats: IStatsState;
 }

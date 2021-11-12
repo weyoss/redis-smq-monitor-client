@@ -1,18 +1,18 @@
 import React from 'react';
-import Header from '../Header';
-import Footer from '../Footer';
+import Header from '../common/Header';
+import Footer from '../common/Footer';
 import Routes from '../../routes';
 import { BrowserRouter } from 'react-router-dom';
 import QueueListing from '../QueueList';
 import { AppPropsInterface } from './contract';
-import Spinner from '../Spinner';
+import { Spinner } from 'react-bootstrap';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 
 const Content: React.FC<AppPropsInterface> = ({ stateLoading }) => {
     if (stateLoading) {
-        return <Spinner loading={stateLoading} />;
+        return <Spinner animation="border" />;
     }
     return <Routes />;
 };
@@ -20,7 +20,7 @@ const Content: React.FC<AppPropsInterface> = ({ stateLoading }) => {
 const PageContent: React.FC<AppPropsInterface> = (props) => {
     const { loading } = props;
     if (loading) {
-        return <Spinner loading={loading} />;
+        return <Spinner animation={'border'} />;
     }
     return (
         <>

@@ -1,5 +1,5 @@
-import { Rates } from '../../models/Rates';
+import { IRates } from '../../types/IRates';
 
-export interface OverviewPagePropsInterface {
-    rates: Rates;
+export interface IOverviewPageProps {
+    rates: IRates;
 }

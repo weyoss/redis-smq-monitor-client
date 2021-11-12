@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { ApplicationStateInterface } from '../../store/contract';
+import { IApplicationState } from '../../store/contract';
 import QueuePage from './QueuePage';
 import { QueuePropsInterface } from './contract';
-import { Rates } from '../../models/Rates';
-import { Consumer } from '../../models/Consumer';
-import { Producer } from '../../models/Producer';
+import { IRates } from '../../types/IRates';
+import { IConsumer } from '../../types/IConsumer';
+import { IProducer } from '../../types/IProducer';
 import useSelector from '../../hooks/useSelector';
-import { Queue } from '../../models/Queue';
+import { IQueue } from '../../types/IQueue';
 
 const Queue: React.FC<QueuePropsInterface> = ({ match }) => {
     const { namespace, queueName } = match.params;
-    const queue = useSelector<ApplicationStateInterface, Queue | undefined>((state) => {
+    const queue = useSelector<IApplicationState, IQueue | undefined>((state) => {
         const queues = state.stats.queues;
         return queues[namespace] && queues[namespace][queueName];
     });
 
-    const [rates, updateRates] = useState<Rates>({
+    const [rates, updateRates] = useState<IRates>({
         processing: 0,
         input: 0,
         acknowledged: 0,
@@ -30,13 +30,13 @@ const Queue: React.FC<QueuePropsInterface> = ({ match }) => {
             unacknowledged: 0
         };
         for (const consumerId in queue?.consumers) {
-            const { rates: cRates } = queue?.consumers[consumerId] as Consumer;
+            const { rates: cRates } = queue?.consumers[consumerId] as IConsumer;
             r.acknowledged += cRates.acknowledged;
             r.processing += cRates.processing;
             r.unacknowledged += cRates.unacknowledged;
         }
         for (const producerId in queue?.producers) {
-            const { rates: pRates } = queue?.producers[producerId] as Producer;
+            const { rates: pRates } = queue?.producers[producerId] as IProducer;
             r.input += pRates.input;
         }
         updateRates(r);

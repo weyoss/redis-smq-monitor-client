@@ -1,9 +1,9 @@
-import { Stats } from '../../models/Stats';
+import { IStats } from '../../types/IStats';
 
-export enum ActionType {
+export enum EActionType {
     UPDATE_STATS = 'UPDATE_STATS'
 }
 
-export interface StatsStateInterface extends Stats {
+export interface IStatsState extends IStats {
     loading: boolean;
 }

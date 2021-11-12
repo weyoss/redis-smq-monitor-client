@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Socket } from 'socket.io-client';
 import AppPage from './AppPage';
 import websocket from '../../websocket';
-import { Stats } from '../../models/Stats';
+import { IStats } from '../../types/IStats';
 import { useDispatch } from 'react-redux';
 import { updateStats } from '../../store/stats/action';
-import { ApplicationStateInterface } from '../../store/contract';
-import { StatsStateInterface } from '../../store/stats/contract';
+import { IApplicationState } from '../../store/contract';
+import { IStatsState } from '../../store/stats/contract';
 import useSelector from '../../hooks/useSelector';
 
 const App = () => {
@@ -15,9 +15,7 @@ const App = () => {
         init: true
     });
 
-    const { loading: stateLoading } = useSelector<ApplicationStateInterface, StatsStateInterface>(
-        (state) => state.stats
-    );
+    const { loading: stateLoading } = useSelector<IApplicationState, IStatsState>((state) => state.stats);
 
     const dispatch = useDispatch();
 
@@ -34,7 +32,7 @@ const App = () => {
                         ...state,
                         loading: false
                     });
-                    socket.on('stats', (stats: Stats) => {
+                    socket.on('stats', (stats: IStats) => {
                         dispatch(updateStats(stats));
                     });
                 })

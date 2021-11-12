@@ -1,0 +1,109 @@
+import React, { useState } from 'react';
+import { IGetQueuePendingMessagesResponse } from '../../../api/contract';
+import { Dropdown, Spinner } from 'react-bootstrap';
+import './style.css';
+import Pager from '../Pager';
+
+interface IProps {
+    messages: IGetQueuePendingMessagesResponse;
+    loading: boolean;
+    skip: number;
+    take: number;
+    onPageChange: (page: number) => void;
+    onMessageDelete?: (messageId: string, sequenceId: number) => void;
+    onMessageRequeue?: (messageId: string, sequenceId: number) => void;
+}
+
+const MessageList: React.FC<IProps> = (props) => {
+    const { loading, messages, onPageChange, skip, take, onMessageDelete, onMessageRequeue } = props;
+    const [activeMessageId, setActiveMessageId] = useState<string | null>(null);
+    if (loading) {
+        return <Spinner animation={'border'} />;
+    }
+    if (!messages.total) {
+        return <p>Empty list {messages.total}</p>;
+    }
+    return (
+        <>
+            <table className={'table .messages'}>
+                <thead className={'table-light'}>
+                    <tr>
+                        <th>ID</th>
+                        <th>Payload (body)</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {messages.items.map(({ message, sequenceId }) => {
+                        const mid = `${message.uuid}-${sequenceId}`;
+                        return (
+                            <tr key={mid}>
+                                <td className={'text-break text-start w-25'}>{message.uuid}</td>
+                                <td className={'text-break text-start'}>
+                                    {activeMessageId === mid ? (
+                                        <>
+                                            <div>
+                                                {JSON.stringify(message)}{' '}
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-link shadow-none"
+                                                    onClick={() => setActiveMessageId(null)}
+                                                >
+                                                    &uarr;
+                                                </button>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div>
+                                                {JSON.stringify(message.body)}{' '}
+                                                <button
+                                                    className={'btn btn-link shadow-none'}
+                                                    onClick={() => setActiveMessageId(mid)}
+                                                >
+                                                    &darr;
+                                                </button>
+                                            </div>
+                                        </>
+                                    )}
+                                </td>
+                                <td>
+                                    {onMessageDelete || onMessageRequeue ? (
+                                        <Dropdown>
+                                            <Dropdown.Toggle variant={'secondary'} title={'...'} />
+                                            <Dropdown.Menu>
+                                                <Dropdown.Item>
+                                                    {onMessageRequeue && (
+                                                        <button
+                                                            className={'btn btn-link shadow-none'}
+                                                            onClick={() => onMessageRequeue(message.uuid, sequenceId)}
+                                                        >
+                                                            Requeue
+                                                        </button>
+                                                    )}
+                                                    {onMessageDelete && (
+                                                        <button
+                                                            className={'btn btn-link shadow-none'}
+                                                            onClick={() => onMessageDelete(message.uuid, sequenceId)}
+                                                        >
+                                                            Delete
+                                                        </button>
+                                                    )}
+                                                </Dropdown.Item>
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+                                    ) : (
+                                        '-'
+                                    )}
+                                </td>
+                            </tr>
+                        );
+                    })}
+                </tbody>
+            </table>
+            <Pager totalItems={messages.total} onPageChange={onPageChange} currentPage={skip + 1} itemsPerPage={take} />
+        </>
+    );
+};
+
+export default MessageList;

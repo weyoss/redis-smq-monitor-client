@@ -1,12 +1,8 @@
-import { RouteComponentProps } from 'react-router';
-
-export interface QueueRouteParamsInterface {
+export interface IQueueRouteParams {
     queueName: string;
     namespace: string;
 }
 
-export interface ConsumerRouteParamsInterface extends QueueRouteParamsInterface {
+export interface IConsumerRouteParams extends IQueueRouteParams {
     consumerId: string;
 }
-
-export type QueueRouteComponentProps = RouteComponentProps<QueueRouteParamsInterface>;

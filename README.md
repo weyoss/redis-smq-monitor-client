@@ -3,59 +3,11 @@
 
 # RedisSMQ Monitor
 
-The RedisSMQ Monitor is an interface which let you monitor and debug your 
-[RedisSMQ message queue](https://github.com/weyoss/redis-smq) from a web browser in real-time.
+`RedisSMQ Monitor` is an interface which let you monitor, debug, and manage your RedisSMQ server from a web browser in
+real-time. It is not intended to be used as a stand-alone package. To start using it, you need to install and 
+configure [RedisSMQ MQ](https://github.com/weyoss/redis-smq).
 
-Starting from version RedisSMQ v1.1.0, the monitor has split up into a standalone project and was packaged under
-[RedisSMQ Monitor](https://github.com/weyoss/redis-smq-monitor)
-
-## Installation
-
-RedisSMQ includes `redis-smq-monitor` as an integral part of its package. To use the monitor utility, you should install
-`redis-smq` and then run the monitor server.
-
-```text
-npm install redis-smq --save
-```
-
-# Configuration
-
-```javascript
-'use strict';
-
-const config = {
-    redis: {
-        client: 'redis',
-        options: {
-            host: '127.0.0.1',
-            port: 6379,
-            connect_timeout: 3600000,
-        }
-    },
-    monitor: {
-        enabled: true,
-        host: '127.0.0.1',
-        port: 3000,
-    },
-};
-
-modules.export = config;
-```
-
-Please referer to [RedisSMQ configuration](https://github.com/weyoss/redis-smq#configuration) for more details.
-
-## Usage
-
-```javascript
-'use strict';
-
-const config = require('./config');
-const { MonitorServer } = require('redis-smq');
-
-monitor(config).listen(() => {
-    console.log('It works!')
-});
-```
+See [RedisSMQ Web UI Reference](https://github.com/weyoss/redis-smq/blob/master/docs/web-ui.md) for more details. 
 
 ## Contributing
 

@@ -1,22 +1,27 @@
 import React from 'react';
-import { QueueListPagePropsInterface } from './contract';
 import { Link } from 'react-router-dom';
-import { Queue } from '../../models/Queue';
 import { generateRoutePath } from '../../routes/routes';
+import { Spinner } from 'react-bootstrap';
+import { IQueue } from '../../types/IQueue';
+import { IQueueRouteParams } from '../../routes/contract';
+import { IQueueMap } from '../../types/IQueueMap';
 
-import './style.css';
-import Spinner from '../Spinner';
+interface IProps {
+    queues: IQueueMap;
+    matchedQueueParams: IQueueRouteParams | null;
+    loading: boolean;
+}
 
-const List: React.FC<QueueListPagePropsInterface> = ({ queues, matchedQueueParams, loading }) => {
+const Render: React.FC<IProps> = ({ queues, matchedQueueParams, loading }) => {
     if (loading) {
-        return <Spinner loading={loading} />;
+        return <Spinner animation={'border'} />;
     }
     const data = [];
     for (const ns in queues) {
         const nsQueues = queues[ns];
         const li = [];
         for (const queueName in nsQueues) {
-            const queue = nsQueues[queueName] as Queue;
+            const queue = nsQueues[queueName] as IQueue;
             const isActiveQueue =
                 matchedQueueParams &&
                 matchedQueueParams.queueName === queue.queueName &&
@@ -29,16 +34,16 @@ const List: React.FC<QueueListPagePropsInterface> = ({ queues, matchedQueueParam
                     to={generateRoutePath('queue', { queueName, namespace: ns })}
                 >
                     {queue.queueName}{' '}
-                    <span className="badge badge-primary badge-pill">
+                    <span className="badge bg-primary rounded-pill">
                         {queue.pendingMessages + queue.pendingMessagesWithPriority}
                     </span>
                 </Link>
             );
         }
         data.push(
-            <div key={ns} className={'nsGroup'}>
+            <div key={ns} className={'mb-5'}>
                 <h5 className={'d-flex justify-content-between align-items-center text-break'}>
-                    {ns} <span className="badge">{li.length}</span>
+                    {ns} <small>{li.length}</small>
                 </h5>
                 <div className={'list-group'}>{li}</div>
             </div>
@@ -50,10 +55,10 @@ const List: React.FC<QueueListPagePropsInterface> = ({ queues, matchedQueueParam
     return <>{data}</>;
 };
 
-const QueueListPage: React.FC<QueueListPagePropsInterface> = (props) => (
+const QueueListPage: React.FC<IProps> = (props) => (
     <div className={'queueList'}>
         <h2>Queues</h2>
-        <List {...props} />
+        <Render {...props} />
     </div>
 );
 

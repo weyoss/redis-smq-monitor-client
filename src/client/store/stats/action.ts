@@ -1,9 +1,9 @@
-import { ActionType } from './contract';
-import { Stats } from '../../models/Stats';
+import { EActionType } from './contract';
+import { IStats } from '../../types/IStats';
 
-export function updateStats(stats: Stats) {
+export function updateStats(stats: IStats) {
     return {
-        type: ActionType.UPDATE_STATS,
+        type: EActionType.UPDATE_STATS,
         stats
     };
 }

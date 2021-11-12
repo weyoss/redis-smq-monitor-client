@@ -8,6 +8,14 @@ h1 {
     margin-bottom: 0.8em;
 }
 
+a {
+    text-decoration: none;
+}
+
+.btn-link {
+    text-decoration: none;
+}
+
 nav,
 .navbar {
     padding: 0;
