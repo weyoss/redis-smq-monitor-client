@@ -2,7 +2,7 @@ import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 import QueueListPage from './QueueListPage';
 import { IApplicationState } from '../../store/contract';
-import { IStatsState } from '../../store/stats/contract';
+import { IStatsState } from '../../store/stats/state';
 import useSelector from '../../hooks/useSelector';
 import { matchRouteParams } from '../../routes/routes';
 import { IQueueRouteParams } from '../../routes/contract';

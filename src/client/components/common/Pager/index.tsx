@@ -7,7 +7,7 @@ interface IProps {
     itemsPerPage: number;
 }
 
-function paginator(totalItems: number, currentPage: number, itemsPerPage: number, chunkSize = 20) {
+function paginator(totalItems: number, currentPage: number, itemsPerPage: number, chunkSize = 15) {
     const totalPages = Math.ceil(totalItems / itemsPerPage);
     let rangeStart = 1;
     let rangeEnd = totalPages;

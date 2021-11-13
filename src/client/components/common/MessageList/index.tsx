@@ -3,6 +3,8 @@ import { IGetQueuePendingMessagesResponse } from '../../../api/contract';
 import { Dropdown, Spinner } from 'react-bootstrap';
 import './style.css';
 import Pager from '../Pager';
+import { useDispatch } from 'react-redux';
+import { hideModalAction, showModalAction } from '../../../store/modal/action';
 
 interface IProps {
     messages: IGetQueuePendingMessagesResponse;
@@ -17,12 +19,27 @@ interface IProps {
 const MessageList: React.FC<IProps> = (props) => {
     const { loading, messages, onPageChange, skip, take, onMessageDelete, onMessageRequeue } = props;
     const [activeMessageId, setActiveMessageId] = useState<string | null>(null);
+    const dispatch = useDispatch();
     if (loading) {
         return <Spinner animation={'border'} />;
     }
     if (!messages.total) {
-        return <p>Empty list {messages.total}</p>;
+        return <p>Empty message list</p>;
     }
+    const confirmMessageDeletion = (messageId: string, sequenceId: number) => {
+        dispatch(
+            showModalAction({
+                show: true,
+                title: 'Message deletion',
+                body: 'Are you sure you want to delete this message?',
+                onCancel: () => dispatch(hideModalAction()),
+                onConfirmation: () => {
+                    dispatch(hideModalAction());
+                    onMessageDelete && onMessageDelete(messageId, sequenceId);
+                }
+            })
+        );
+    };
     return (
         <>
             <table className={'table .messages'}>
@@ -70,7 +87,7 @@ const MessageList: React.FC<IProps> = (props) => {
                                 <td>
                                     {onMessageDelete || onMessageRequeue ? (
                                         <Dropdown>
-                                            <Dropdown.Toggle variant={'secondary'} title={'...'} />
+                                            <Dropdown.Toggle variant={'link'}>...</Dropdown.Toggle>
                                             <Dropdown.Menu>
                                                 <Dropdown.Item>
                                                     {onMessageRequeue && (
@@ -84,7 +101,9 @@ const MessageList: React.FC<IProps> = (props) => {
                                                     {onMessageDelete && (
                                                         <button
                                                             className={'btn btn-link shadow-none'}
-                                                            onClick={() => onMessageDelete(message.uuid, sequenceId)}
+                                                            onClick={() =>
+                                                                confirmMessageDeletion(message.uuid, sequenceId)
+                                                            }
                                                         >
                                                             Delete
                                                         </button>
