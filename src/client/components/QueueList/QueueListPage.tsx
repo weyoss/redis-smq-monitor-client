@@ -8,7 +8,7 @@ import { IQueueMap } from '../../types/IQueueMap';
 
 interface IProps {
     queues: IQueueMap;
-    matchedQueueParams: IQueueRouteParams | null;
+    matchedQueueParams: Partial<IQueueRouteParams> | null;
     loading: boolean;
 }
 

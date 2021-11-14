@@ -4,12 +4,14 @@ import QueueListPage from './QueueListPage';
 import { IApplicationState } from '../../store/contract';
 import { IStatsState } from '../../store/stats/state';
 import useSelector from '../../hooks/useSelector';
-import { matchRouteParams } from '../../routes/routes';
-import { IQueueRouteParams } from '../../routes/contract';
+import { matchRoute } from '../../routes/routes';
 
 const QueueList: React.FC<RouteComponentProps> = (props) => {
     const { queues, loading } = useSelector<IApplicationState, IStatsState>((state) => state.stats);
-    const params = matchRouteParams<IQueueRouteParams>('queue', props.location.pathname);
+    // This component is not a child of the Router, so we can not access current route parameters.
+    // This is a workaround to get the parameters.
+    const match = matchRoute(props.location.pathname);
+    const params = match?.params ?? {};
     return <QueueListPage queues={queues} matchedQueueParams={params} loading={loading} />;
 };
 

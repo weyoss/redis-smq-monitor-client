@@ -5,7 +5,7 @@ import { QueuePropsInterface } from './contract';
 import { IRates } from '../../types/IRates';
 import { IConsumer } from '../../types/IConsumer';
 import { IProducer } from '../../types/IProducer';
-import useSelector from '../../hooks/useSelector';
+import { useSelector } from 'react-redux';
 import { IQueue } from '../../types/IQueue';
 
 const Queue: React.FC<QueuePropsInterface> = ({ match }) => {

@@ -2,26 +2,26 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import React, { useCallback } from 'react';
 import { IQueueRouteParams } from '../../routes/contract';
 import QueueMessages from '../common/QueueMessages';
-import { deleteQueuePendingMessage, getQueuePendingMessages } from '../../api/api';
+import { deleteQueuePendingMessageWithPriority, getQueuePendingMessagesWithPriority } from '../../api/api';
 
 interface IProps extends RouteComponentProps<IQueueRouteParams> {}
 
-const QueuePendingMessages: React.FC<IProps> = (props) => {
+const QueuePendingMessagesWithPriority: React.FC<IProps> = (props) => {
     const { namespace, queueName } = props.match.params;
     const fetchQueueMessagesFn = useCallback((skip: number, take: number) => {
-        return getQueuePendingMessages(namespace, queueName, skip, take);
+        return getQueuePendingMessagesWithPriority(namespace, queueName, skip, take);
     }, []);
     const deleteQueueMessageFn = useCallback((messageId: string, sequenceId: number) => {
-        return deleteQueuePendingMessage(namespace, queueName, messageId, sequenceId);
+        return deleteQueuePendingMessageWithPriority(namespace, queueName, messageId, sequenceId);
     }, []);
     return (
         <>
             <h2>
-                {queueName}@{namespace} / Pending messages
+                {queueName}@{namespace} / Pending messages with priority
             </h2>
             <QueueMessages fetchQueueMessagesFn={fetchQueueMessagesFn} deleteQueueMessageFn={deleteQueueMessageFn} />
         </>
     );
 };
 
-export default withRouter(QueuePendingMessages);
+export default withRouter(QueuePendingMessagesWithPriority);

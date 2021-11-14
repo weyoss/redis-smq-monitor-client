@@ -20,14 +20,6 @@ interface IProps {
     notificationsState: INotificationsState;
 }
 
-const RenderPage: React.FC<IProps> = ({ statsState }) => {
-    const { loading } = statsState;
-    if (loading) {
-        return <Spinner animation="border" />;
-    }
-    return <Routes />;
-};
-
 const Page: React.FC<IProps> = (props) => {
     const { statsState, modalState, notificationsState } = props;
     const { loading } = statsState;
@@ -50,7 +42,7 @@ const Page: React.FC<IProps> = (props) => {
                     <QueueListing />
                 </div>
                 <div className={'page'}>
-                    <RenderPage {...props} />
+                    <Routes />
                 </div>
             </div>
             <Footer />

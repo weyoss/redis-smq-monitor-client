@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IGetQueuePendingMessagesResponse } from '../../../api/contract';
+import { IGetQueueMessagesResponse } from '../../../api/contract';
 import { Dropdown, Spinner } from 'react-bootstrap';
 import './style.css';
 import Pager from '../Pager';
@@ -7,17 +7,20 @@ import { useDispatch } from 'react-redux';
 import { hideModalAction, showModalAction } from '../../../store/modal/action';
 
 interface IProps {
-    messages: IGetQueuePendingMessagesResponse;
+    messages: IGetQueueMessagesResponse;
     loading: boolean;
-    skip: number;
-    take: number;
+    pageParams: {
+        skip: number;
+        take: number;
+        page: number;
+    };
     onPageChange: (page: number) => void;
     onMessageDelete?: (messageId: string, sequenceId: number) => void;
     onMessageRequeue?: (messageId: string, sequenceId: number) => void;
 }
 
-const MessageList: React.FC<IProps> = (props) => {
-    const { loading, messages, onPageChange, skip, take, onMessageDelete, onMessageRequeue } = props;
+const QueueMessageList: React.FC<IProps> = (props) => {
+    const { loading, messages, onPageChange, pageParams, onMessageDelete, onMessageRequeue } = props;
     const [activeMessageId, setActiveMessageId] = useState<string | null>(null);
     const dispatch = useDispatch();
     if (loading) {
@@ -120,9 +123,14 @@ const MessageList: React.FC<IProps> = (props) => {
                     })}
                 </tbody>
             </table>
-            <Pager totalItems={messages.total} onPageChange={onPageChange} currentPage={skip + 1} itemsPerPage={take} />
+            <Pager
+                totalItems={messages.total}
+                onPageChange={onPageChange}
+                currentPage={pageParams.page}
+                itemsPerPage={pageParams.take}
+            />
         </>
     );
 };
 
-export default MessageList;
+export default QueueMessageList;

@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import routes from './routes';
 import Breadcrumbs from '../components/common/Breadcrumbs';
 
-export default function Routes() {
+const Routes: React.FC = () => {
     return (
         <Switch>
             {Object.keys(routes).map((key) => {
@@ -23,4 +23,6 @@ export default function Routes() {
             })}
         </Switch>
     );
-}
+};
+
+export default Routes;

@@ -1,6 +1,6 @@
 import { IMessage } from '../types/IMessage';
 
-export interface IGetQueuePendingMessagesResponse {
+export interface IGetQueueMessagesResponse {
     total: number;
     items: {
         sequenceId: number;

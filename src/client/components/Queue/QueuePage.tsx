@@ -5,6 +5,7 @@ import ProducerList from './ProducerList';
 import RatesChart from '../common/RatesChart';
 import { generateRoutePath } from '../../routes/routes';
 import { Link } from 'react-router-dom';
+import { Badge, ListGroup } from 'react-bootstrap';
 
 const QueuePage: React.FC<IQueuePageProps> = ({ queue, rates }) => {
     if (!queue) {
@@ -30,47 +31,62 @@ const QueuePage: React.FC<IQueuePageProps> = ({ queue, rates }) => {
             <h2>
                 {queueName}@{namespace}
             </h2>
-            <div className={'mb-3'}>
-                <Link
-                    key={`${namespace}-${queueName}-pending-messages`}
-                    to={generateRoutePath('queuePendingMessages', {
-                        namespace,
-                        queueName
-                    })}
-                >
-                    &rarr; Pending messages
-                </Link>
-            </div>
-            <p>
-                The following metrics are gathered from the <b>{queueName}</b> queue under the <b>{namespace}</b>{' '}
-                namespace.
-            </p>
-            <hr />
+            <ListGroup horizontal className={'mb-5'}>
+                <ListGroup.Item>
+                    <Link
+                        key={`${namespace}-${queueName}-pending-messages`}
+                        to={generateRoutePath('queuePendingMessages', {
+                            namespace,
+                            queueName
+                        })}
+                    >
+                        Pending messages
+                        <br />
+                        <Badge pill>{pendingMessages}</Badge>
+                    </Link>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                    <Link
+                        key={`${namespace}-${queueName}-pending-messages-with-priority`}
+                        to={generateRoutePath('queuePendingMessagesWithPriority', {
+                            namespace,
+                            queueName
+                        })}
+                    >
+                        Pending messages with priority
+                        <br />
+                        <Badge pill>{pendingMessagesWithPriority}</Badge>
+                    </Link>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                    <Link
+                        key={`${namespace}-${queueName}-acknowledged-messages`}
+                        to={generateRoutePath('queueAcknowledgedMessages', {
+                            namespace,
+                            queueName
+                        })}
+                    >
+                        Acknowledged messages
+                        <br />
+                        <Badge pill>{acknowledgedMessages}</Badge>
+                    </Link>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                    <Link
+                        key={`${namespace}-${queueName}-dead-lettered-messages`}
+                        to={generateRoutePath('queueDeadLetteredMessages', {
+                            namespace,
+                            queueName
+                        })}
+                    >
+                        Dead-lettered messages
+                        <br />
+                        <Badge pill>{deadLetteredMessages}</Badge>
+                    </Link>
+                </ListGroup.Item>
+            </ListGroup>
+            <h3>Queue Rates</h3>
             <RatesChart rates={rates} scope={`${namespace}-${queueName}`} />
-            <hr />
-            <h3>Queue metrics</h3>
-            <table className="table">
-                <thead className={'table-light'}>
-                    <tr>
-                        <th>Pending messages</th>
-                        <th>Pending messages with priority</th>
-                        <th>Acknowledged messages</th>
-                        <th>Dead-lettered messages</th>
-                        <th>Consumers</th>
-                        <th>Producers</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{pendingMessages}</td>
-                        <td>{pendingMessagesWithPriority}</td>
-                        <td>{acknowledgedMessages}</td>
-                        <td>{deadLetteredMessages}</td>
-                        <td>{Object.keys(consumers).length}</td>
-                        <td>{Object.keys(producers).length}</td>
-                    </tr>
-                </tbody>
-            </table>
             <h3>Consumers</h3>
             <ConsumerList consumers={consumers} />
             <h3>Producers</h3>
