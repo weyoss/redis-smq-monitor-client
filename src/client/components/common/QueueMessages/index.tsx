@@ -1,108 +1,89 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { IGetQueueMessagesResponse } from '../../../api/contract';
-import { useDispatch } from 'react-redux';
 import { RouteComponentProps, useHistory, withRouter } from 'react-router';
-import { addNotificationAction } from '../../../store/notifications/action';
-import { ENotificationType } from '../../../store/notifications/state';
 import queryString from 'query-string';
-import { generateRoutePath } from '../../../routes/routes';
 import QueueMessageList from '../QueueMessageList';
 import { IQueueRouteParams } from '../../../routes/contract';
+import { TQueryRequest } from '../../../hooks/useQuery';
+import Query from '../Query';
+import { ListGroup } from 'react-bootstrap';
+import DeleteMessages from './DeleteMessages';
 
 interface IProps extends RouteComponentProps<IQueueRouteParams> {
-    fetchQueueMessagesFn: (skip: number, take: number) => Promise<IGetQueueMessagesResponse>;
-    deleteQueueMessageFn: (messageId: string, sequenceId: number) => Promise<void>;
+    FetchQueueMessagesRequestFactory: (skip: number, take: number) => TQueryRequest<IGetQueueMessagesResponse>;
+    DeleteQueueMessageRequestFactory: (messageId: string, sequenceId: number) => TQueryRequest<void>;
+    deleteMessagesRequestCallback: TQueryRequest<void>;
 }
 
-const QueueMessages: React.FC<IProps> = ({ match, fetchQueueMessagesFn, deleteQueueMessageFn }) => {
-    const { namespace, queueName } = match.params;
-    const [messages, setMessages] = useState<IGetQueueMessagesResponse>({ total: 0, items: [] });
-    const [paginationParams, setPaginationParams] = useState<{ skip: number; take: number; page: number }>({
-        skip: 0,
-        take: 10,
-        page: 1
-    });
-    const [loading, setLoading] = useState<boolean>(true);
-    const [reloadMessagesTrigger, setReloadMessagesTrigger] = useState<number>(0);
-    const dispatch = useDispatch();
-    const history = useHistory();
+const getPaginationParams = (path: string, take = 10) => {
+    const { page } = queryString.parse(path);
+    const pageNumber = typeof page === 'string' && Number(page) > 1 ? Number(page) : 1;
+    const skip = (pageNumber - 1) * take;
+    return {
+        skip,
+        take,
+        page: pageNumber
+    };
+};
 
+const QueueMessages: React.FC<IProps> = ({
+    location,
+    deleteMessagesRequestCallback,
+    FetchQueueMessagesRequestFactory,
+    DeleteQueueMessageRequestFactory
+}) => {
+    const [paginationParams, setPaginationParams] = useState<{ skip: number; take: number; page: number }>(
+        getPaginationParams(location.search)
+    );
+
+    // Request fn
+    const request = useMemo(() => FetchQueueMessagesRequestFactory(paginationParams.skip, paginationParams.take), [
+        paginationParams
+    ]);
+
+    // Handling location update
     useEffect(() => {
-        setLoading(true);
-        fetchQueueMessagesFn(paginationParams.skip, paginationParams.take)
-            .then((data) => {
-                setMessages(data);
-            })
-            .catch((e) => {
-                dispatch(
-                    addNotificationAction(
-                        'An error occurred while fetching pending messages. Check if your Web UI server is running and try again.',
-                        ENotificationType.ERROR
-                    )
-                );
-            })
-            .finally(() => {
-                setLoading(false);
-            });
-    }, [paginationParams, reloadMessagesTrigger]);
-    useEffect(() => {
-        const { page } = queryString.parse(location.search);
-        const pageNumber = typeof page === 'string' && Number(page) > 1 ? Number(page) : 1;
-        if (pageNumber !== paginationParams.page) {
-            const skip = (pageNumber - 1) * paginationParams.take;
-            setPaginationParams({
-                ...paginationParams,
-                page: pageNumber,
-                skip
-            });
-        }
+        const params = getPaginationParams(location.search);
+        if (params.page !== paginationParams.page) setPaginationParams(params);
     }, [location.search]);
-    const onPageChange = useCallback((page: number) => {
-        history.push(`${generateRoutePath('queuePendingMessages', { queueName, namespace })}?page=${page}`);
+
+    // Pagination navigation
+    const history = useHistory();
+    const onSelectPageCallback = useCallback((page: number) => {
+        history.push(`${location.pathname}?page=${page}`);
     }, []);
-    const onMessageDelete = useCallback((messageId: string, sequenceId: number) => {
-        setLoading(true);
-        deleteQueueMessageFn(messageId, sequenceId)
-            .then(() => {
-                dispatch(
-                    addNotificationAction(
-                        `Message ID ${messageId} has been successfully deleted.`,
-                        ENotificationType.SUCCESS
-                    )
-                );
-                setReloadMessagesTrigger(reloadMessagesTrigger + 1);
-            })
-            .catch((e) => {
-                dispatch(
-                    addNotificationAction(
-                        'An error occurred while trying to delete the message ID ' +
-                            messageId +
-                            ', with sequence ' +
-                            'ID ' +
-                            sequenceId +
-                            ' from queue ' +
-                            queueName +
-                            ' under namespace ' +
-                            namespace +
-                            '. If your the Web UI ' +
-                            'server is up and running, then maybe this is a race condition error and the message has been ' +
-                            'already deleted. Refresh your page and try again.',
-                        ENotificationType.ERROR
-                    )
-                );
-            })
-            .finally(() => {
-                setLoading(false);
-            });
+
+    const onMessageDeletionSuccessCallback = useCallback(() => {
+        // force fetching messages with new sequence IDs
+        setPaginationParams(() => ({
+            ...paginationParams
+        }));
     }, []);
+
     return (
-        <QueueMessageList
-            messages={messages}
-            loading={loading}
-            pageParams={paginationParams}
-            onPageChange={onPageChange}
-            onMessageDelete={onMessageDelete}
-        />
+        <Query request={request}>
+            {({ state }) => {
+                return (
+                    <>
+                        <ListGroup horizontal className={'mb-5'}>
+                            <ListGroup.Item>
+                                <DeleteMessages
+                                    onSuccess={onMessageDeletionSuccessCallback}
+                                    request={deleteMessagesRequestCallback}
+                                />
+                            </ListGroup.Item>
+                        </ListGroup>
+                        <QueueMessageList
+                            messages={state.data.data}
+                            pageParams={paginationParams}
+                            onSelectPageCallback={onSelectPageCallback}
+                            DeleteMessageRequestFactory={DeleteQueueMessageRequestFactory}
+                            onDeleteMessageSuccessCallback={onMessageDeletionSuccessCallback}
+                        />
+                    </>
+                );
+            }}
+        </Query>
     );
 };
 

@@ -1,48 +1,38 @@
 import React, { useState } from 'react';
 import { IGetQueueMessagesResponse } from '../../../api/contract';
-import { Dropdown, Spinner } from 'react-bootstrap';
-import './style.css';
+import { Dropdown } from 'react-bootstrap';
 import Pager from '../Pager';
-import { useDispatch } from 'react-redux';
-import { hideModalAction, showModalAction } from '../../../store/modal/action';
+import DeleteMessage from './DeleteMessage';
+import { TQueryRequest } from '../../../hooks/useQuery';
 
 interface IProps {
-    messages: IGetQueueMessagesResponse;
-    loading: boolean;
+    messages: IGetQueueMessagesResponse['data'];
     pageParams: {
         skip: number;
         take: number;
         page: number;
     };
-    onPageChange: (page: number) => void;
-    onMessageDelete?: (messageId: string, sequenceId: number) => void;
-    onMessageRequeue?: (messageId: string, sequenceId: number) => void;
+    onSelectPageCallback: (page: number) => void;
+    DeleteMessageRequestFactory: (messageId: string, sequenceId: number) => TQueryRequest<void>;
+    onDeleteMessageSuccessCallback: () => void;
+    RequeueMessageRequestFactory?: (messageId: string, sequenceId: number) => TQueryRequest<void>;
+    onRequeueMessageSuccessCallback?: () => void;
 }
 
 const QueueMessageList: React.FC<IProps> = (props) => {
-    const { loading, messages, onPageChange, pageParams, onMessageDelete, onMessageRequeue } = props;
+    const {
+        messages,
+        onSelectPageCallback,
+        pageParams,
+        DeleteMessageRequestFactory,
+        onDeleteMessageSuccessCallback,
+        RequeueMessageRequestFactory,
+        onRequeueMessageSuccessCallback
+    } = props;
     const [activeMessageId, setActiveMessageId] = useState<string | null>(null);
-    const dispatch = useDispatch();
-    if (loading) {
-        return <Spinner animation={'border'} />;
-    }
     if (!messages.total) {
         return <p>Empty message list</p>;
     }
-    const confirmMessageDeletion = (messageId: string, sequenceId: number) => {
-        dispatch(
-            showModalAction({
-                show: true,
-                title: 'Message deletion',
-                body: 'Are you sure you want to delete this message?',
-                onCancel: () => dispatch(hideModalAction()),
-                onConfirmation: () => {
-                    dispatch(hideModalAction());
-                    onMessageDelete && onMessageDelete(messageId, sequenceId);
-                }
-            })
-        );
-    };
     return (
         <>
             <table className={'table .messages'}>
@@ -88,29 +78,27 @@ const QueueMessageList: React.FC<IProps> = (props) => {
                                     )}
                                 </td>
                                 <td>
-                                    {onMessageDelete || onMessageRequeue ? (
+                                    {DeleteMessageRequestFactory || RequeueMessageRequestFactory ? (
                                         <Dropdown>
                                             <Dropdown.Toggle variant={'link'}>...</Dropdown.Toggle>
                                             <Dropdown.Menu>
                                                 <Dropdown.Item>
-                                                    {onMessageRequeue && (
+                                                    {RequeueMessageRequestFactory && onRequeueMessageSuccessCallback && (
                                                         <button
                                                             className={'btn btn-link shadow-none'}
-                                                            onClick={() => onMessageRequeue(message.uuid, sequenceId)}
+                                                            onClick={() =>
+                                                                RequeueMessageRequestFactory(message.uuid, sequenceId)
+                                                            }
                                                         >
                                                             Requeue
                                                         </button>
                                                     )}
-                                                    {onMessageDelete && (
-                                                        <button
-                                                            className={'btn btn-link shadow-none'}
-                                                            onClick={() =>
-                                                                confirmMessageDeletion(message.uuid, sequenceId)
-                                                            }
-                                                        >
-                                                            Delete
-                                                        </button>
-                                                    )}
+                                                    <DeleteMessage
+                                                        messageId={message.uuid}
+                                                        sequenceId={sequenceId}
+                                                        onDeleteMessageSuccess={onDeleteMessageSuccessCallback}
+                                                        DeleteMessageRequestFactory={DeleteMessageRequestFactory}
+                                                    />
                                                 </Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown>
@@ -125,7 +113,7 @@ const QueueMessageList: React.FC<IProps> = (props) => {
             </table>
             <Pager
                 totalItems={messages.total}
-                onPageChange={onPageChange}
+                onPageChange={onSelectPageCallback}
                 currentPage={pageParams.page}
                 itemsPerPage={pageParams.take}
             />
