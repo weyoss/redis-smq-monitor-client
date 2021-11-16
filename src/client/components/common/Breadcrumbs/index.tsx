@@ -3,9 +3,21 @@ import routes from '../../../routes/routes';
 import { RouteComponentProps, RouteProps } from 'react-router';
 import { Link } from 'react-router-dom';
 
+const relative = (child: string, parent: string) => {
+    if (parent === '/') return true;
+    child = child.replace(/^\/+|\/+$/g, '');
+    parent = parent.replace(/^\/+|\/+$/g, '');
+    if (child === parent) return true;
+    return parent
+        .replace(/^\/+|\/+$/g, '')
+        .split('/')
+        .filter((i) => i.length)
+        .every((token, idx) => child.split('/')[idx] === token);
+};
+
 const Breadcrumbs: React.FC<RouteComponentProps> = ({ match }) => {
     const crumbs = Object.values(routes)
-        .filter(({ path }: RouteProps) => match.path.includes(path as string))
+        .filter(({ path }: RouteProps) => typeof path === 'string' && relative(match.path, path))
         .map(({ path, ...rest }: RouteProps) => ({
             path: Object.keys(match.params).length
                 ? Object.keys(match.params).reduce(

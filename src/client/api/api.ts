@@ -87,3 +87,25 @@ export const purgePendingMessages = async (ns: string, queueName: string) => {
 export const purgePendingMessagesWithPriority = async (ns: string, queueName: string) => {
     return axios.delete(`/api/queues/${queueName}/pending-messages-with-priority?ns=${ns}`);
 };
+
+export const requeueDeadLetteredMessage = async (
+    ns: string,
+    queueName: string,
+    messageId: string,
+    sequenceId: number
+) => {
+    return axios.post(
+        `/api/queues/${queueName}/dead-lettered-messages/${messageId}/requeue?ns=${ns}&sequenceId=${sequenceId}`
+    );
+};
+
+export const requeueAcknowledgedMessage = async (
+    ns: string,
+    queueName: string,
+    messageId: string,
+    sequenceId: number
+) => {
+    return axios.post(
+        `/api/queues/${queueName}/acknowledged-messages/${messageId}/requeue?ns=${ns}&sequenceId=${sequenceId}`
+    );
+};

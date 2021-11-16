@@ -54,6 +54,12 @@ const routes = {
         component: QueuePendingMessages,
         name: 'Pending messages'
     },
+    queuePendingMessagesWithPriority: {
+        path: '/namespaces/:namespace/queues/:queueName/pending-messages-with-priority',
+        exact: true,
+        component: QueuePendingMessagesWithPriority,
+        name: 'Pending messages with priority'
+    },
     queueAcknowledgedMessages: {
         path: '/namespaces/:namespace/queues/:queueName/acknowledged-messages',
         exact: true,
@@ -65,12 +71,6 @@ const routes = {
         exact: true,
         component: QueueDeadLetteredMessages,
         name: 'Dead-lettered messages'
-    },
-    queuePendingMessagesWithPriority: {
-        path: '/namespaces/:namespace/queues/:queueName/pending-messages-with-priority',
-        exact: true,
-        component: QueuePendingMessagesWithPriority,
-        name: 'Queue pending messages with priority'
     },
     pageNotFound: {
         component: PageNotFound

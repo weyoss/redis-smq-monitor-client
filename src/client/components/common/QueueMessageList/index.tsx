@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { IGetQueueMessagesResponse } from '../../../api/contract';
-import { Dropdown } from 'react-bootstrap';
 import Pager from '../Pager';
-import DeleteMessage from './DeleteMessage';
+import MessageOptions, { IMessageOptionsSharedProps } from './MessageOptions';
+import { ListGroup } from 'react-bootstrap';
+import DeleteMessages from './DeleteMessages';
 import { TQueryRequest } from '../../../hooks/useQuery';
 
-interface IProps {
+interface IProps extends IMessageOptionsSharedProps {
     messages: IGetQueueMessagesResponse['data'];
     pageParams: {
         skip: number;
@@ -13,10 +14,8 @@ interface IProps {
         page: number;
     };
     onSelectPageCallback: (page: number) => void;
-    DeleteMessageRequestFactory: (messageId: string, sequenceId: number) => TQueryRequest<void>;
-    onDeleteMessageSuccessCallback: () => void;
-    RequeueMessageRequestFactory?: (messageId: string, sequenceId: number) => TQueryRequest<void>;
-    onRequeueMessageSuccessCallback?: () => void;
+    deleteMessagesRequestCallback: TQueryRequest<void>;
+    deleteMessagesRequestSuccessCallback: () => void;
 }
 
 const QueueMessageList: React.FC<IProps> = (props) => {
@@ -24,10 +23,9 @@ const QueueMessageList: React.FC<IProps> = (props) => {
         messages,
         onSelectPageCallback,
         pageParams,
-        DeleteMessageRequestFactory,
-        onDeleteMessageSuccessCallback,
-        RequeueMessageRequestFactory,
-        onRequeueMessageSuccessCallback
+        deleteMessagesRequestCallback,
+        deleteMessagesRequestSuccessCallback,
+        ...rest
     } = props;
     const [activeMessageId, setActiveMessageId] = useState<string | null>(null);
     if (!messages.total) {
@@ -35,11 +33,19 @@ const QueueMessageList: React.FC<IProps> = (props) => {
     }
     return (
         <>
+            <ListGroup horizontal className={'mb-5 justify-content-end'}>
+                <ListGroup.Item>
+                    <DeleteMessages
+                        onSuccess={deleteMessagesRequestSuccessCallback}
+                        request={deleteMessagesRequestCallback}
+                    />
+                </ListGroup.Item>
+            </ListGroup>
             <table className={'table .messages'}>
                 <thead className={'table-light'}>
                     <tr>
                         <th>ID</th>
-                        <th>Payload (body)</th>
+                        <th>Message</th>
                         <th>Options</th>
                     </tr>
                 </thead>
@@ -78,33 +84,7 @@ const QueueMessageList: React.FC<IProps> = (props) => {
                                     )}
                                 </td>
                                 <td>
-                                    {DeleteMessageRequestFactory || RequeueMessageRequestFactory ? (
-                                        <Dropdown>
-                                            <Dropdown.Toggle variant={'link'}>...</Dropdown.Toggle>
-                                            <Dropdown.Menu>
-                                                <Dropdown.Item>
-                                                    {RequeueMessageRequestFactory && onRequeueMessageSuccessCallback && (
-                                                        <button
-                                                            className={'btn btn-link shadow-none'}
-                                                            onClick={() =>
-                                                                RequeueMessageRequestFactory(message.uuid, sequenceId)
-                                                            }
-                                                        >
-                                                            Requeue
-                                                        </button>
-                                                    )}
-                                                    <DeleteMessage
-                                                        messageId={message.uuid}
-                                                        sequenceId={sequenceId}
-                                                        onDeleteMessageSuccess={onDeleteMessageSuccessCallback}
-                                                        DeleteMessageRequestFactory={DeleteMessageRequestFactory}
-                                                    />
-                                                </Dropdown.Item>
-                                            </Dropdown.Menu>
-                                        </Dropdown>
-                                    ) : (
-                                        '-'
-                                    )}
+                                    <MessageOptions {...rest} messageId={message.uuid} sequenceId={sequenceId} />
                                 </td>
                             </tr>
                         );

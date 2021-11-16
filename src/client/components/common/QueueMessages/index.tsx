@@ -6,12 +6,11 @@ import QueueMessageList from '../QueueMessageList';
 import { IQueueRouteParams } from '../../../routes/contract';
 import { TQueryRequest } from '../../../hooks/useQuery';
 import Query from '../Query';
-import { ListGroup } from 'react-bootstrap';
-import DeleteMessages from './DeleteMessages';
 
 interface IProps extends RouteComponentProps<IQueueRouteParams> {
     FetchQueueMessagesRequestFactory: (skip: number, take: number) => TQueryRequest<IGetQueueMessagesResponse>;
     DeleteQueueMessageRequestFactory: (messageId: string, sequenceId: number) => TQueryRequest<void>;
+    RequeueMessageRequestFactory?: (messageId: string, sequenceId: number) => TQueryRequest<void>;
     deleteMessagesRequestCallback: TQueryRequest<void>;
 }
 
@@ -30,7 +29,8 @@ const QueueMessages: React.FC<IProps> = ({
     location,
     deleteMessagesRequestCallback,
     FetchQueueMessagesRequestFactory,
-    DeleteQueueMessageRequestFactory
+    DeleteQueueMessageRequestFactory,
+    RequeueMessageRequestFactory
 }) => {
     const [paginationParams, setPaginationParams] = useState<{ skip: number; take: number; page: number }>(
         getPaginationParams(location.search)
@@ -53,7 +53,7 @@ const QueueMessages: React.FC<IProps> = ({
         history.push(`${location.pathname}?page=${page}`);
     }, []);
 
-    const onMessageDeletionSuccessCallback = useCallback(() => {
+    const onMessageOperationSuccessCallback = useCallback(() => {
         // force fetching messages with new sequence IDs
         setPaginationParams(() => ({
             ...paginationParams
@@ -64,23 +64,17 @@ const QueueMessages: React.FC<IProps> = ({
         <Query request={request}>
             {({ state }) => {
                 return (
-                    <>
-                        <ListGroup horizontal className={'mb-5'}>
-                            <ListGroup.Item>
-                                <DeleteMessages
-                                    onSuccess={onMessageDeletionSuccessCallback}
-                                    request={deleteMessagesRequestCallback}
-                                />
-                            </ListGroup.Item>
-                        </ListGroup>
-                        <QueueMessageList
-                            messages={state.data.data}
-                            pageParams={paginationParams}
-                            onSelectPageCallback={onSelectPageCallback}
-                            DeleteMessageRequestFactory={DeleteQueueMessageRequestFactory}
-                            onDeleteMessageSuccessCallback={onMessageDeletionSuccessCallback}
-                        />
-                    </>
+                    <QueueMessageList
+                        messages={state.data.data}
+                        pageParams={paginationParams}
+                        onSelectPageCallback={onSelectPageCallback}
+                        DeleteMessageRequestFactory={DeleteQueueMessageRequestFactory}
+                        deleteMessageSuccessCallback={onMessageOperationSuccessCallback}
+                        RequeueMessageRequestFactory={RequeueMessageRequestFactory}
+                        requeueMessageSuccessCallback={onMessageOperationSuccessCallback}
+                        deleteMessagesRequestCallback={deleteMessagesRequestCallback}
+                        deleteMessagesRequestSuccessCallback={onMessageOperationSuccessCallback}
+                    />
                 );
             }}
         </Query>

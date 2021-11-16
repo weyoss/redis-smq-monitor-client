@@ -12,8 +12,6 @@ interface IProps extends RouteComponentProps<IQueueRouteParams> {}
 
 const QueuePendingMessagesWithPriority: React.FC<IProps> = (props) => {
     const { namespace, queueName } = props.match.params;
-
-    // callbacks
     const FetchQueueMessagesRequestFactory = useCallback((skip: number, take: number) => {
         return () => getQueuePendingMessagesWithPriority(namespace, queueName, skip, take);
     }, []);
