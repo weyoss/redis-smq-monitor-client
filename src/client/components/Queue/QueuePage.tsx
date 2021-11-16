@@ -28,10 +28,10 @@ const QueuePage: React.FC<IQueuePageProps> = ({ queue, rates }) => {
     } = queue;
     return (
         <div className={'queue fullWidth'}>
-            <h2>
+            <h2 className={'display-5'}>
                 {queueName}@{namespace}
             </h2>
-            <ListGroup horizontal className={'mb-5'}>
+            <ListGroup horizontal className={'mb-4'}>
                 <ListGroup.Item>
                     <Link
                         key={`${namespace}-${queueName}-pending-messages`}
@@ -85,11 +85,11 @@ const QueuePage: React.FC<IQueuePageProps> = ({ queue, rates }) => {
                     </Link>
                 </ListGroup.Item>
             </ListGroup>
-            <h3>Queue Rates</h3>
+            <h3 className={'display-6'}>Queue Rates</h3>
             <RatesChart rates={rates} scope={`${namespace}-${queueName}`} />
-            <h3>Consumers</h3>
+            <h3 className={'display-6'}>Consumers</h3>
             <ConsumerList consumers={consumers} />
-            <h3>Producers</h3>
+            <h3 className={'display-6'}>Producers</h3>
             <ProducerList producers={producers} />
         </div>
     );

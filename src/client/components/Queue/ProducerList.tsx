@@ -1,5 +1,6 @@
 import React from 'react';
 import { IProducerMap } from '../../types/IProducerMap';
+import { Table } from 'react-bootstrap';
 
 interface IProps {
     producers: IProducerMap;
@@ -17,10 +18,10 @@ const RenderList: React.FC<IProps> = ({ producers }) => {
         );
     }
     if (!items.length) {
-        return <p>No queue producers yet.</p>;
+        return <p>No producers yet.</p>;
     }
     return (
-        <table className="table">
+        <Table className="table" hover>
             <thead className="table-light">
                 <tr>
                     <th scope="col">ID</th>
@@ -28,7 +29,7 @@ const RenderList: React.FC<IProps> = ({ producers }) => {
                 </tr>
             </thead>
             <tbody>{items}</tbody>
-        </table>
+        </Table>
     );
 };
 

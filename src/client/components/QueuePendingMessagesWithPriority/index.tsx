@@ -22,7 +22,7 @@ const QueuePendingMessagesWithPriority: React.FC<IProps> = (props) => {
 
     return (
         <>
-            <h2>
+            <h2 className={'display-5'}>
                 {queueName}@{namespace} / Pending messages with priority
             </h2>
             <QueueMessages

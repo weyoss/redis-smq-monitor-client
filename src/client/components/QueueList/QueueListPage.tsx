@@ -41,23 +41,23 @@ const Render: React.FC<IProps> = ({ queues, matchedQueueParams, loading }) => {
             );
         }
         data.push(
-            <div key={ns} className={'mb-5'}>
-                <h5 className={'d-flex justify-content-between align-items-center text-break'}>
+            <div key={ns} className={'mb-3'}>
+                <h3 className={'mx-3 d-flex justify-content-between align-items-center text-break display-6'}>
                     {ns} <small>{li.length}</small>
-                </h5>
+                </h3>
                 <div className={'list-group'}>{li}</div>
             </div>
         );
     }
     if (!data.length) {
-        return <p>No existing queues yet.</p>;
+        return <p>No queues here yet.</p>;
     }
     return <>{data}</>;
 };
 
 const QueueListPage: React.FC<IProps> = (props) => (
-    <div className={'queueList'}>
-        <h2>Queues</h2>
+    <div className={'mb-5'}>
+        <h2 className={'display-5'}>Queues</h2>
         <Render {...props} />
     </div>
 );

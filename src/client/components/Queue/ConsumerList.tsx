@@ -3,6 +3,7 @@ import { generateRoutePath } from '../../routes/routes';
 import { Link } from 'react-router-dom';
 import { formatBytes } from '../../tools/utils';
 import { IConsumerMap } from '../../types/IConsumerMap';
+import { Table } from 'react-bootstrap';
 
 interface IProps {
     consumers: IConsumerMap;
@@ -48,7 +49,7 @@ const RenderList: React.FC<IProps> = ({ consumers }) => {
     }
 
     if (!data.length) {
-        return <p>No existing consumers yet.</p>;
+        return <p>No consumers yet.</p>;
     }
 
     return (
@@ -57,7 +58,7 @@ const RenderList: React.FC<IProps> = ({ consumers }) => {
                 Note: Sometimes the CPU usage is not accurate and does not match the real CPU usage. Therefore it should
                 be regarded just as an indicative value.
             </p>
-            <table className={'table .consumers'}>
+            <Table className={'table .consumers'} hover>
                 <thead className={'table-light'}>
                     <tr>
                         <th rowSpan={3}>ID</th>
@@ -98,7 +99,7 @@ const RenderList: React.FC<IProps> = ({ consumers }) => {
                     </tr>
                 </thead>
                 <tbody>{data}</tbody>
-            </table>
+            </Table>
         </>
     );
 };

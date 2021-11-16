@@ -18,7 +18,7 @@ const QueuePendingMessages: React.FC<IProps> = (props) => {
 
     return (
         <>
-            <h2>
+            <h2 className={'display-5'}>
                 {queueName}@{namespace} / Pending messages
             </h2>
             <QueueMessages

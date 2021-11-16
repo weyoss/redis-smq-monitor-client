@@ -1,13 +1,3 @@
-h1,
-h2,
-h3 {
-    margin-bottom: 1em;
-}
-
-h1 {
-    margin-bottom: 0.8em;
-}
-
 a {
     text-decoration: none;
 }
@@ -16,25 +6,22 @@ a {
     text-decoration: none;
 }
 
-nav,
-.navbar {
-    padding: 0;
-    margin: 0 24px;
+.display-4 {
+    font-size: 2rem;
+    font-weight: 440;
+    margin-bottom: 1rem;
 }
 
-.table {
-    font-size: 0.9em;
-    min-width: 900px !important;
-
+.display-5 {
+    font-size: 1.6rem;
+    font-weight: 440;
+    margin-bottom: 1rem;
 }
 
-.table td {
-    text-align: center;
-    vertical-align: middle;
-}
-
-.table th {
-    text-align: center;
+.display-6 {
+    font-size: 1.4rem;
+    font-weight: 440;
+    margin-bottom: 1rem;
 }
 
 .fullWidth {
@@ -43,7 +30,7 @@ nav,
 
 #app {
     margin: 0;
-    padding: 24px;
+    padding: 1.5rem;
 }
 
 #app .mainContainer {
@@ -57,23 +44,19 @@ nav,
 }
 
 #app .mainContainer .page {
-    padding: 24px;
+    padding: 1.5rem;
     background: #EEE;
     flex: 1;
 }
 
 #app .mainContainer .sidePanel {
-    flex-basis: 250px;
-    max-width: 250px;
-    min-width: 250px;
-    width: 250px;
+    flex-basis: 20rem;
+    max-width: 20rem;
+    min-width: 20rem;
+    width: 20rem;
     flex-grow: 0;
     flex-shrink: 0;
     background: #f8f8f8;
-    padding: 24px;
-    font-size: 0.8em;
+    padding: 1.5rem;
 }
 
-#app .homeLink {
-    margin-bottom: 12px;
-}

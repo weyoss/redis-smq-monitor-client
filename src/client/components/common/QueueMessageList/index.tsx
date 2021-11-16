@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { IGetQueueMessagesResponse } from '../../../transport/http/contract';
 import Pager from '../Pager';
 import MessageOptions, { IMessageOptionsSharedProps } from './MessageOptions';
-import { ListGroup } from 'react-bootstrap';
+import { ListGroup, Table } from 'react-bootstrap';
 import DeleteMessages from './DeleteMessages';
 import { TQueryRequest } from '../../../hooks/useQuery';
 
@@ -33,7 +33,7 @@ const QueueMessageList: React.FC<IProps> = (props) => {
     }
     return (
         <>
-            <ListGroup horizontal className={'mb-5 justify-content-end'}>
+            <ListGroup horizontal className={'mb-3 justify-content-end'}>
                 <ListGroup.Item>
                     <DeleteMessages
                         onSuccess={deleteMessagesRequestSuccessCallback}
@@ -41,7 +41,7 @@ const QueueMessageList: React.FC<IProps> = (props) => {
                     />
                 </ListGroup.Item>
             </ListGroup>
-            <table className={'table .messages'}>
+            <Table className={'table .messages'} hover>
                 <thead className={'table-light'}>
                     <tr>
                         <th>ID</th>
@@ -90,7 +90,7 @@ const QueueMessageList: React.FC<IProps> = (props) => {
                         );
                     })}
                 </tbody>
-            </table>
+            </Table>
             <Pager
                 totalItems={messages.total}
                 onPageChange={onSelectPageCallback}

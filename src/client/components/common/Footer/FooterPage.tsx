@@ -1,13 +1,24 @@
-import React from 'react';
-import { FooterPropsInterface } from './contract';
-
 import './style.css';
+import React from 'react';
 
-const FooterPage: React.FC<FooterPropsInterface> = ({ version, license }) => (
+interface IProps {
+    version: string;
+    license: string;
+}
+
+const FooterPage: React.FC<IProps> = ({ version, license }) => (
     <footer>
         {`RedisSMQ Monitor v${version}`}
         <br />
-        &copy; Weyoss 2017 - {new Date().getFullYear()}. Licensed under {license}.
+        &copy;{' '}
+        <a target={'_blank'} href={'https://github.com/weyoss'}>
+            Weyoss
+        </a>{' '}
+        2017 - {new Date().getFullYear()}. Licensed under{' '}
+        <a target={'_blank'} href={'https://github.com/weyoss/redis-smq-monitor/blob/master/LICENSE'}>
+            {license}
+        </a>
+        .
     </footer>
 );
 

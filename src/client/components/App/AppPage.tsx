@@ -13,6 +13,7 @@ import { IStatsState } from '../../store/stats/state';
 import Modal from '../common/Modal/Modal';
 import { INotificationsState } from '../../store/notifications/state';
 import Notification from '../common/Notification/Notification';
+import Scheduler from '../Scheduler';
 
 interface IProps {
     statsState: IStatsState;
@@ -40,6 +41,7 @@ const Page: React.FC<IProps> = (props) => {
             <div className="mainContainer">
                 <div className={'sidePanel'}>
                     <QueueListing />
+                    <Scheduler />
                 </div>
                 <div className={'page'}>
                     <Routes />

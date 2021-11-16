@@ -26,7 +26,7 @@ const QueueAcknowledgedMessages: React.FC<IProps> = (props) => {
 
     return (
         <>
-            <h2>
+            <h2 className={'display-5'}>
                 {queueName}@{namespace} / Acknowledged messages
             </h2>
             <QueueMessages

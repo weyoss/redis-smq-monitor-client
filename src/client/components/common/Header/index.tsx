@@ -1,9 +1,10 @@
+import './style.css';
 import React from 'react';
 
 export default () => (
-    <nav className="navbar is-primary">
-        <h1>
+    <header className="navbar is-primary text-align-end">
+        <h1 className={'display-4'}>
             RedisSMQ <small className="text-muted">Monitor</small>
         </h1>
-    </nav>
+    </header>
 );
