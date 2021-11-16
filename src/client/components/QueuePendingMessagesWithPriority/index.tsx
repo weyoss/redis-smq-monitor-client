@@ -6,7 +6,7 @@ import {
     deleteQueuePendingMessageWithPriority,
     getQueuePendingMessagesWithPriority,
     purgePendingMessagesWithPriority
-} from '../../api/api';
+} from '../../transport/http/api';
 
 interface IProps extends RouteComponentProps<IQueueRouteParams> {}
 

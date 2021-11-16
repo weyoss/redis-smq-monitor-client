@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { IGetQueueMessagesResponse } from '../../../api/contract';
+import { IGetQueueMessagesResponse } from '../../../transport/http/contract';
 import { RouteComponentProps, useHistory, withRouter } from 'react-router';
 import queryString from 'query-string';
 import QueueMessageList from '../QueueMessageList';

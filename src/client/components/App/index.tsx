@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Socket } from 'socket.io-client';
 import AppPage from './AppPage';
-import websocket from '../../websocket';
+import websocket from '../../transport/websocket';
 import { IStats } from '../../types/IStats';
 import { useDispatch } from 'react-redux';
 import { setInitializedAction, updateStatsAction } from '../../store/stats/action';

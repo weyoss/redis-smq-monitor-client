@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IGetQueueMessagesResponse } from '../../../api/contract';
+import { IGetQueueMessagesResponse } from '../../../transport/http/contract';
 import Pager from '../Pager';
 import MessageOptions, { IMessageOptionsSharedProps } from './MessageOptions';
 import { ListGroup } from 'react-bootstrap';

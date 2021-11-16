@@ -2,7 +2,7 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import React, { useCallback } from 'react';
 import { IQueueRouteParams } from '../../routes/contract';
 import QueueMessages from '../common/QueueMessages';
-import { deleteQueuePendingMessage, getQueuePendingMessages, purgePendingMessages } from '../../api/api';
+import { deleteQueuePendingMessage, getQueuePendingMessages, purgePendingMessages } from '../../transport/http/api';
 
 interface IProps extends RouteComponentProps<IQueueRouteParams> {}
 

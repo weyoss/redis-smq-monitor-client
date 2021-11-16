@@ -1,4 +1,4 @@
-import { IMessage } from '../types/IMessage';
+import { IMessage } from '../../types/IMessage';
 
 export interface IGetQueueMessagesResponse {
     data: {
