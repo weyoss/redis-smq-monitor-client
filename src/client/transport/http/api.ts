@@ -1,6 +1,18 @@
 import axios from 'axios';
 import { IGetQueueMessagesResponse } from './contract';
 
+export const getScheduledMessages = async (skip: number, take: number) => {
+    return axios.get<IGetQueueMessagesResponse>(`/api/scheduled-messages?skip=${skip}&take=${take}`);
+};
+
+export const deleteScheduledMessage = async (messageId: string, sequenceId: number) => {
+    return axios.delete(`/api/scheduled-messages?messageId=${messageId}&sequenceId=${sequenceId}`);
+};
+
+export const purgeScheduledMessages = async () => {
+    return axios.delete(`/api/scheduled-messages`);
+};
+
 export const getQueuePendingMessagesWithPriority = async (
     ns: string,
     queueName: string,
@@ -107,5 +119,29 @@ export const requeueAcknowledgedMessage = async (
 ) => {
     return axios.post(
         `/api/queues/${queueName}/acknowledged-messages/${messageId}/requeue?ns=${ns}&sequenceId=${sequenceId}`
+    );
+};
+
+export const requeueDeadLetteredMessageWithPriority = async (
+    ns: string,
+    queueName: string,
+    messageId: string,
+    sequenceId: number,
+    priority: number
+) => {
+    return axios.post(
+        `/api/queues/${queueName}/dead-lettered-messages/${messageId}/requeue-with-priority?ns=${ns}&sequenceId=${sequenceId}&priority=${priority}`
+    );
+};
+
+export const requeueAcknowledgedMessageWithPriority = async (
+    ns: string,
+    queueName: string,
+    messageId: string,
+    sequenceId: number,
+    priority: number
+) => {
+    return axios.post(
+        `/api/queues/${queueName}/acknowledged-messages/${messageId}/requeue-with-priority?ns=${ns}&sequenceId=${sequenceId}&priority=${priority}`
     );
 };

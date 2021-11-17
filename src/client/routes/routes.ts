@@ -7,6 +7,7 @@ import QueuePendingMessages from '../components/QueuePendingMessages';
 import QueueAcknowledgedMessages from '../components/QueueAcknowledgedMessages';
 import QueueDeadLetteredMessages from '../components/QueueDeadLetteredMessages';
 import QueuePendingMessagesWithPriority from '../components/QueuePendingMessagesWithPriority';
+import ScheduledMessages from '../components/ScheduledMessages';
 
 export function matchRouteParams<T extends {}>(routeKey: keyof typeof routes, location: string) {
     const routeProps = routes[routeKey];
@@ -71,6 +72,12 @@ const routes = {
         exact: true,
         component: QueueDeadLetteredMessages,
         name: 'Dead-lettered messages'
+    },
+    scheduledMessages: {
+        path: '/scheduled-messages',
+        exact: true,
+        component: ScheduledMessages,
+        name: 'Scheduled messages'
     },
     pageNotFound: {
         component: PageNotFound

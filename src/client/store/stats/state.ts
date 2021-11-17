@@ -8,6 +8,7 @@ export interface IStatsState extends IStats {
 export const initialStatsState: IStatsState = {
     loading: true,
     init: true,
+    scheduledMessages: 0,
     rates: {
         input: 0,
         processing: 0,

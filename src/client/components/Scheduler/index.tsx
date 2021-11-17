@@ -1,20 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import useSelector from '../../hooks/useSelector';
+import { IApplicationState } from '../../store/contract';
+import { IStatsState } from '../../store/stats/state';
+import SchedulerPage from './SchedulerPage';
 
-const Scheduler: React.FC = () => {
-    return (
-        <div className={'mb-5'}>
-            <h2 className={'display-5'}>Scheduler</h2>
-            <div className={'list-group'}>
-                <Link
-                    className={`text-break list-group-item list-group-item-action d-flex justify-content-between align-items-center`}
-                    to={'#'}
-                >
-                    Messages <span className="badge bg-primary rounded-pill">{0}</span>
-                </Link>
-            </div>
-        </div>
-    );
+const Scheduler = () => {
+    const { scheduledMessages, loading } = useSelector<IApplicationState, IStatsState>((state) => state.stats);
+    return <SchedulerPage count={scheduledMessages} loading={loading} />;
 };
 
 export default Scheduler;
