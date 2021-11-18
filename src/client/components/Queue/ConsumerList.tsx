@@ -15,7 +15,7 @@ const RenderList: React.FC<IProps> = ({ consumers }) => {
         const consumer = consumers[id];
         data.push(
             <tr key={consumer.id}>
-                <td className={'text-break'}>
+                <td>
                     <Link
                         key={consumer.id}
                         to={generateRoutePath('consumer', {
@@ -58,8 +58,8 @@ const RenderList: React.FC<IProps> = ({ consumers }) => {
                 Note: Sometimes the CPU usage is not accurate and does not match the real CPU usage. Therefore it should
                 be regarded just as an indicative value.
             </p>
-            <Table className={'table .consumers'} hover>
-                <thead className={'table-light'}>
+            <Table className={'table table-striped'} hover responsive>
+                <thead>
                     <tr>
                         <th rowSpan={3}>ID</th>
                         <th rowSpan={3}>

@@ -15,5 +15,5 @@
         "skipLibCheck": true,
         "strictPropertyInitialization": true
     },
-    "exclude": ["node_modules", "dist", "**/*spec.ts", "examples", "src/client"]
+    "exclude": ["./node_modules", "dist", "**/*spec.ts", "examples", "src/client", "dev-server"]
 }

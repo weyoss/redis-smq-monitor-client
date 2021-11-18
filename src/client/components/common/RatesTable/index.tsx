@@ -1,12 +1,13 @@
 import React from 'react';
 import { IConsumerRates, IProducerRates, IRates } from '../../../types/IRates';
+import { Table } from 'react-bootstrap';
 
 const RatesTable: React.FC<{ rates: IRates | IConsumerRates | IProducerRates }> = ({ rates }) => {
     const { input = '-', processing = '-', acknowledged = '-', unacknowledged = '-' } = rates as IRates;
     return (
         <div className={'timeline'}>
-            <table className="table">
-                <thead className="table-light">
+            <Table className="table table-striped" hover>
+                <thead>
                     <tr>
                         <th>
                             Input
@@ -34,7 +35,7 @@ const RatesTable: React.FC<{ rates: IRates | IConsumerRates | IProducerRates }> 
                         <td>{unacknowledged}</td>
                     </tr>
                 </tbody>
-            </table>
+            </Table>
         </div>
     );
 };

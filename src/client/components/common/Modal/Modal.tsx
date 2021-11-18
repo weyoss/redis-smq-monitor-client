@@ -1,26 +1,32 @@
 import React from 'react';
 import { Button, Modal as BaseModal } from 'react-bootstrap';
-import { IModalState } from '../../../store/modal/state';
+
+export interface IModalState {
+    title: string;
+    onSubmit: () => void;
+    onCancel: () => void;
+    cancelCaption?: string;
+    submitCaption?: string;
+    children: JSX.Element;
+}
 
 const Modal: React.FC<IModalState> = (props) => {
-    const { title, body, onConfirmation, onCancel, show } = props;
+    const { title, onSubmit, onCancel, children, submitCaption, cancelCaption } = props;
     return (
-        <>
-            <BaseModal show={show} onHide={onCancel}>
-                <BaseModal.Header closeButton>
-                    <BaseModal.Title>{title}</BaseModal.Title>
-                </BaseModal.Header>
-                <BaseModal.Body>{body}</BaseModal.Body>
-                <BaseModal.Footer>
-                    <Button variant="secondary" onClick={onCancel}>
-                        Cancel
-                    </Button>
-                    <Button variant="primary" onClick={onConfirmation}>
-                        OK
-                    </Button>
-                </BaseModal.Footer>
-            </BaseModal>
-        </>
+        <BaseModal show={true} onHide={onCancel}>
+            <BaseModal.Header closeButton>
+                <BaseModal.Title>{title}</BaseModal.Title>
+            </BaseModal.Header>
+            <BaseModal.Body>{children}</BaseModal.Body>
+            <BaseModal.Footer>
+                <Button variant="secondary" onClick={onCancel}>
+                    {cancelCaption ?? 'Cancel'}
+                </Button>
+                <Button variant="primary" onClick={onSubmit}>
+                    {submitCaption ?? 'Submit'}
+                </Button>
+            </BaseModal.Footer>
+        </BaseModal>
     );
 };
 

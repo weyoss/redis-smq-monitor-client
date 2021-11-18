@@ -8,21 +8,18 @@ import Routes from '../../routes';
 import { BrowserRouter } from 'react-router-dom';
 import QueueListing from '../QueueList';
 import { Spinner } from 'react-bootstrap';
-import { IModalState } from '../../store/modal/state';
 import { IStatsState } from '../../store/stats/state';
-import Modal from '../common/Modal/Modal';
 import { INotificationsState } from '../../store/notifications/state';
 import Notification from '../common/Notification/Notification';
 import Scheduler from '../Scheduler';
 
 interface IProps {
     statsState: IStatsState;
-    modalState: IModalState;
     notificationsState: INotificationsState;
 }
 
 const Page: React.FC<IProps> = (props) => {
-    const { statsState, modalState, notificationsState } = props;
+    const { statsState, notificationsState } = props;
     const { loading } = statsState;
     if (loading) {
         return <Spinner animation={'border'} />;
@@ -30,13 +27,6 @@ const Page: React.FC<IProps> = (props) => {
     return (
         <>
             <Header />
-            <Modal
-                title={modalState.title}
-                body={modalState.body}
-                onConfirmation={modalState.onConfirmation}
-                onCancel={modalState.onCancel}
-                show={modalState.show}
-            />
             <Notification stack={notificationsState.stack} />
             <div className="mainContainer">
                 <div className={'sidePanel'}>

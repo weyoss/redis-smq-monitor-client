@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { IGetQueueMessagesResponse } from '../../../transport/http/contract';
 import Pager from '../Pager';
 import MessageOptions, { IMessageOptionsSharedProps } from './MessageOptions';
 import { ListGroup, Table } from 'react-bootstrap';
 import DeleteMessages from './DeleteMessages';
 import { TQueryRequest } from '../../../hooks/useQuery';
+import { IMessage } from '../../../types/IMessage';
 
 interface IProps extends IMessageOptionsSharedProps {
-    messages: IGetQueueMessagesResponse['data'];
+    messages: { total: number; items: { message: IMessage; sequenceId?: number }[] };
     pageParams: {
         skip: number;
         take: number;
@@ -41,8 +41,8 @@ const QueueMessageList: React.FC<IProps> = (props) => {
                     />
                 </ListGroup.Item>
             </ListGroup>
-            <Table className={'table .messages'} hover>
-                <thead className={'table-light'}>
+            <Table className={'table table-striped .messages'} hover>
+                <thead>
                     <tr>
                         <th>ID</th>
                         <th>Message</th>
@@ -51,7 +51,7 @@ const QueueMessageList: React.FC<IProps> = (props) => {
                 </thead>
                 <tbody>
                     {messages.items.map(({ message, sequenceId }) => {
-                        const mid = `${message.uuid}-${sequenceId}`;
+                        const mid = `${message.uuid}${sequenceId ? `-${sequenceId}` : ''}`;
                         return (
                             <tr key={mid}>
                                 <td className={'text-break text-start w-25'}>{message.uuid}</td>
@@ -59,14 +59,16 @@ const QueueMessageList: React.FC<IProps> = (props) => {
                                     {activeMessageId === mid ? (
                                         <>
                                             <div>
-                                                {JSON.stringify(message)}{' '}
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-link shadow-none"
-                                                    onClick={() => setActiveMessageId(null)}
-                                                >
-                                                    &uarr;
-                                                </button>
+                                                {<pre>{JSON.stringify(message, undefined, 2)}</pre>}
+                                                <div>
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-link shadow-none m-0 p-0"
+                                                        onClick={() => setActiveMessageId(null)}
+                                                    >
+                                                        &uarr;
+                                                    </button>
+                                                </div>
                                             </div>
                                         </>
                                     ) : (

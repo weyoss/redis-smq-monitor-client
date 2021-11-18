@@ -1,36 +1,40 @@
 import { useDispatch } from 'react-redux';
 import useQuery, { EQueryStatus, TQueryRequest } from '../../../../hooks/useQuery';
-import React, { useCallback, useEffect } from 'react';
-import { hideModalAction, showModalAction } from '../../../../store/modal/action';
+import React, { useCallback, useEffect, useState } from 'react';
 import { addNotificationAction } from '../../../../store/notifications/action';
 import { ENotificationType } from '../../../../store/notifications/state';
+import Modal from '../../Modal/Modal';
 
-interface IProps {
+export interface IMessageOptionsProps {
     messageId: string;
-    sequenceId: number;
-    confirmationModalTitle: string;
-    confirmationModalBody: string;
-    messageOptionCaption: string;
-    RequestFactory: (messageId: string, sequenceId: number) => TQueryRequest<void>;
+    sequenceId?: number;
+    messageOptionButtonCaption: string;
+    //RequestFactory(messageId: string): TQueryRequest<void>;
+    RequestFactory(messageId: string, sequenceId?: number): TQueryRequest<void>;
     successCallback: () => void;
     successMessage: string;
+    modalTitle: string;
+    modalBody: string;
+    modalButtonCancelCaption?: string;
+    modalButtonSubmitCaption?: string;
 }
 
-const MessageOptions: React.FC<IProps> = ({
+const MessageOptions: React.FC<IMessageOptionsProps> = ({
     messageId,
     sequenceId,
-    confirmationModalTitle,
-    confirmationModalBody,
-    messageOptionCaption,
+    modalTitle,
+    modalBody,
+    messageOptionButtonCaption,
     RequestFactory,
     successCallback,
-    successMessage
+    successMessage,
+    modalButtonCancelCaption,
+    modalButtonSubmitCaption
 }) => {
+    const [showModal, setShowModal] = useState(false);
     const dispatch = useDispatch();
     const query = useQuery<void>();
-    const sendQuery = useCallback((messageId: string, sequenceId: number) => {
-        query.sendQuery(RequestFactory(messageId, sequenceId));
-    }, []);
+
     useEffect(() => {
         if (query.state.status === EQueryStatus.SUCCESS) {
             dispatch(addNotificationAction(successMessage, ENotificationType.SUCCESS));
@@ -38,25 +42,31 @@ const MessageOptions: React.FC<IProps> = ({
         }
     }, [query.state]);
 
-    const confirm = (messageId: string, sequenceId: number) => {
-        dispatch(
-            showModalAction({
-                show: true,
-                title: confirmationModalTitle,
-                body: confirmationModalBody,
-                onCancel: () => dispatch(hideModalAction()),
-                onConfirmation: () => {
-                    dispatch(hideModalAction());
-                    sendQuery(messageId, sequenceId);
-                }
-            })
-        );
-    };
+    const onSubmit = useCallback(() => {
+        setShowModal(false);
+        if (sequenceId !== undefined) query.sendQuery(RequestFactory(messageId, sequenceId));
+        else query.sendQuery(RequestFactory(messageId));
+    }, []);
+
+    const onCancel = useCallback(() => setShowModal(false), []);
 
     return (
-        <button className={'btn btn-link shadow-none'} onClick={() => confirm(messageId, sequenceId)}>
-            {messageOptionCaption}
-        </button>
+        <>
+            <button className={'btn btn-link shadow-none dropdown-item'} onClick={() => setShowModal(true)}>
+                {messageOptionButtonCaption}
+            </button>
+            {showModal && (
+                <Modal
+                    title={modalTitle}
+                    onSubmit={onSubmit}
+                    onCancel={onCancel}
+                    cancelCaption={modalButtonCancelCaption ?? `I'm not sure`}
+                    submitCaption={modalButtonSubmitCaption ?? `Sure, I am`}
+                >
+                    <p>{modalBody}</p>
+                </Modal>
+            )}
+        </>
     );
 };
 

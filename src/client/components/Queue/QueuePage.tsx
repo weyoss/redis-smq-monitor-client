@@ -1,13 +1,19 @@
 import React from 'react';
-import { IQueuePageProps } from './contract';
 import ConsumerList from './ConsumerList';
 import ProducerList from './ProducerList';
 import RatesChart from '../common/RatesChart';
 import { generateRoutePath } from '../../routes/routes';
 import { Link } from 'react-router-dom';
 import { Badge, ListGroup } from 'react-bootstrap';
+import { IQueue } from '../../types/IQueue';
+import { IRates } from '../../types/IRates';
 
-const QueuePage: React.FC<IQueuePageProps> = ({ queue, rates }) => {
+interface IProps {
+    queue: IQueue | undefined;
+    rates: IRates;
+}
+
+const QueuePage: React.FC<IProps> = ({ queue, rates }) => {
     if (!queue) {
         return (
             <div>

@@ -26,8 +26,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start:dev": "run-p start:server start:webpack",
-        "start:server": "TS_NODE_PROJECT='tsconfig-server.json' nodemon src/client/tools/ws-server-launcher.ts",
-        "start:webpack": "webpack serve --progress --open",
+        "start:server": "TS_NODE_PROJECT='tsconfig-server.json' nodemon src/client/tools/start-monitor-server.ts",
+        "start:webpack": "webpack serve --progress --open  --mode development",
         "prebuild": "npm run build:clean",
         "build": "run-p build:client build:server",
         "build:clean": "rimraf ./dist && mkdir ./dist",
@@ -82,12 +82,12 @@
         "typescript": "3.9.7",
         "uplot": "1.2.1",
         "url-loader": "4.1.0",
-        "webpack": "5.46.0",
-        "webpack-cli": "4.7.2",
-        "webpack-dev-server": "3.11.2"
+        "webpack": "5.64.1",
+        "webpack-cli": "4.9.1",
+        "webpack-dev-server": "^4.5.0"
     },
     "dependencies": {
-        "koa": "^2.13.1",
-        "koa-send": "^5.0.1"
+        "koa": "2.13.1",
+        "koa-send": "5.0.1"
     }
 }

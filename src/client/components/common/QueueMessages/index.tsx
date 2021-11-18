@@ -1,17 +1,26 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { IGetQueueMessagesResponse } from '../../../transport/http/contract';
+import { TPaginatedResponse } from '../../../transport/http/contract';
 import { RouteComponentProps, useHistory, withRouter } from 'react-router';
 import queryString from 'query-string';
 import QueueMessageList from '../QueueMessageList';
 import { IQueueRouteParams } from '../../../routes/contract';
 import { TQueryRequest } from '../../../hooks/useQuery';
 import Query from '../Query';
+import { EMessagePriority, IMessage } from '../../../types/IMessage';
 
 interface IProps extends RouteComponentProps<IQueueRouteParams> {
-    FetchQueueMessagesRequestFactory: (skip: number, take: number) => TQueryRequest<IGetQueueMessagesResponse>;
-    DeleteQueueMessageRequestFactory: (messageId: string, sequenceId: number) => TQueryRequest<void>;
+    FetchQueueMessagesRequestFactory: (
+        skip: number,
+        take: number
+    ) => TQueryRequest<TPaginatedResponse<{ message: IMessage; sequenceId?: number }>>;
+    DeleteQueueMessageRequestFactory(messageId: string, sequenceId?: number): TQueryRequest<void>;
     RequeueMessageRequestFactory?: (messageId: string, sequenceId: number) => TQueryRequest<void>;
     deleteMessagesRequestCallback: TQueryRequest<void>;
+    RequeueMessageWithPriorityRequestFactory?: (
+        messageId: string,
+        sequenceId: number,
+        priority: EMessagePriority
+    ) => TQueryRequest<void>;
 }
 
 const getPaginationParams = (path: string, take = 10) => {
@@ -30,7 +39,8 @@ const QueueMessages: React.FC<IProps> = ({
     deleteMessagesRequestCallback,
     FetchQueueMessagesRequestFactory,
     DeleteQueueMessageRequestFactory,
-    RequeueMessageRequestFactory
+    RequeueMessageRequestFactory,
+    RequeueMessageWithPriorityRequestFactory
 }) => {
     const [paginationParams, setPaginationParams] = useState<{ skip: number; take: number; page: number }>(
         getPaginationParams(location.search)
@@ -74,6 +84,8 @@ const QueueMessages: React.FC<IProps> = ({
                         requeueMessageSuccessCallback={onMessageOperationSuccessCallback}
                         deleteMessagesRequestCallback={deleteMessagesRequestCallback}
                         deleteMessagesRequestSuccessCallback={onMessageOperationSuccessCallback}
+                        RequeueMessageWithPriorityRequestFactory={RequeueMessageWithPriorityRequestFactory}
+                        requeueMessageWithPrioritySuccessCallback={onMessageOperationSuccessCallback}
                     />
                 );
             }}

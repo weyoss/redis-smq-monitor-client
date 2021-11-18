@@ -1,28 +1,24 @@
 import { combineReducers, Store, createStore, applyMiddleware } from 'redux';
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 import thunk from 'redux-thunk';
-import { IApplicationState } from './contract';
+import { IStoreState } from './state';
 import { statsReducer } from './stats/reducer';
-import { modalReducer } from './modal/reducer';
 import { initialStatsState } from './stats/state';
-import { initialModalState } from './modal/state';
 import { notificationsReducer } from './notifications/reducer';
 import { initialNotificationsState } from './notifications/state';
 
 const createRootReducer = () =>
-    combineReducers<IApplicationState>({
+    combineReducers<IStoreState>({
         stats: statsReducer,
-        modal: modalReducer,
         notifications: notificationsReducer
     });
 
-export const initialState: IApplicationState = {
+export const initialState: IStoreState = {
     stats: initialStatsState,
-    modal: initialModalState,
     notifications: initialNotificationsState
 };
 
-export default function configureStore(state: IApplicationState = initialState): Store<IApplicationState> {
+export default function configureStore(state: IStoreState = initialState): Store<IStoreState> {
     const middleware = applyMiddleware(reduxImmutableStateInvariant(), thunk);
     return createStore(createRootReducer(), state, middleware);
 }

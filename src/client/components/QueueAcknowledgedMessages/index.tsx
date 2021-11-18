@@ -6,8 +6,10 @@ import {
     deleteQueueAcknowledgedMessage,
     getQueueAcknowledgedMessages,
     purgeAcknowledgedMessages,
-    requeueAcknowledgedMessage
+    requeueAcknowledgedMessage,
+    requeueAcknowledgedMessageWithPriority
 } from '../../transport/http/api';
+import { EMessagePriority } from '../../types/IMessage';
 
 interface IProps extends RouteComponentProps<IQueueRouteParams> {}
 
@@ -23,7 +25,12 @@ const QueueAcknowledgedMessages: React.FC<IProps> = (props) => {
         return () => requeueAcknowledgedMessage(namespace, queueName, messageId, sequenceId);
     }, []);
     const deleteMessagesRequestCallback = useCallback(() => purgeAcknowledgedMessages(namespace, queueName), []);
-
+    const RequeueQueueMessageRequestWithPriorityFactory = useCallback(
+        (messageId: string, sequenceId: number, priority: EMessagePriority) => {
+            return () => requeueAcknowledgedMessageWithPriority(namespace, queueName, messageId, sequenceId, priority);
+        },
+        []
+    );
     return (
         <>
             <h2 className={'display-5'}>
@@ -34,6 +41,7 @@ const QueueAcknowledgedMessages: React.FC<IProps> = (props) => {
                 DeleteQueueMessageRequestFactory={DeleteQueueMessageRequestFactory}
                 RequeueMessageRequestFactory={RequeueQueueMessageRequestFactory}
                 deleteMessagesRequestCallback={deleteMessagesRequestCallback}
+                RequeueMessageWithPriorityRequestFactory={RequeueQueueMessageRequestWithPriorityFactory}
             />
         </>
     );

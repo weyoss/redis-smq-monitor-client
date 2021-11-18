@@ -21,7 +21,7 @@ module.exports = {
     },
     output: {
         path: `${outPath}/assets/`,
-        publicPath: '/assets',
+        publicPath: isProduction ? '/assets/' : '/',
         filename: isProduction ? '[contenthash].js' : '[chunkhash].js',
         chunkFilename: isProduction ? '[name].[contenthash].js' : '[name].[chunkhash].js'
     },
@@ -71,7 +71,7 @@ module.exports = {
     },
     plugins: [
         new webpack.EnvironmentPlugin({
-            WS_URL: isProduction ? '' : 'http://localhost:4000',
+            API_URL: isProduction ? '' : 'http://localhost:3000',
             NODE_ENV: env,
             DEBUG: false
         }),
@@ -100,14 +100,14 @@ module.exports = {
         })
     ],
     devServer: {
-        contentBase: sourcePath,
-        hot: true,
-        inline: true,
-        historyApiFallback: {
-            disableDotRule: true
+        static: {
+            directory: sourcePath
         },
-        stats: 'minimal',
-        clientLogLevel: 'warning',
+        hot: true,
+        historyApiFallback: true,
+        client: {
+            logging: 'log'
+        },
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',

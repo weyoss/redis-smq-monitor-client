@@ -4,9 +4,9 @@ import MessageOption from './MessageOption';
 
 interface IProps {
     messageId: string;
-    sequenceId: number;
+    sequenceId?: number;
     deleteMessageSuccessCallback: () => void;
-    DeleteMessageRequestFactory: (messageId: string, sequenceId: number) => TQueryRequest<void>;
+    DeleteMessageRequestFactory: (messageId: string, sequenceId?: number) => TQueryRequest<void>;
 }
 
 const DeleteMessage: React.FC<IProps> = ({
@@ -19,9 +19,9 @@ const DeleteMessage: React.FC<IProps> = ({
         <MessageOption
             messageId={messageId}
             sequenceId={sequenceId}
-            confirmationModalTitle={`Message Deletion`}
-            confirmationModalBody={`Are you sure you want to delete this message?`}
-            messageOptionCaption={`Delete`}
+            modalTitle={`Message Deletion`}
+            modalBody={`Are you sure you want to delete this message?`}
+            messageOptionButtonCaption={`Delete`}
             RequestFactory={DeleteMessageRequestFactory}
             successCallback={deleteMessageSuccessCallback}
             successMessage={`Message ID ${messageId} has been successfully deleted.`}

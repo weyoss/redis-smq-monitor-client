@@ -5,16 +5,14 @@ import websocket from '../../transport/websocket';
 import { IStats } from '../../types/IStats';
 import { useDispatch } from 'react-redux';
 import { setInitializedAction, updateStatsAction } from '../../store/stats/action';
-import { IApplicationState } from '../../store/contract';
+import { IStoreState } from '../../store/state';
 import { IStatsState } from '../../store/stats/state';
 import useSelector from '../../hooks/useSelector';
-import { IModalState } from '../../store/modal/state';
 import { INotificationsState } from '../../store/notifications/state';
 
 const App = () => {
-    const statsState = useSelector<IApplicationState, IStatsState>((state) => state.stats);
-    const modalState = useSelector<IApplicationState, IModalState>((state) => state.modal);
-    const notificationsState = useSelector<IApplicationState, INotificationsState>((state) => state.notifications);
+    const statsState = useSelector<IStoreState, IStatsState>((state) => state.stats);
+    const notificationsState = useSelector<IStoreState, INotificationsState>((state) => state.notifications);
     const dispatch = useDispatch();
     useEffect(() => {
         if (statsState.init) {
@@ -31,7 +29,7 @@ const App = () => {
                 });
         }
     }, []);
-    return <AppPage statsState={statsState} modalState={modalState} notificationsState={notificationsState} />;
+    return <AppPage statsState={statsState} notificationsState={notificationsState} />;
 };
 
 export default App;

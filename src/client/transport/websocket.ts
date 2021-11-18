@@ -1,12 +1,12 @@
 import { io, Socket } from 'socket.io-client';
 
-const wsURL = process.env.WS_URL as string;
+const API_URL = process.env.API_URL ?? '';
 let socket: Socket | undefined;
 
 const connect = async (): Promise<Socket> => {
     console.log('Trying to connect to WS server...');
     return new Promise((resolve, reject) => {
-        const ws = io(wsURL);
+        const ws = io(API_URL);
         ws.once('connect', () => {
             console.log('Successfully connected to WS server.');
             resolve(ws);

@@ -3,12 +3,15 @@ import RatesTable from '../common/RatesTable';
 import RatesChart from '../common/RatesChart';
 import ConsumerResourcesChart from './ConsumerResourcesChart';
 import { IConsumer } from '../../types/IConsumer';
+import { Table } from 'react-bootstrap';
 
 interface IProps {
     consumer: IConsumer | undefined;
+    queueName: string;
+    namespace: string;
 }
 
-const ConsumerPage: React.FC<IProps> = ({ consumer }) => {
+const ConsumerPage: React.FC<IProps> = ({ queueName, namespace, consumer }) => {
     if (!consumer) {
         return (
             <div>
@@ -19,27 +22,34 @@ const ConsumerPage: React.FC<IProps> = ({ consumer }) => {
     }
     return (
         <>
-            <h2>ID: {consumer.id}</h2>
-            <h3>Info</h3>
-            <table className={'table .consumers'}>
-                <thead className={'table-light'}>
+            <h2>Consumer Info</h2>
+            <Table className={'table table-striped .consumers'} hover responsive>
+                <thead>
                     <tr>
-                        <th rowSpan={3}>PID</th>
-                        <th rowSpan={3}>Hostname</th>
-                        <th rowSpan={3}>IP Address</th>
+                        <th>ID</th>
+                        <th>Queue</th>
+                        <th>PID</th>
+                        <th>Hostname</th>
+                        <th>IP Address</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
+                        <td>{consumer.id}</td>
+                        <td>
+                            {queueName}@{namespace}
+                        </td>
                         <td>{consumer.resources.pid}</td>
                         <td>{consumer.resources.hostname}</td>
-                        <td>{consumer.resources.ipAddress.join(', ')}</td>
+                        <td>{consumer.resources.ipAddress.join(', ') || 'NA'}</td>
                     </tr>
                 </tbody>
-            </table>
-            <h3>RAM/CPU Usage</h3>
+            </Table>
+
+            <h2>RAM/CPU Usage</h2>
             <ConsumerResourcesChart consumer={consumer} />
-            <h3>Rates</h3>
+
+            <h2>Rates</h2>
             <RatesChart rates={consumer?.rates} />
             <RatesTable rates={consumer?.rates} />
         </>

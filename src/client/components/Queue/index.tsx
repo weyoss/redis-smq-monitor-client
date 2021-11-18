@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { IApplicationState } from '../../store/contract';
+import { IStoreState } from '../../store/state';
 import QueuePage from './QueuePage';
-import { QueuePropsInterface } from './contract';
 import { IRates } from '../../types/IRates';
 import { IConsumer } from '../../types/IConsumer';
 import { IProducer } from '../../types/IProducer';
 import { useSelector } from 'react-redux';
 import { IQueue } from '../../types/IQueue';
+import { RouteComponentProps } from 'react-router';
+import { IQueueRouteParams } from '../../routes/contract';
 
-const Queue: React.FC<QueuePropsInterface> = ({ match }) => {
+export interface IProps extends RouteComponentProps<IQueueRouteParams> {}
+
+const Queue: React.FC<IProps> = ({ match }) => {
     const { namespace, queueName } = match.params;
-    const queue = useSelector<IApplicationState, IQueue | undefined>((state) => {
+    const queue = useSelector<IStoreState, IQueue | undefined>((state) => {
         const queues = state.stats.queues;
         return queues[namespace] && queues[namespace][queueName];
     });

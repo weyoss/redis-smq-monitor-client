@@ -19,9 +19,9 @@ const RequeueMessage: React.FC<IProps> = ({
         <MessageOption
             messageId={messageId}
             sequenceId={sequenceId}
-            confirmationModalTitle={`Message Re-queuing`}
-            confirmationModalBody={`Are you sure you want to re-queue this message?`}
-            messageOptionCaption={`Re-queue`}
+            modalTitle={`Message Re-queuing`}
+            modalBody={`Are you sure you want to re-queue this message?`}
+            messageOptionButtonCaption={`Re-queue`}
             RequestFactory={RequeueMessageRequestFactory}
             successCallback={requeueMessageSuccessCallback}
             successMessage={`Message ID ${messageId} has been successfully re-queued.`}

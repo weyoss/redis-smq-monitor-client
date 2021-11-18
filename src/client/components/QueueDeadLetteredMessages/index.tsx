@@ -6,8 +6,10 @@ import {
     deleteQueueDeadLetteredMessage,
     getQueueDeadLetteredMessages,
     purgeDeadLetteredMessages,
-    requeueDeadLetteredMessage
+    requeueDeadLetteredMessage,
+    requeueDeadLetteredMessageWithPriority
 } from '../../transport/http/api';
+import { EMessagePriority } from '../../types/IMessage';
 
 interface IProps extends RouteComponentProps<IQueueRouteParams> {}
 
@@ -22,6 +24,12 @@ const QueueDeadLetteredMessages: React.FC<IProps> = (props) => {
     const RequeueQueueMessageRequestFactory = useCallback((messageId: string, sequenceId: number) => {
         return () => requeueDeadLetteredMessage(namespace, queueName, messageId, sequenceId);
     }, []);
+    const RequeueQueueMessageRequestWithPriorityFactory = useCallback(
+        (messageId: string, sequenceId: number, priority: EMessagePriority) => {
+            return () => requeueDeadLetteredMessageWithPriority(namespace, queueName, messageId, sequenceId, priority);
+        },
+        []
+    );
     const deleteMessagesRequestCallback = useCallback(() => purgeDeadLetteredMessages(namespace, queueName), []);
 
     return (
@@ -34,6 +42,7 @@ const QueueDeadLetteredMessages: React.FC<IProps> = (props) => {
                 DeleteQueueMessageRequestFactory={DeleteQueueMessageRequestFactory}
                 RequeueMessageRequestFactory={RequeueQueueMessageRequestFactory}
                 deleteMessagesRequestCallback={deleteMessagesRequestCallback}
+                RequeueMessageWithPriorityRequestFactory={RequeueQueueMessageRequestWithPriorityFactory}
             />
         </>
     );

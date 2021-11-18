@@ -13,7 +13,7 @@ const initialState = (duration: number, totalLines: number) => {
     return [new Array(duration).fill(0).map((i, index) => ts + index)].concat(linesData);
 };
 
-const UplotChart: React.FC<UPlotPropsInterface> = ({ data, scope, duration = 1800 }) => {
+const UplotChart: React.FC<UPlotPropsInterface> = ({ data, scope, duration = 300 }) => {
     const [timeline, updateTimeline] = useState(initialState(duration, data.length));
     const [uPlotInstance, setUPlotInstance] = useState<uPlot | null>(null);
     const plotRef = createRef<HTMLDivElement>();

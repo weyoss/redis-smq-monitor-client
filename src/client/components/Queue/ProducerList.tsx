@@ -21,8 +21,8 @@ const RenderList: React.FC<IProps> = ({ producers }) => {
         return <p>No producers yet.</p>;
     }
     return (
-        <Table className="table" hover>
-            <thead className="table-light">
+        <Table className="table table-striped" hover>
+            <thead>
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Published messages (msg/sec)</th>
