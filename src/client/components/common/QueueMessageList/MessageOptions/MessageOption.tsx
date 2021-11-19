@@ -9,7 +9,6 @@ export interface IMessageOptionsProps {
     messageId: string;
     sequenceId?: number;
     messageOptionButtonCaption: string;
-    //RequestFactory(messageId: string): TQueryRequest<void>;
     RequestFactory(messageId: string, sequenceId?: number): TQueryRequest<void>;
     successCallback: () => void;
     successMessage: string;

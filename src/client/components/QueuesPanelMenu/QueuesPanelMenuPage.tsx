@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { generateRoutePath } from '../../routes/routes';
+import { generateRoutePath, IQueueRouteParams } from '../../routes/routes';
 import { Spinner } from 'react-bootstrap';
 import { IQueue } from '../../types/IQueue';
-import { IQueueRouteParams } from '../../routes/contract';
 import { IQueueMap } from '../../types/IQueueMap';
 
 interface IProps {
@@ -12,7 +11,7 @@ interface IProps {
     loading: boolean;
 }
 
-const Render: React.FC<IProps> = ({ queues, matchedQueueParams, loading }) => {
+const RenderData: React.FC<IProps> = ({ queues, matchedQueueParams, loading }) => {
     if (loading) {
         return <Spinner animation={'border'} />;
     }
@@ -42,9 +41,9 @@ const Render: React.FC<IProps> = ({ queues, matchedQueueParams, loading }) => {
         }
         data.push(
             <div key={ns} className={'mb-3'}>
-                <h3 className={'mx-3 d-flex justify-content-between align-items-center text-break display-6'}>
+                <header className={'mb-1 mx-2 d-flex justify-content-between align-items-center text-break'}>
                     {ns} <small>{li.length}</small>
-                </h3>
+                </header>
                 <div className={'list-group'}>{li}</div>
             </div>
         );
@@ -55,11 +54,11 @@ const Render: React.FC<IProps> = ({ queues, matchedQueueParams, loading }) => {
     return <>{data}</>;
 };
 
-const QueueListPage: React.FC<IProps> = (props) => (
-    <div className={'mb-5'}>
+const QueuesPanelMenuPage: React.FC<IProps> = (props) => (
+    <div className={'mb-4'}>
         <h2 className={'display-5'}>Queues</h2>
-        <Render {...props} />
+        <RenderData {...props} />
     </div>
 );
 
-export default QueueListPage;
+export default QueuesPanelMenuPage;

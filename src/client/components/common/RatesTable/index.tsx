@@ -10,7 +10,7 @@ const RatesTable: React.FC<{ rates: IRates | IConsumerRates | IProducerRates }> 
                 <thead>
                     <tr>
                         <th>
-                            Input
+                            Published
                             <br /> msg/sec
                         </th>
                         <th>

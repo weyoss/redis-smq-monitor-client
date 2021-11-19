@@ -19,7 +19,11 @@ const RequeueMessageWithPriority: React.FC<IRequeueMessageWithPriorityProps> = (
     const closeHandler = useCallback(() => setOpenHandler(false), []);
     return (
         <>
-            <button className={'btn btn-link shadow-none dropdown-item'} onClick={() => setOpenHandler(true)}>
+            <button
+                key={`${props.messageId}-requeue-w-priority`}
+                className={'btn btn-link shadow-none dropdown-item'}
+                onClick={() => setOpenHandler(true)}
+            >
                 Re-queue message with priority
             </button>
             {openHandler && (

@@ -1,11 +1,11 @@
 import { RouteComponentProps, withRouter } from 'react-router';
 import React, { useCallback } from 'react';
-import { IQueueRouteParams } from '../../routes/contract';
 import QueueMessages from '../common/QueueMessages';
+import { IQueueRouteParams } from '../../routes/routes';
 import {
-    deleteQueuePendingMessageWithPriority,
+    purgePendingMessagesWithPriority,
     getQueuePendingMessagesWithPriority,
-    purgePendingMessagesWithPriority
+    deleteQueuePendingMessageWithPriority
 } from '../../transport/http/api';
 
 interface IProps extends RouteComponentProps<IQueueRouteParams> {}
@@ -36,9 +36,9 @@ const QueuePendingMessagesWithPriority: React.FC<IProps> = (props) => {
 
     return (
         <>
-            <h2 className={'display-5'}>
+            <h1 className={'display-4'}>
                 {queueName}@{namespace} / Pending messages with priority
-            </h2>
+            </h1>
             <QueueMessages
                 FetchQueueMessagesRequestFactory={FetchQueueMessagesRequestFactory}
                 DeleteQueueMessageRequestFactory={DeleteQueueMessageRequestFactory}

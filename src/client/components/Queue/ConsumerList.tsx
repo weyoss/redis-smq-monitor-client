@@ -9,7 +9,7 @@ interface IProps {
     consumers: IConsumerMap;
 }
 
-const RenderList: React.FC<IProps> = ({ consumers }) => {
+const RenderData: React.FC<IProps> = ({ consumers }) => {
     const data = [];
     for (const id in consumers) {
         const consumer = consumers[id];
@@ -106,8 +106,8 @@ const RenderList: React.FC<IProps> = ({ consumers }) => {
 
 const ConsumerList: React.FC<IProps> = (props) => {
     return (
-        <div className={'consumers'}>
-            <RenderList {...props} />
+        <div className={'mb-4'}>
+            <RenderData {...props} />
         </div>
     );
 };

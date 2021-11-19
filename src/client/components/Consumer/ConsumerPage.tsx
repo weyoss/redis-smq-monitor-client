@@ -22,7 +22,7 @@ const ConsumerPage: React.FC<IProps> = ({ queueName, namespace, consumer }) => {
     }
     return (
         <>
-            <h2>Consumer Info</h2>
+            <h1 className={'display-4'}>Consumer Info</h1>
             <Table className={'table table-striped .consumers'} hover responsive>
                 <thead>
                     <tr>
@@ -46,12 +46,12 @@ const ConsumerPage: React.FC<IProps> = ({ queueName, namespace, consumer }) => {
                 </tbody>
             </Table>
 
+            <h2>Rates</h2>
+            <RatesChart rates={consumer?.rates} scope={`rates-consumer-${consumer.id}`} />
+            <RatesTable rates={consumer?.rates} />
+
             <h2>RAM/CPU Usage</h2>
             <ConsumerResourcesChart consumer={consumer} />
-
-            <h2>Rates</h2>
-            <RatesChart rates={consumer?.rates} />
-            <RatesTable rates={consumer?.rates} />
         </>
     );
 };

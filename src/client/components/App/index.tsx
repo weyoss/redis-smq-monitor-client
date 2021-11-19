@@ -21,7 +21,7 @@ const App = () => {
                 .then((socket: Socket) => {
                     socket.on('stats', (stats: IStats) => {
                         if (statsState.init) dispatch(setInitializedAction());
-                        dispatch(updateStatsAction(stats));
+                        setTimeout(() => dispatch(updateStatsAction(stats)), 100);
                     });
                 })
                 .catch((e: Error) => {

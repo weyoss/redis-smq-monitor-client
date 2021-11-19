@@ -1,12 +1,12 @@
 import React from 'react';
 import { IStoreState } from '../../store/state';
-import OverviewPage from './OverviewPage';
+import HomePage from './HomePage';
 import { IRates } from '../../types/IRates';
 import { useSelector } from 'react-redux';
 
-const Overview: React.FC = () => {
+const Home: React.FC = () => {
     const rates = useSelector<IStoreState, IRates>((state) => state.stats.rates);
-    return <OverviewPage rates={rates} />;
+    return <HomePage rates={rates} />;
 };
 
-export default Overview;
+export default Home;

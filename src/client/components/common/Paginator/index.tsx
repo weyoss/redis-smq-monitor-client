@@ -7,7 +7,7 @@ interface IProps {
     itemsPerPage: number;
 }
 
-function paginator(totalItems: number, currentPage: number, itemsPerPage: number, chunkSize = 15) {
+function calculatePages(totalItems: number, currentPage: number, itemsPerPage: number, chunkSize = 15) {
     const totalPages = Math.ceil(totalItems / itemsPerPage);
     let rangeStart = 1;
     let rangeEnd = totalPages;
@@ -31,13 +31,13 @@ function paginator(totalItems: number, currentPage: number, itemsPerPage: number
     return new Array(rangeEnd - rangeStart + 1).fill(0).map((_, index) => rangeStart + index);
 }
 
-const Pager: React.FC<IProps> = (props) => {
+const Paginator: React.FC<IProps> = (props) => {
     const { totalItems, currentPage, itemsPerPage, onPageChange } = props;
-    const pages = paginator(totalItems, currentPage, itemsPerPage);
+    const pages = calculatePages(totalItems, currentPage, itemsPerPage);
     return (
         <ul className="nav justify-content-center">
             {pages.map((page) => (
-                <li className={`nav-item`}>
+                <li key={`page-${page}`} className={`nav-item`}>
                     <button
                         type="button"
                         className={`btn btn-link ${currentPage === page ? 'disabled' : ''}`}
@@ -51,4 +51,4 @@ const Pager: React.FC<IProps> = (props) => {
     );
 };
 
-export default Pager;
+export default Paginator;

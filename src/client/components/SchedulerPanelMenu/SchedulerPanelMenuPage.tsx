@@ -8,24 +8,26 @@ interface IProps {
     loading: boolean;
 }
 
-const SchedulerPage: React.FC<IProps> = ({ count, loading }) => {
+const SchedulerPanelMenuPage: React.FC<IProps> = ({ count, loading }) => {
     return (
-        <div className={'mb-5'}>
+        <div className={'mb-4'}>
             <h2 className={'display-5'}>Scheduler</h2>
-            <div className={'list-group'}>
-                {loading ? (
-                    <Spinner animation={'border'} />
-                ) : (
+            {loading ? (
+                <Spinner animation={'border'} />
+            ) : count ? (
+                <div className={'list-group'}>
                     <Link
                         className={`text-break list-group-item list-group-item-action d-flex justify-content-between align-items-center`}
                         to={generateRoutePath('scheduledMessages', {})}
                     >
                         Messages <span className="badge bg-primary rounded-pill">{count}</span>
                     </Link>
-                )}
-            </div>
+                </div>
+            ) : (
+                <p>No scheduled messages yet.</p>
+            )}
         </div>
     );
 };
 
-export default SchedulerPage;
+export default SchedulerPanelMenuPage;

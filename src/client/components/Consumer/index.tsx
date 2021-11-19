@@ -4,7 +4,7 @@ import { IStoreState } from '../../store/state';
 import { IConsumer } from '../../types/IConsumer';
 import ConsumerPage from './ConsumerPage';
 import { RouteComponentProps } from 'react-router';
-import { IConsumerRouteParams } from '../../routes/contract';
+import { IConsumerRouteParams } from '../../routes/routes';
 
 interface IProps extends RouteComponentProps<IConsumerRouteParams> {}
 

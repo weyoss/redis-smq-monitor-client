@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Pager from '../Pager';
+import Paginator from '../Paginator';
 import MessageOptions, { IMessageOptionsSharedProps } from './MessageOptions';
 import { ListGroup, Table } from 'react-bootstrap';
 import DeleteMessages from './DeleteMessages';
@@ -93,7 +93,7 @@ const QueueMessageList: React.FC<IProps> = (props) => {
                     })}
                 </tbody>
             </Table>
-            <Pager
+            <Paginator
                 totalItems={messages.total}
                 onPageChange={onSelectPageCallback}
                 currentPage={pageParams.page}

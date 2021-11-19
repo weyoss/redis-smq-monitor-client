@@ -1,40 +1,32 @@
 import React from 'react';
 import { IConsumerRates, IProducerRates, IRates } from '../../../types/IRates';
-import { UPlotDataType } from '../UPlotChart/contract';
-import UplotChart from '../UPlotChart';
+import RechartsLineChart, { TRechartChartPropsLines } from '../LineChart/RechartsLineChart';
 
-const RatesChart: React.FC<{ rates: IRates | IConsumerRates | IProducerRates; scope?: string }> = ({
-    rates,
-    scope
-}) => {
+const RatesChart: React.FC<{ rates: IRates | IConsumerRates | IProducerRates; scope: string }> = ({ scope, rates }) => {
     const { input = 0, acknowledged = 0, unacknowledged = 0, processing = 0 } = rates as IRates;
-    const data: UPlotDataType = [
-        {
-            label: 'Input',
-            value: input,
+    const lines: TRechartChartPropsLines = {
+        input: {
+            name: 'Published',
             color: '#1f78b4',
-            scale: 'msg/sec'
+            value: input
         },
-        {
-            label: 'Processing',
-            value: processing,
+        processing: {
+            name: 'Processing',
             color: '#e8a838',
-            scale: 'msg/sec'
+            value: processing
         },
-        {
-            label: 'Acknowledged',
-            value: acknowledged,
+        acknowledged: {
+            name: 'Acknowledged',
             color: '#61cdbb',
-            scale: 'msg/sec'
+            value: acknowledged
         },
-        {
-            label: 'Unacknowledged',
-            value: unacknowledged,
+        unacknowledged: {
+            name: 'Unacknowledged',
             color: '#f47560',
-            scale: 'msg/sec'
+            value: unacknowledged
         }
-    ];
-    return <UplotChart data={data} scope={scope} />;
+    };
+    return <RechartsLineChart lines={lines} scope={scope} />;
 };
 
 export default RatesChart;

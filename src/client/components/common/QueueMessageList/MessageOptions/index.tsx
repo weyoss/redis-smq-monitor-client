@@ -38,6 +38,7 @@ const MessageOptions: React.FC<IMessageOptionsProps> = ({
     if (RequeueMessageRequestFactory && requeueMessageSuccessCallback && sequenceId) {
         options.push(
             <RequeueMessage
+                key={`${messageId}-requeue`}
                 messageId={messageId}
                 sequenceId={sequenceId}
                 requeueMessageSuccessCallback={requeueMessageSuccessCallback}
@@ -48,6 +49,7 @@ const MessageOptions: React.FC<IMessageOptionsProps> = ({
     if (RequeueMessageWithPriorityRequestFactory && requeueMessageWithPrioritySuccessCallback && sequenceId) {
         options.push(
             <RequeueMessageWithPriority
+                key={`${messageId}-requeue-w-priority`}
                 messageId={messageId}
                 sequenceId={sequenceId}
                 RequeueMessageRequestFactory={RequeueMessageWithPriorityRequestFactory}
@@ -57,6 +59,7 @@ const MessageOptions: React.FC<IMessageOptionsProps> = ({
     }
     options.push(
         <DeleteMessage
+            key={`${messageId}-delete`}
             messageId={messageId}
             sequenceId={sequenceId}
             deleteMessageSuccessCallback={deleteMessageSuccessCallback}

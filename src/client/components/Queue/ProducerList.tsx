@@ -35,7 +35,7 @@ const RenderList: React.FC<IProps> = ({ producers }) => {
 
 const ProducerList: React.FC<IProps> = (props) => {
     return (
-        <div className={'Producers margin-bottom'}>
+        <div>
             <RenderList {...props} />
         </div>
     );

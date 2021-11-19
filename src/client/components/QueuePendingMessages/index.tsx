@@ -1,8 +1,8 @@
 import { RouteComponentProps, withRouter } from 'react-router';
 import React, { useCallback } from 'react';
-import { IQueueRouteParams } from '../../routes/contract';
 import QueueMessages from '../common/QueueMessages';
-import { deleteQueuePendingMessage, getQueuePendingMessages, purgePendingMessages } from '../../transport/http/api';
+import { IQueueRouteParams } from '../../routes/routes';
+import { purgePendingMessages, deleteQueuePendingMessage, getQueuePendingMessages } from '../../transport/http/api';
 
 interface IProps extends RouteComponentProps<IQueueRouteParams> {}
 
@@ -18,9 +18,9 @@ const QueuePendingMessages: React.FC<IProps> = (props) => {
 
     return (
         <>
-            <h2 className={'display-5'}>
+            <h1 className={'display-4'}>
                 {queueName}@{namespace} / Pending messages
-            </h2>
+            </h1>
             <QueueMessages
                 FetchQueueMessagesRequestFactory={FetchQueueMessagesRequestFactory}
                 DeleteQueueMessageRequestFactory={DeleteQueueMessageRequestFactory}

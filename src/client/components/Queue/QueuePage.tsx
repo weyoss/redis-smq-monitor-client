@@ -32,11 +32,12 @@ const QueuePage: React.FC<IProps> = ({ queue, rates }) => {
         consumers,
         producers
     } = queue;
+
     return (
         <div className={'queue fullWidth'}>
-            <h2 className={'display-5'}>
+            <h1 className={'display-4'}>
                 {queueName}@{namespace}
-            </h2>
+            </h1>
             <ListGroup horizontal className={'mb-4'}>
                 <ListGroup.Item>
                     <Link

@@ -1,18 +1,18 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { TPaginatedResponse } from '../../../transport/http/contract';
 import { RouteComponentProps, useHistory, withRouter } from 'react-router';
 import queryString from 'query-string';
 import QueueMessageList from '../QueueMessageList';
-import { IQueueRouteParams } from '../../../routes/contract';
 import { TQueryRequest } from '../../../hooks/useQuery';
 import Query from '../Query';
 import { EMessagePriority, IMessage } from '../../../types/IMessage';
+import { IQueueRouteParams } from '../../../routes/routes';
+import { TPaginatedHTTPResponse } from '../../../transport/http/api';
 
 interface IProps extends RouteComponentProps<IQueueRouteParams> {
     FetchQueueMessagesRequestFactory: (
         skip: number,
         take: number
-    ) => TQueryRequest<TPaginatedResponse<{ message: IMessage; sequenceId?: number }>>;
+    ) => TQueryRequest<TPaginatedHTTPResponse<{ message: IMessage; sequenceId?: number }>>;
     DeleteQueueMessageRequestFactory(messageId: string, sequenceId?: number): TQueryRequest<void>;
     RequeueMessageRequestFactory?: (messageId: string, sequenceId: number) => TQueryRequest<void>;
     deleteMessagesRequestCallback: TQueryRequest<void>;

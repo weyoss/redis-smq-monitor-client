@@ -1,20 +1,24 @@
 import React from 'react';
-import { IOverviewPageProps } from './contract';
 import RatesTable from '../common/RatesTable';
 import RatesChart from '../common/RatesChart';
+import { IRates } from '../../types/IRates';
 
-const OverviewPage: React.FC<IOverviewPageProps> = ({ rates }) => {
+interface IProps {
+    rates: IRates;
+}
+
+const HomePage: React.FC<IProps> = ({ rates }) => {
     return (
-        <div className={'overview fullWidth'}>
-            <h2>Global Rates</h2>
+        <>
+            <h1 className={'display-4'}>Global Rates</h1>
             <p>
                 The following metrics are gathered from all existing queues in the system. Select a specific queue from
                 the queue listing, to view its metrics.
             </p>
-            <RatesChart rates={rates} />
+            <RatesChart rates={rates} scope={'global-rates'} />
             <RatesTable rates={rates} />
-        </div>
+        </>
     );
 };
 
-export default OverviewPage;
+export default HomePage;

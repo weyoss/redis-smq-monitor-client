@@ -1,4 +1,4 @@
-import Overview from '../components/Overview';
+import Home from '../components/Home';
 import Queue from '../components/Queue';
 import PageNotFound from '../components/common/Errors/PageNotFound';
 import { generatePath, matchPath, RouteProps } from 'react-router';
@@ -8,6 +8,15 @@ import QueueAcknowledgedMessages from '../components/QueueAcknowledgedMessages';
 import QueueDeadLetteredMessages from '../components/QueueDeadLetteredMessages';
 import QueuePendingMessagesWithPriority from '../components/QueuePendingMessagesWithPriority';
 import ScheduledMessages from '../components/ScheduledMessages';
+
+export interface IQueueRouteParams {
+    queueName: string;
+    namespace: string;
+}
+
+export interface IConsumerRouteParams extends IQueueRouteParams {
+    consumerId: string;
+}
 
 export function matchRouteParams<T extends {}>(routeKey: keyof typeof routes, location: string) {
     const routeProps = routes[routeKey];
@@ -34,7 +43,7 @@ const routes = {
     home: {
         path: '/',
         exact: true,
-        component: Overview,
+        component: Home,
         name: 'Home'
     },
     queue: {

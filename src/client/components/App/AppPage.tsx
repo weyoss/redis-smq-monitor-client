@@ -2,16 +2,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 
 import React from 'react';
-import Header from '../common/Header';
+import Logo from '../common/Logo';
 import Footer from '../common/Footer';
 import Routes from '../../routes';
 import { BrowserRouter } from 'react-router-dom';
-import QueueListing from '../QueueList';
+import QueuesPanelMenu from '../QueuesPanelMenu';
 import { Spinner } from 'react-bootstrap';
 import { IStatsState } from '../../store/stats/state';
 import { INotificationsState } from '../../store/notifications/state';
 import Notification from '../common/Notification/Notification';
-import Scheduler from '../Scheduler';
+import SchedulerPanelMenu from '../SchedulerPanelMenu';
 
 interface IProps {
     statsState: IStatsState;
@@ -26,12 +26,12 @@ const Page: React.FC<IProps> = (props) => {
     }
     return (
         <>
-            <Header />
             <Notification stack={notificationsState.stack} />
             <div className="mainContainer">
                 <div className={'sidePanel'}>
-                    <QueueListing />
-                    <Scheduler />
+                    <Logo />
+                    <QueuesPanelMenu />
+                    <SchedulerPanelMenu />
                 </div>
                 <div className={'page'}>
                     <Routes />

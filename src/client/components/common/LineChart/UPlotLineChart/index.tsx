@@ -1,26 +1,39 @@
-import React, { createRef, useEffect, useState } from 'react';
-import uPlot from 'uplot';
-import { UPlotPropsInterface } from './contract';
-
 import 'uplot/dist/uPlot.min.css';
 import './style.css';
 
-const now = () => Math.round(Date.now() / 1000);
+import React, { createRef, useEffect, useState } from 'react';
+import UPlot, { AlignedData } from 'uplot';
 
-const initialState = (duration: number, totalLines: number) => {
-    const ts = now() - duration;
-    const linesData = new Array(totalLines).fill(null).map(() => new Array(duration).fill(0));
-    return [new Array(duration).fill(0).map((i, index) => ts + index)].concat(linesData);
+export interface IUPlotLineChartProps {
+    lines: IUPlotLineChartLine[];
+    scope?: string;
+    duration?: number;
+}
+
+export interface IUPlotLineChartLine {
+    label: string;
+    value: number;
+    scale: string;
+    color: string;
+}
+
+const initialState = (duration: number, totalLines: number): AlignedData => {
+    const ts = Date.now() - duration;
+    const d: AlignedData = [new Array(duration).fill(0).map((i, index) => ts + index)];
+    for (let i = 0; i < totalLines; i += 1) {
+        d.push(new Array(duration).fill(0));
+    }
+    return d;
 };
 
-const UplotChart: React.FC<UPlotPropsInterface> = ({ data, scope, duration = 300 }) => {
-    const [timeline, updateTimeline] = useState(initialState(duration, data.length));
-    const [uPlotInstance, setUPlotInstance] = useState<uPlot | null>(null);
+const UplotLineChart: React.FC<IUPlotLineChartProps> = ({ lines, scope, duration = 300 }) => {
+    const [timeline, updateTimeline] = useState<AlignedData>(initialState(duration, lines.length));
+    const [uPlotInstance, setUPlotInstance] = useState<UPlot | null>(null);
     const plotRef = createRef<HTMLDivElement>();
 
     useEffect(() => {
         const htmlElement = plotRef.current!;
-        const opts: uPlot.Options = {
+        const opts: UPlot.Options = {
             width: 0,
             height: 0,
             series: [
@@ -32,8 +45,8 @@ const UplotChart: React.FC<UPlotPropsInterface> = ({ data, scope, duration = 300
             ],
             axes: [{}]
         };
-        if (data.length) {
-            data.map((value) => {
+        if (lines.length) {
+            lines.map((value) => {
                 opts.series.push({
                     label: value.label,
                     stroke: value.color,
@@ -53,7 +66,7 @@ const UplotChart: React.FC<UPlotPropsInterface> = ({ data, scope, duration = 300
                 }
             });
         }
-        const instance = new uPlot(
+        const instance = new UPlot(
             { ...opts, width: htmlElement.clientWidth, height: htmlElement.clientHeight - 50 },
             timeline,
             htmlElement
@@ -63,17 +76,17 @@ const UplotChart: React.FC<UPlotPropsInterface> = ({ data, scope, duration = 300
 
     useEffect(() => {
         const [timestamp, ...rest] = timeline;
-        timestamp.push(now());
+        timestamp.push(Math.round(Date.now() / 1000));
         timestamp.shift();
-        data.map((item, index) => {
+        lines.map((item, index) => {
             rest[index].push(item.value);
             rest[index].shift();
         });
         updateTimeline([timestamp, ...rest]);
-    }, [data]);
+    }, [lines]);
 
     useEffect(() => {
-        updateTimeline(initialState(duration, data.length));
+        updateTimeline(initialState(duration, lines.length));
     }, [scope]);
 
     useEffect(() => {
@@ -84,7 +97,9 @@ const UplotChart: React.FC<UPlotPropsInterface> = ({ data, scope, duration = 300
         const [ts, ...rest] = timeline;
         const diff = ts.length - duration;
         if (diff > 0) {
-            const draft = timeline.map((value) => value.slice(diff));
+            const [xAxisData, ...rest] = timeline;
+            const draft: AlignedData = [xAxisData.slice(diff)];
+            rest.forEach((yAxisData) => draft.push(yAxisData.slice(diff)));
             updateTimeline(draft);
         } else if (diff < 0) {
             const start = ts[0] + diff;
@@ -101,7 +116,7 @@ const UplotChart: React.FC<UPlotPropsInterface> = ({ data, scope, duration = 300
         if (uPlotInstance) {
             uPlotInstance.setSize({ width: 0, height: 0 });
             const holder = plotRef.current!.parentElement!;
-            setImmediate(() => {
+            setTimeout(() => {
                 const { clientWidth, clientHeight } = holder;
                 uPlotInstance.setSize({ width: clientWidth, height: clientHeight - 50 });
             });
@@ -115,4 +130,4 @@ const UplotChart: React.FC<UPlotPropsInterface> = ({ data, scope, duration = 300
     );
 };
 
-export default UplotChart;
+export default UplotLineChart;

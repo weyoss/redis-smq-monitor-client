@@ -1,7 +1,9 @@
 import { withRouter } from 'react-router';
 import React, { useCallback } from 'react';
 import QueueMessages from '../common/QueueMessages';
-import { getScheduledMessages, purgeScheduledMessages, deleteScheduledMessage } from '../../transport/http/api';
+import { purgeScheduledMessages } from '../../transport/http/api';
+import { getScheduledMessages } from '../../transport/http/api';
+import { deleteScheduledMessage } from '../../transport/http/api';
 
 const ScheduledMessages: React.FC = () => {
     const FetchQueueMessagesRequestFactory = useCallback((skip: number, take: number) => {
@@ -27,7 +29,7 @@ const ScheduledMessages: React.FC = () => {
 
     return (
         <>
-            <h2 className={'display-5'}>Scheduled Messages</h2>
+            <h1 className={'display-4'}>Scheduled Messages</h1>
             <QueueMessages
                 FetchQueueMessagesRequestFactory={FetchQueueMessagesRequestFactory}
                 DeleteQueueMessageRequestFactory={DeleteQueueMessageRequestFactory}
