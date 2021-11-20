@@ -39,5 +39,5 @@ export const deleteQueueAcknowledgedMessage = async (
 };
 
 export const deleteScheduledMessage = async (messageId: string) => {
-    return axios.delete(`${API_URL}/api/scheduled-messages?messageId=${messageId}`);
+    return axios.delete(`${API_URL}/api/scheduled-messages/${messageId}`);
 };
