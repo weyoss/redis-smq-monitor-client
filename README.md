@@ -1,5 +1,6 @@
 
-![RedisSMQ Monitor](./screenshots/monitor.png?hash=1237)
+![RedisSMQ Monitor home](./screenshots/screenshot-00001.png)
+![RedisSMQ Monitor acknowledged messages](./screenshots/screenshot-00004.png)
 
 # RedisSMQ Monitor
 
