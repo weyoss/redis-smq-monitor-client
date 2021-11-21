@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 5.0.0 (2021-11-22)
+
+* Integrated RedisSMQ REST API allowing to manage queues and messages.
+* Bug fixes and improvements regarding UI experience and page layout.
+* Updated line charts.
+
 ## 4.0.0 (2021-11-02)
 
 * Updated models to match metrics from redis-smq v4.
