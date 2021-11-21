@@ -2,6 +2,8 @@
 ![RedisSMQ Monitor home](./screenshots/screenshot-00001.png)
 ![RedisSMQ Monitor acknowledged messages](./screenshots/screenshot-00004.png)
 
+[See more screenshots](./screenshots).
+
 # RedisSMQ Monitor
 
 `RedisSMQ Monitor` is an interface which let you monitor, debug, and manage your RedisSMQ server from a web browser in
