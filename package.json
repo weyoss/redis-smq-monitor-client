@@ -32,7 +32,8 @@
         "build": "run-p build:client build:server",
         "build:clean": "rimraf ./dist && mkdir ./dist",
         "build:client": "NODE_ENV=production webpack --progress",
-        "build:server": "NODE_ENV=production tsc --project tsconfig-server.json"
+        "build:server": "NODE_ENV=production tsc --project tsconfig-server.json",
+        "prepublishOnly": "npm run build"
     },
     "devDependencies": {
         "@babel/core": "7.11.6",
