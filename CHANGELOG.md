@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 5.0.1 (2021-11-22)
+
+* Fixed broken dist.
+* Always run a new build before publishing.
+
 ## 5.0.0 (2021-11-22)
 
 * Integrated RedisSMQ REST API allowing to manage queues and messages.
