@@ -4,11 +4,10 @@ import RatesChart from '../common/RatesChart';
 import ConsumerResourcesChart from './ConsumerResourcesChart';
 import { IConsumer } from '../../types/IConsumer';
 import { Table } from 'react-bootstrap';
+import { IConsumerRouteParams } from '../../routes/routes/consumer';
 
-interface IProps {
+interface IProps extends IConsumerRouteParams {
     consumer: IConsumer | undefined;
-    queueName: string;
-    namespace: string;
 }
 
 const ConsumerPage: React.FC<IProps> = ({ queueName, namespace, consumer }) => {

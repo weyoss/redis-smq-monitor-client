@@ -7,11 +7,9 @@ import { IProducer } from '../../types/IProducer';
 import { useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import { IQueue } from '../../types/IQueue';
-import { IQueueRouteParams } from '../../routes/routes';
+import { IQueueRouteParams } from '../../routes/routes/queue';
 
-export interface IProps extends RouteComponentProps<IQueueRouteParams> {}
-
-const Queue: React.FC<IProps> = ({ match }) => {
+const Queue: React.FC<RouteComponentProps<IQueueRouteParams>> = ({ match }) => {
     const { namespace, queueName } = match.params;
     const selectedQueue = useSelector<IStoreState, IQueue>((state) => {
         return state.stats.queues[namespace] && state.stats.queues[namespace][queueName];

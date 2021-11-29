@@ -5,8 +5,8 @@ import QueueMessageList from '../QueueMessageList';
 import { TQueryRequest } from '../../../hooks/useQuery';
 import Query from '../Query';
 import { EMessagePriority, IMessage } from '../../../types/IMessage';
-import { IQueueRouteParams } from '../../../routes/routes';
 import { TPaginatedHTTPResponse } from '../../../transport/http/api';
+import { IQueueRouteParams } from '../../../routes/routes/queue';
 
 interface IProps extends RouteComponentProps<IQueueRouteParams> {
     FetchQueueMessagesRequestFactory: (

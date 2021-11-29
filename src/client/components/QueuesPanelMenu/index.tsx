@@ -4,7 +4,7 @@ import QueuesPanelMenuPage from './QueuesPanelMenuPage';
 import { IStoreState } from '../../store/state';
 import { IStatsState } from '../../store/stats/state';
 import useSelector from '../../hooks/useSelector';
-import { matchRoute } from '../../routes/routes';
+import { matchRoute } from '../../routes/common';
 
 const QueuesPanelMenu: React.FC<RouteComponentProps> = (props) => {
     const { queues, loading } = useSelector<IStoreState, IStatsState>((state) => state.stats);

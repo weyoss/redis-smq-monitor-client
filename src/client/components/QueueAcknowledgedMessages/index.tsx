@@ -2,7 +2,6 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import React, { useCallback } from 'react';
 import QueueMessages from '../common/QueueMessages';
 import { EMessagePriority } from '../../types/IMessage';
-import { IQueueRouteParams } from '../../routes/routes';
 import {
     requeueAcknowledgedMessage,
     requeueAcknowledgedMessageWithPriority,
@@ -10,10 +9,9 @@ import {
     deleteQueueAcknowledgedMessage,
     getQueueAcknowledgedMessages
 } from '../../transport/http/api';
+import { IQueueRouteParams } from '../../routes/routes/queue';
 
-interface IProps extends RouteComponentProps<IQueueRouteParams> {}
-
-const QueueAcknowledgedMessages: React.FC<IProps> = (props) => {
+const QueueAcknowledgedMessages: React.FC<RouteComponentProps<IQueueRouteParams>> = (props) => {
     const { namespace, queueName } = props.match.params;
     const FetchQueueMessagesRequestFactory = useCallback((skip: number, take: number) => {
         return () => getQueueAcknowledgedMessages(namespace, queueName, skip, take);

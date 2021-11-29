@@ -1,7 +1,8 @@
 import React from 'react';
-import routes from '../../../routes/routes';
+import * as routes from '../../../routes/routes';
 import { RouteComponentProps, RouteProps } from 'react-router';
 import { Link } from 'react-router-dom';
+import { IParameterizedRouteProps } from '../../../routes/common';
 
 const relative = (child: string, parent: string) => {
     if (parent === '/') return true;
@@ -16,9 +17,9 @@ const relative = (child: string, parent: string) => {
 };
 
 const Breadcrumbs: React.FC<RouteComponentProps> = ({ match }) => {
-    const crumbs = Object.values(routes)
+    const crumbs = Object.values<IParameterizedRouteProps<any>>(routes)
         .filter(({ path }: RouteProps) => typeof path === 'string' && relative(match.path, path))
-        .map(({ path, ...rest }: RouteProps) => ({
+        .map(({ path, ...rest }) => ({
             path: Object.keys(match.params).length
                 ? Object.keys(match.params).reduce(
                       (path: string, param) => path.replace(`:${param}`, (match.params as any)[param]),
@@ -32,11 +33,11 @@ const Breadcrumbs: React.FC<RouteComponentProps> = ({ match }) => {
     }
     return (
         <div className={'mb-3'}>
-            {crumbs.map((item: any, index) => (
+            {crumbs.map((item, index) => (
                 <span key={index}>
                     <span>/</span>
                     <Link className={'ms-3 me-3'} to={item.path}>
-                        {item.name}
+                        {item.caption}
                     </Link>
                 </span>
             ))}

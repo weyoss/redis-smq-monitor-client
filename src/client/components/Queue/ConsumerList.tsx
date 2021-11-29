@@ -1,5 +1,5 @@
 import React from 'react';
-import { generateRoutePath } from '../../routes/routes';
+import * as routes from '../../routes/routes';
 import { Link } from 'react-router-dom';
 import { formatBytes } from '../../tools/utils';
 import { IConsumerMap } from '../../types/IConsumerMap';
@@ -18,7 +18,7 @@ const RenderData: React.FC<IProps> = ({ consumers }) => {
                 <td>
                     <Link
                         key={consumer.id}
-                        to={generateRoutePath('consumer', {
+                        to={routes.consumer.getLink({
                             consumerId: consumer.id,
                             namespace: consumer.namespace,
                             queueName: consumer.queueName

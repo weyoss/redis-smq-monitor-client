@@ -1,12 +1,10 @@
 import { RouteComponentProps, withRouter } from 'react-router';
 import React, { useCallback } from 'react';
 import QueueMessages from '../common/QueueMessages';
-import { IQueueRouteParams } from '../../routes/routes';
 import { purgePendingMessages, deleteQueuePendingMessage, getQueuePendingMessages } from '../../transport/http/api';
+import { IQueueRouteParams } from '../../routes/routes/queue';
 
-interface IProps extends RouteComponentProps<IQueueRouteParams> {}
-
-const QueuePendingMessages: React.FC<IProps> = (props) => {
+const QueuePendingMessages: React.FC<RouteComponentProps<IQueueRouteParams>> = (props) => {
     const { namespace, queueName } = props.match.params;
     const FetchQueueMessagesRequestFactory = useCallback((skip: number, take: number) => {
         return () => getQueuePendingMessages(namespace, queueName, skip, take);

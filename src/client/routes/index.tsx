@@ -1,7 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import routes from './routes';
 import Breadcrumbs from '../components/common/Breadcrumbs';
+import * as routes from './routes';
+import PageNotFound from '../components/common/Errors/PageNotFound';
 
 const Routes: React.FC = () => {
     return (
@@ -21,6 +22,7 @@ const Routes: React.FC = () => {
                     />
                 );
             })}
+            <Route key={'page-not-found'} component={PageNotFound} />
         </Switch>
     );
 };

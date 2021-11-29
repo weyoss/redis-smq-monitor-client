@@ -2,7 +2,7 @@ import React from 'react';
 import ConsumerList from './ConsumerList';
 import ProducerList from './ProducerList';
 import RatesChart from '../common/RatesChart';
-import { generateRoutePath } from '../../routes/routes';
+import * as routes from '../../routes/routes';
 import { Link } from 'react-router-dom';
 import { Badge, ListGroup } from 'react-bootstrap';
 import { IQueue } from '../../types/IQueue';
@@ -42,7 +42,7 @@ const QueuePage: React.FC<IProps> = ({ queue, rates }) => {
                 <ListGroup.Item>
                     <Link
                         key={`${namespace}-${queueName}-pending-messages`}
-                        to={generateRoutePath('queuePendingMessages', {
+                        to={routes.queuePendingMessages.getLink({
                             namespace,
                             queueName
                         })}
@@ -55,7 +55,7 @@ const QueuePage: React.FC<IProps> = ({ queue, rates }) => {
                 <ListGroup.Item>
                     <Link
                         key={`${namespace}-${queueName}-pending-messages-with-priority`}
-                        to={generateRoutePath('queuePendingMessagesWithPriority', {
+                        to={routes.queuePendingMessagesWithPriority.getLink({
                             namespace,
                             queueName
                         })}
@@ -68,7 +68,7 @@ const QueuePage: React.FC<IProps> = ({ queue, rates }) => {
                 <ListGroup.Item>
                     <Link
                         key={`${namespace}-${queueName}-acknowledged-messages`}
-                        to={generateRoutePath('queueAcknowledgedMessages', {
+                        to={routes.queueAcknowledgedMessages.getLink({
                             namespace,
                             queueName
                         })}
@@ -81,7 +81,7 @@ const QueuePage: React.FC<IProps> = ({ queue, rates }) => {
                 <ListGroup.Item>
                     <Link
                         key={`${namespace}-${queueName}-dead-lettered-messages`}
-                        to={generateRoutePath('queueDeadLetteredMessages', {
+                        to={routes.queueDeadLetteredMessages.getLink({
                             namespace,
                             queueName
                         })}

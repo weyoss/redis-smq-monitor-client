@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { generateRoutePath, IQueueRouteParams } from '../../routes/routes';
 import { Spinner } from 'react-bootstrap';
 import { IQueue } from '../../types/IQueue';
 import { IQueueMap } from '../../types/IQueueMap';
+import { IQueueRouteParams } from '../../routes/routes/queue';
+import * as routes from '../../routes/routes';
 
 interface IProps {
     queues: IQueueMap;
@@ -30,7 +31,7 @@ const RenderData: React.FC<IProps> = ({ queues, matchedQueueParams, loading }) =
                 <Link
                     key={`${ns}-${queueName}`}
                     className={`${className}text-break list-group-item list-group-item-action d-flex justify-content-between align-items-center`}
-                    to={generateRoutePath('queue', { queueName, namespace: ns })}
+                    to={routes.queue.getLink({ queueName, namespace: ns })}
                 >
                     {queue.queueName}{' '}
                     <span className="badge bg-primary rounded-pill">
