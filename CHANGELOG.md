@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 5.0.4 (2021-12-01)
+
+* Refactored application routing.
+* Added a custom error page for XHR requests errors.
+
 ## 5.0.3 (2021-11-24)
 
 * Updated RedisSMQ logo.
