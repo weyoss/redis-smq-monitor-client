@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 5.0.5 (2021-12-04)
+
+* Fixed table heading captions in ConsumerResourcesChart.
+* Updated screenshot-00003.png.
+
 ## 5.0.4 (2021-12-01)
 
 * Refactored application routing.
