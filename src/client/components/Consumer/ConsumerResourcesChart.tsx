@@ -24,8 +24,8 @@ const ConsumerResourcesChart: React.FC<{ consumer: IConsumer }> = ({ consumer })
             <Table className={'table table-striped'} hover>
                 <thead>
                     <tr>
-                        <th scope="col">RAM (RSS)</th>
-                        <th scope="col">CPU Usage (msg/sec)</th>
+                        <th scope="col">RAM (RSS, MB)</th>
+                        <th scope="col">CPU Usage (%)</th>
                     </tr>
                 </thead>
                 <tbody>
