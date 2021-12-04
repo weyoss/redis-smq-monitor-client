@@ -8,3 +8,4 @@ tsconfig.json
 index.ts
 .npmignore
 !types/**
+screenshots
