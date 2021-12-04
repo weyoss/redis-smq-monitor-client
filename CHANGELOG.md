@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 5.0.6 (2021-12-04)
+
+* Excluded screenshots from the npm package.
+
 ## 5.0.5 (2021-12-04)
 
 * Fixed table heading captions in ConsumerResourcesChart.
