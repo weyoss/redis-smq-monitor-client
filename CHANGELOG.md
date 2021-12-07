@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 5.0.7 (2021-12-07)
+
+* Use strict package versioning.
+
 ## 5.0.6 (2021-12-04)
 
 * Excluded screenshots from the npm package.
