@@ -1,17 +1,20 @@
 import React from 'react';
-import RatesTable from '../common/RatesTable';
-import RatesChart from '../common/RatesChart';
-import ConsumerResourcesChart from './ConsumerResourcesChart';
-import { IConsumer } from '../../types/IConsumer';
-import { Table } from 'react-bootstrap';
+import { Spinner, Table } from 'react-bootstrap';
 import { IConsumerRouteParams } from '../../routes/routes/consumer';
+import { TWebsocketHeartbeatStreamPayload } from '../../transport/websocket/streams/websocketHeartbeatStream';
+import { bytesToMB } from '../../tools/utils';
+import ConsumerRates from './ConsumerRates';
 
 interface IProps extends IConsumerRouteParams {
-    consumer: IConsumer | undefined;
+    heartbeat: TWebsocketHeartbeatStreamPayload | null;
+    isLoading: boolean;
 }
 
-const ConsumerPage: React.FC<IProps> = ({ queueName, namespace, consumer }) => {
-    if (!consumer) {
+const Render: React.FC<IProps> = ({ isLoading, heartbeat, namespace, queueName, consumerId }) => {
+    if (isLoading) {
+        return <Spinner animation={'border'} />;
+    }
+    if (!heartbeat) {
         return (
             <div>
                 <h2>Consumer not found!</h2>
@@ -19,38 +22,40 @@ const ConsumerPage: React.FC<IProps> = ({ queueName, namespace, consumer }) => {
             </div>
         );
     }
+
     return (
-        <>
-            <h1 className={'display-4'}>Consumer Info</h1>
-            <Table className={'table table-striped .consumers'} hover responsive>
+        <div className={'mb-4'}>
+            <h2 className={'display-5'}>Rates</h2>
+            <ConsumerRates namespace={namespace} queueName={queueName} consumerId={consumerId} />
+            <h2 className={'display-5'}>RAM & CPU</h2>
+            <p>
+                Note: Sometimes the CPU usage is not accurate and does not match the real CPU usage. Therefore it should
+                be regarded just as an indicative value.
+            </p>
+            <Table className={'table table-striped'} hover>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Queue</th>
-                        <th>PID</th>
-                        <th>Hostname</th>
-                        <th>IP Address</th>
+                        <th scope="col">RAM (RSS, MB)</th>
+                        <th scope="col">CPU Usage (%)</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{consumer.id}</td>
-                        <td>
-                            {queueName}@{namespace}
-                        </td>
-                        <td>{consumer.resources.pid}</td>
-                        <td>{consumer.resources.hostname}</td>
-                        <td>{consumer.resources.ipAddress.join(', ') || 'NA'}</td>
+                        <td>{bytesToMB(heartbeat.data.ram.usage.rss)}</td>
+                        <td>{heartbeat.data.cpu.percentage}</td>
                     </tr>
                 </tbody>
             </Table>
+        </div>
+    );
+};
 
-            <h2>Rates</h2>
-            <RatesChart rates={consumer?.rates} scope={`rates-consumer-${consumer.id}`} />
-            <RatesTable rates={consumer?.rates} />
-
-            <h2>RAM/CPU Usage</h2>
-            <ConsumerResourcesChart consumer={consumer} />
+const ConsumerPage: React.FC<IProps> = (props) => {
+    const { consumerId } = props;
+    return (
+        <>
+            <h1 className={'display-4'}>Consumer ID {consumerId}</h1>
+            <Render {...props} />
         </>
     );
 };

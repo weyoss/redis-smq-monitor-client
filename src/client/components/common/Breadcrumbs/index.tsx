@@ -27,7 +27,10 @@ const Breadcrumbs: React.FC<RouteComponentProps> = ({ match }) => {
                   )
                 : path,
             ...rest
-        }));
+        }))
+        .sort((a, b) => {
+            return a.path.length - b.path.length;
+        });
     if (crumbs.length <= 1) {
         return null;
     }

@@ -1,5 +1,5 @@
 import { ParameterizedRoute } from '../common';
-import Queue from '../../components/Queue';
+import Queue from '../../components/Queue/Queue';
 
 export interface IQueueRouteParams {
     queueName: string;

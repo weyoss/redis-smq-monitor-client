@@ -4,7 +4,7 @@ import React from 'react';
 import { TQueryRequest } from '../../../../hooks/useQuery';
 import RequeueMessage from './RequeueMessage';
 import RequeueMessageWithPriority from './RequeueMessageWithPriority';
-import { EMessagePriority } from '../../../../types/IMessage';
+import { EMessagePriority } from '../../../../transport/http/api/common/IMessage';
 
 export interface IMessageOptionsSharedProps {
     DeleteMessageRequestFactory: (messageId: string, sequenceId?: number) => TQueryRequest<void>;

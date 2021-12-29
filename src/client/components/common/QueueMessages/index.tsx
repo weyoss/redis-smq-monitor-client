@@ -4,9 +4,9 @@ import queryString from 'query-string';
 import QueueMessageList from '../QueueMessageList';
 import { TQueryRequest } from '../../../hooks/useQuery';
 import Query from '../Query';
-import { EMessagePriority, IMessage } from '../../../types/IMessage';
 import { TPaginatedHTTPResponse } from '../../../transport/http/api';
 import { IQueueRouteParams } from '../../../routes/routes/queue';
+import { EMessagePriority, IMessage } from 'client/transport/http/api/common/IMessage';
 
 interface IProps extends RouteComponentProps<IQueueRouteParams> {
     FetchQueueMessagesRequestFactory: (

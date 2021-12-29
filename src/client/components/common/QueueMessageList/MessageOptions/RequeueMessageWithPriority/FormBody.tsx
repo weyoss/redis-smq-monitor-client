@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import { Alert, Form, Spinner } from 'react-bootstrap';
-import { EMessagePriority } from '../../../../../types/IMessage';
 import { EQueryStatus, IQueryState } from '../../../../../hooks/useQuery';
+import { EMessagePriority } from '../../../../../transport/http/api/common/IMessage';
 
 interface IProps {
     messageId: string;

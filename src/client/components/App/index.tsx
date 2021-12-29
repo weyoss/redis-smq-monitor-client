@@ -1,27 +1,28 @@
 import React, { useEffect } from 'react';
 import { Socket } from 'socket.io-client';
 import AppPage from './AppPage';
-import websocket from '../../transport/websocket';
-import { IStats } from '../../types/IStats';
+import Websocket from '../../transport/websocket/websocket';
 import { useDispatch } from 'react-redux';
-import { setInitializedAction, updateStatsAction } from '../../store/stats/action';
 import { IStoreState } from '../../store/state';
-import { IStatsState } from '../../store/stats/state';
 import useSelector from '../../hooks/useSelector';
 import { INotificationsState } from '../../store/notifications/state';
+import { IWebsocketMainStreamState } from '../../store/websocketMainStream/state';
+import { setLoadedAction, setPayloadAction } from '../../store/websocketMainStream/action';
+import { TWebsocketMainStreamPayload } from '../../transport/websocket/streams/websocketMainStream';
 
 const App = () => {
-    const statsState = useSelector<IStoreState, IStatsState>((state) => state.stats);
+    const websocketMainStreamState = useSelector<IStoreState, IWebsocketMainStreamState>(
+        (state) => state.websocketMainStream
+    );
     const notificationsState = useSelector<IStoreState, INotificationsState>((state) => state.notifications);
     const dispatch = useDispatch();
     useEffect(() => {
-        if (statsState.init) {
-            websocket
-                .init()
+        if (websocketMainStreamState.loading) {
+            Websocket()
                 .then((socket: Socket) => {
-                    socket.on('stats', (stats: IStats) => {
-                        if (statsState.init) dispatch(setInitializedAction());
-                        setTimeout(() => dispatch(updateStatsAction(stats)), 100);
+                    dispatch(setLoadedAction());
+                    socket.on('streamMain', (payload: TWebsocketMainStreamPayload) => {
+                        dispatch(setPayloadAction(payload));
                     });
                 })
                 .catch((e: Error) => {
@@ -29,7 +30,7 @@ const App = () => {
                 });
         }
     }, []);
-    return <AppPage statsState={statsState} notificationsState={notificationsState} />;
+    return <AppPage websocketMainStreamState={websocketMainStreamState} notificationsState={notificationsState} />;
 };
 
 export default App;

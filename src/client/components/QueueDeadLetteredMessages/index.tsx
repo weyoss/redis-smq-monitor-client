@@ -1,7 +1,6 @@
 import { RouteComponentProps, withRouter } from 'react-router';
 import React, { useCallback } from 'react';
 import QueueMessages from '../common/QueueMessages';
-import { EMessagePriority } from '../../types/IMessage';
 import {
     requeueDeadLetteredMessage,
     requeueDeadLetteredMessageWithPriority,
@@ -10,6 +9,7 @@ import {
     getQueueDeadLetteredMessages
 } from '../../transport/http/api';
 import { IQueueRouteParams } from '../../routes/routes/queue';
+import { EMessagePriority } from '../../transport/http/api/common/IMessage';
 
 const QueueDeadLetteredMessages: React.FC<RouteComponentProps<IQueueRouteParams>> = (props) => {
     const { namespace, queueName } = props.match.params;
@@ -29,7 +29,6 @@ const QueueDeadLetteredMessages: React.FC<RouteComponentProps<IQueueRouteParams>
         []
     );
     const deleteMessagesRequestCallback = useCallback(() => purgeDeadLetteredMessages(namespace, queueName), []);
-
     return (
         <>
             <h1 className={'display-4'}>

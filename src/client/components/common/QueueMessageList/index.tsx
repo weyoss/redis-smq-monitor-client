@@ -4,7 +4,7 @@ import MessageOptions, { IMessageOptionsSharedProps } from './MessageOptions';
 import { ListGroup, Table } from 'react-bootstrap';
 import DeleteMessages from './DeleteMessages';
 import { TQueryRequest } from '../../../hooks/useQuery';
-import { IMessage } from '../../../types/IMessage';
+import { IMessage } from '../../../transport/http/api/common/IMessage';
 
 interface IProps extends IMessageOptionsSharedProps {
     messages: { total: number; items: { message: IMessage; sequenceId?: number }[] };

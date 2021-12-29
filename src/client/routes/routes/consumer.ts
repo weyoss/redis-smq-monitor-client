@@ -1,5 +1,5 @@
 import { ParameterizedRoute } from '../common';
-import Consumer from '../../components/Consumer';
+import Consumer from '../../components/Consumer/Consumer';
 import { IQueueRouteParams } from './queue';
 
 export interface IConsumerRouteParams extends IQueueRouteParams {

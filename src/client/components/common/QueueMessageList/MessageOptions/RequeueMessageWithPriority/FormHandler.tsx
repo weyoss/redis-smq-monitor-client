@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
-import { EMessagePriority } from '../../../../../types/IMessage';
 import { useDispatch } from 'react-redux';
 import useQuery, { EQueryStatus } from '../../../../../hooks/useQuery';
 import { addNotificationAction } from '../../../../../store/notifications/action';
@@ -7,6 +6,7 @@ import { ENotificationType } from '../../../../../store/notifications/state';
 import Modal from '../../../Modal/Modal';
 import FormBody from './FormBody';
 import { IRequeueMessageWithPriorityProps } from './index';
+import { EMessagePriority } from '../../../../../transport/http/api/common/IMessage';
 
 interface IHandlerProps extends IRequeueMessageWithPriorityProps {
     closeHandlerCallback: () => void;

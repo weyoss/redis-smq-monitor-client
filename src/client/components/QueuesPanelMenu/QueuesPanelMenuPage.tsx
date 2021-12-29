@@ -1,31 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
-import { IQueue } from '../../types/IQueue';
-import { IQueueMap } from '../../types/IQueueMap';
 import { IQueueRouteParams } from '../../routes/routes/queue';
 import * as routes from '../../routes/routes';
+import { TWebsocketMainStreamPayload } from '../../transport/websocket/streams/websocketMainStream';
 
 interface IProps {
-    queues: IQueueMap;
+    websocketMainStreamPayload: TWebsocketMainStreamPayload;
     matchedQueueParams: Partial<IQueueRouteParams> | null;
     loading: boolean;
 }
 
-const RenderData: React.FC<IProps> = ({ queues, matchedQueueParams, loading }) => {
+const RenderData: React.FC<IProps> = ({ websocketMainStreamPayload, matchedQueueParams, loading }) => {
     if (loading) {
         return <Spinner animation={'border'} />;
     }
     const data = [];
-    for (const ns in queues) {
-        const nsQueues = queues[ns];
+    for (const ns in websocketMainStreamPayload.queues) {
+        const nsQueues = websocketMainStreamPayload.queues[ns];
         const li = [];
         for (const queueName in nsQueues) {
-            const queue = nsQueues[queueName] as IQueue;
+            const queue = nsQueues[queueName];
             const isActiveQueue =
                 matchedQueueParams &&
-                matchedQueueParams.queueName === queue.queueName &&
-                matchedQueueParams.namespace === queue.namespace;
+                matchedQueueParams.queueName === queue.name &&
+                matchedQueueParams.namespace === queue.ns;
             const className = isActiveQueue ? 'active ' : '';
             li.push(
                 <Link
@@ -33,9 +32,9 @@ const RenderData: React.FC<IProps> = ({ queues, matchedQueueParams, loading }) =
                     className={`${className}text-break list-group-item list-group-item-action d-flex justify-content-between align-items-center`}
                     to={routes.queue.getLink({ queueName, namespace: ns })}
                 >
-                    {queue.queueName}{' '}
+                    {queue.name}{' '}
                     <span className="badge bg-primary rounded-pill">
-                        {queue.pendingMessages + queue.pendingMessagesWithPriority}
+                        {queue.pendingMessagesCount + queue.pendingMessagesWithPriorityCount}
                     </span>
                 </Link>
             );

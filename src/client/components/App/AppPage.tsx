@@ -8,19 +8,19 @@ import Routes from '../../routes';
 import { BrowserRouter } from 'react-router-dom';
 import QueuesPanelMenu from '../QueuesPanelMenu';
 import { Spinner } from 'react-bootstrap';
-import { IStatsState } from '../../store/stats/state';
 import { INotificationsState } from '../../store/notifications/state';
 import Notification from '../common/Notification/Notification';
-import SchedulerPanelMenu from '../SchedulerPanelMenu';
+import SchedulerPanelMenu from '../ScheduledPanelMenu';
+import { IWebsocketMainStreamState } from '../../store/websocketMainStream/state';
 
 interface IProps {
-    statsState: IStatsState;
+    websocketMainStreamState: IWebsocketMainStreamState;
     notificationsState: INotificationsState;
 }
 
 const Page: React.FC<IProps> = (props) => {
-    const { statsState, notificationsState } = props;
-    const { loading } = statsState;
+    const { websocketMainStreamState, notificationsState } = props;
+    const { loading } = websocketMainStreamState;
     if (loading) {
         return <Spinner animation={'border'} />;
     }

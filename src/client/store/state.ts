@@ -1,7 +1,7 @@
-import { IStatsState } from './stats/state';
 import { INotificationsState } from './notifications/state';
+import { IWebsocketMainStreamState } from './websocketMainStream/state';
 
 export interface IStoreState {
-    stats: IStatsState;
+    websocketMainStream: IWebsocketMainStreamState;
     notifications: INotificationsState;
 }

@@ -1,7 +1,6 @@
 import { RouteComponentProps, withRouter } from 'react-router';
 import React, { useCallback } from 'react';
 import QueueMessages from '../common/QueueMessages';
-import { EMessagePriority } from '../../types/IMessage';
 import {
     requeueAcknowledgedMessage,
     requeueAcknowledgedMessageWithPriority,
@@ -10,6 +9,7 @@ import {
     getQueueAcknowledgedMessages
 } from '../../transport/http/api';
 import { IQueueRouteParams } from '../../routes/routes/queue';
+import { EMessagePriority } from '../../transport/http/api/common/IMessage';
 
 const QueueAcknowledgedMessages: React.FC<RouteComponentProps<IQueueRouteParams>> = (props) => {
     const { namespace, queueName } = props.match.params;

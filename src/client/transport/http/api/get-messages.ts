@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_URL, IHTTPResponse } from './index';
-import { IMessage } from '../../../types/IMessage';
+import { IMessage } from './common/IMessage';
 
 export type TPaginatedHTTPResponse<T> = IHTTPResponse<{
     total: number;

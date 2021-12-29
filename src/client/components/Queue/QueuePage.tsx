@@ -1,19 +1,15 @@
 import React from 'react';
-import ConsumerList from './ConsumerList';
-import ProducerList from './ProducerList';
-import RatesChart from '../common/RatesChart';
 import * as routes from '../../routes/routes';
 import { Link } from 'react-router-dom';
 import { Badge, ListGroup } from 'react-bootstrap';
-import { IQueue } from '../../types/IQueue';
-import { IRates } from '../../types/IRates';
+import { TWebsocketMainStreamPayloadQueue } from '../../transport/websocket/streams/websocketMainStream';
+import QueueRates from './QueueRates';
 
 interface IProps {
-    queue: IQueue | undefined;
-    rates: IRates;
+    queue: TWebsocketMainStreamPayloadQueue | undefined;
 }
 
-const QueuePage: React.FC<IProps> = ({ queue, rates }) => {
+const QueuePage: React.FC<IProps> = ({ queue }) => {
     if (!queue) {
         return (
             <div>
@@ -23,81 +19,107 @@ const QueuePage: React.FC<IProps> = ({ queue, rates }) => {
         );
     }
     const {
-        namespace,
-        queueName,
-        acknowledgedMessages,
-        deadLetteredMessages,
-        pendingMessages,
-        pendingMessagesWithPriority,
-        consumers,
-        producers
+        ns,
+        name,
+        acknowledgedMessagesCount,
+        deadLetteredMessagesCount,
+        pendingMessagesCount,
+        pendingMessagesWithPriorityCount,
+        consumersCount,
+        producersCount
     } = queue;
 
     return (
         <div className={'queue fullWidth'}>
             <h1 className={'display-4'}>
-                {queueName}@{namespace}
+                {name}@{ns}
             </h1>
+            <h2 className={'display-5'}>Rates</h2>
+            <QueueRates namespace={ns} queueName={name} />
+            <h2 className={'display-5'}>Messages</h2>
             <ListGroup horizontal className={'mb-4'}>
                 <ListGroup.Item>
                     <Link
-                        key={`${namespace}-${queueName}-pending-messages`}
+                        key={`${ns}-${name}-pending-messages`}
                         to={routes.queuePendingMessages.getLink({
-                            namespace,
-                            queueName
+                            namespace: ns,
+                            queueName: name
                         })}
                     >
                         Pending messages
                         <br />
-                        <Badge pill>{pendingMessages}</Badge>
+                        <Badge pill>{pendingMessagesCount}</Badge>
                     </Link>
                 </ListGroup.Item>
                 <ListGroup.Item>
                     <Link
-                        key={`${namespace}-${queueName}-pending-messages-with-priority`}
+                        key={`${ns}-${name}-pending-messages-with-priority`}
                         to={routes.queuePendingMessagesWithPriority.getLink({
-                            namespace,
-                            queueName
+                            namespace: ns,
+                            queueName: name
                         })}
                     >
                         Pending messages with priority
                         <br />
-                        <Badge pill>{pendingMessagesWithPriority}</Badge>
+                        <Badge pill>{pendingMessagesWithPriorityCount}</Badge>
                     </Link>
                 </ListGroup.Item>
                 <ListGroup.Item>
                     <Link
-                        key={`${namespace}-${queueName}-acknowledged-messages`}
+                        key={`${ns}-${name}-acknowledged-messages`}
                         to={routes.queueAcknowledgedMessages.getLink({
-                            namespace,
-                            queueName
+                            namespace: ns,
+                            queueName: name
                         })}
                     >
                         Acknowledged messages
                         <br />
-                        <Badge pill>{acknowledgedMessages}</Badge>
+                        <Badge pill>{acknowledgedMessagesCount}</Badge>
                     </Link>
                 </ListGroup.Item>
                 <ListGroup.Item>
                     <Link
-                        key={`${namespace}-${queueName}-dead-lettered-messages`}
+                        key={`${ns}-${name}-dead-lettered-messages`}
                         to={routes.queueDeadLetteredMessages.getLink({
-                            namespace,
-                            queueName
+                            namespace: ns,
+                            queueName: name
                         })}
                     >
                         Dead-lettered messages
                         <br />
-                        <Badge pill>{deadLetteredMessages}</Badge>
+                        <Badge pill>{deadLetteredMessagesCount}</Badge>
                     </Link>
                 </ListGroup.Item>
             </ListGroup>
-            <h3 className={'display-6'}>Queue Rates</h3>
-            <RatesChart rates={rates} scope={`${namespace}-${queueName}`} />
-            <h3 className={'display-6'}>Consumers</h3>
-            <ConsumerList consumers={consumers} />
-            <h3 className={'display-6'}>Producers</h3>
-            <ProducerList producers={producers} />
+            <h2 className={'display-5'}>Consumers & Producers</h2>
+            <ListGroup horizontal className={'mb-4'}>
+                <ListGroup.Item>
+                    <Link
+                        key={`${ns}-${name}-producers`}
+                        to={routes.queueProducers.getLink({
+                            namespace: ns,
+                            queueName: name
+                        })}
+                    >
+                        Producers
+                        <br />
+                        <Badge pill>{producersCount}</Badge>
+                    </Link>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                    <Link
+                        key={`${ns}-${name}-consumers`}
+                        to={routes.queueConsumers.getLink({
+                            namespace: ns,
+                            queueName: name
+                        })}
+                    >
+                        Consumers
+                        <br />
+                        <Badge pill>{consumersCount}</Badge>
+                    </Link>
+                </ListGroup.Item>
+            </ListGroup>
         </div>
     );
 };

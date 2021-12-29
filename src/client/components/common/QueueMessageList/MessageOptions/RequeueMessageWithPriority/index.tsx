@@ -1,7 +1,7 @@
 import { TQueryRequest } from '../../../../../hooks/useQuery';
 import React, { useCallback, useState } from 'react';
-import { EMessagePriority } from '../../../../../types/IMessage';
 import FormHandler from './FormHandler';
+import { EMessagePriority } from '../../../../../transport/http/api/common/IMessage';
 
 export interface IRequeueMessageWithPriorityProps {
     messageId: string;
