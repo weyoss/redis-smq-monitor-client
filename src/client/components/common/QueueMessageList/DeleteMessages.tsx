@@ -42,8 +42,8 @@ const DeleteMessages: React.FC<IProps> = ({ request, onSuccess }) => {
                     title={'Message Deletion'}
                     onSubmit={onSubmit}
                     onCancel={onCancel}
-                    cancelCaption={`I'm not sure.`}
-                    submitCaption={`Sure, I am!`}
+                    cancelCaption={`I'm not sure`}
+                    submitCaption={`Delete`}
                 >
                     <p>Are you sure you want to delete all the messages?</p>
                 </Modal>

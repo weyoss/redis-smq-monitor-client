@@ -11,7 +11,7 @@ interface IProps {
 const SchedulerPanelMenuPage: React.FC<IProps> = ({ count, loading }) => {
     return (
         <div className={'mb-4'}>
-            <h2 className={'display-6'}>Scheduler</h2>
+            <h2 className={'display-6'}>Scheduled</h2>
             {loading ? (
                 <Spinner animation={'border'} />
             ) : count ? (
