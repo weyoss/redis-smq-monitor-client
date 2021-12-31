@@ -56,7 +56,7 @@ const RenderData: React.FC<IProps> = ({ websocketMainStreamPayload, matchedQueue
 
 const QueuesPanelMenuPage: React.FC<IProps> = (props) => (
     <div className={'mb-4'}>
-        <h2 className={'display-5'}>Queues</h2>
+        <h2 className={'display-6'}>Queues</h2>
         <RenderData {...props} />
     </div>
 );

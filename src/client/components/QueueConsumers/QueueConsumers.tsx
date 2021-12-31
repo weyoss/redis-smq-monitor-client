@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { IQueueRouteParams } from '../../routes/routes/queue';
 import { RouteComponentProps } from 'react-router';
-import QueueOnlineStream from '../common/QueueOnlineStream/QueueOnlineStream';
+import OnlineStream from '../common/OnlineStream/OnlineStream';
 import { consumer } from '../../routes/routes';
 
 const QueueConsumers: React.FC<RouteComponentProps<IQueueRouteParams>> = ({ match }) => {
@@ -14,10 +14,8 @@ const QueueConsumers: React.FC<RouteComponentProps<IQueueRouteParams>> = ({ matc
             <h1 className={'display-4'}>
                 {queueName}@{namespace} / Consumers
             </h1>
-            <QueueOnlineStream
+            <OnlineStream
                 stream={`streamOnlineQueueConsumers:${namespace}:${queueName}`}
-                queueName={queueName}
-                namespace={namespace}
                 getOnlineItemLink={getOnlineStreamItemLink}
                 noItemsMessage={`No consumers yet.`}
             />

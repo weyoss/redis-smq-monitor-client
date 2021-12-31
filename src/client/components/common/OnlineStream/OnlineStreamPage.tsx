@@ -2,13 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Table } from 'react-bootstrap';
 import { TWebsocketOnlineStreamPayloadData } from '../../../transport/websocket/streams/websocketOnlineStream';
-import { IQueueOnlineStreamProps } from './QueueOnlineStream';
+import { IQueueOnlineStreamProps } from './OnlineStream';
 
 interface IProps extends Omit<IQueueOnlineStreamProps, 'stream'> {
     online: Record<string, string> | null;
 }
 
-const QueueOnlineStreamPage: React.FC<IProps> = ({ online = {}, getOnlineItemLink, noItemsMessage }) => {
+const OnlineStreamPage: React.FC<IProps> = ({ online = {}, getOnlineItemLink, noItemsMessage }) => {
     const data: JSX.Element[] = [];
     for (const id in online) {
         const item: TWebsocketOnlineStreamPayloadData = JSON.parse(online[id]);
@@ -67,4 +67,4 @@ const QueueOnlineStreamPage: React.FC<IProps> = ({ online = {}, getOnlineItemLin
     );
 };
 
-export default QueueOnlineStreamPage;
+export default OnlineStreamPage;

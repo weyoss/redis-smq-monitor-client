@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { producer } from '../../routes/routes';
-import QueueOnlineStream from '../common/QueueOnlineStream/QueueOnlineStream';
+import OnlineStream from '../common/OnlineStream/OnlineStream';
 import { RouteComponentProps } from 'react-router';
 import { IQueueRouteParams } from '../../routes/routes/queue';
 
@@ -14,10 +14,8 @@ const QueueProducers: React.FC<RouteComponentProps<IQueueRouteParams>> = ({ matc
             <h1 className={'display-4'}>
                 {queueName}@{namespace} / Producers
             </h1>
-            <QueueOnlineStream
+            <OnlineStream
                 stream={`streamOnlineQueueProducers:${namespace}:${queueName}`}
-                queueName={queueName}
-                namespace={namespace}
                 getOnlineItemLink={getOnlineStreamItemLink}
                 noItemsMessage={`No producers yet.`}
             />

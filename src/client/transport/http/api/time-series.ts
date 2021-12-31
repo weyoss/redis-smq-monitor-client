@@ -73,3 +73,9 @@ export const getProducerPublishedTimeSeries = async (
         `${API_URL}/api/ns/${ns}/queues/${queueName}/producers/${producerId}/published-time-series?from=${from}&to=${to}`
     );
 };
+
+export const getMultiQueueProducerPublishedTimeSeries = async (producerId: string, from: number, to: number) => {
+    return axios.get<TGetTimeSeriesHTTPResponse>(
+        `${API_URL}/api/multi-queue-producers/${producerId}/published-time-series?from=${from}&to=${to}`
+    );
+};
