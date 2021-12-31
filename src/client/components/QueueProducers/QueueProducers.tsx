@@ -15,7 +15,7 @@ const QueueProducers: React.FC<RouteComponentProps<IQueueRouteParams>> = ({ matc
                 {queueName}@{namespace} / Producers
             </h1>
             <QueueOnlineStream
-                stream={`streamQueueOnlineProducers:${namespace}:${queueName}`}
+                stream={`streamOnlineQueueProducers:${namespace}:${queueName}`}
                 queueName={queueName}
                 namespace={namespace}
                 getOnlineItemLink={getOnlineStreamItemLink}

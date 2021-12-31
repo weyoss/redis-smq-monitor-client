@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Table } from 'react-bootstrap';
-import { TWebsocketOnlineStreamPayload } from '../../../transport/websocket/streams/websocketOnlineStream';
+import { TWebsocketOnlineStreamPayloadData } from '../../../transport/websocket/streams/websocketOnlineStream';
 import { IQueueOnlineStreamProps } from './QueueOnlineStream';
 
 interface IProps extends Omit<IQueueOnlineStreamProps, 'stream'> {
-    online: TWebsocketOnlineStreamPayload;
+    online: Record<string, string> | null;
 }
 
-const QueueOnlineStreamPage: React.FC<IProps> = ({ online, getOnlineItemLink, noItemsMessage }) => {
+const QueueOnlineStreamPage: React.FC<IProps> = ({ online = {}, getOnlineItemLink, noItemsMessage }) => {
     const data: JSX.Element[] = [];
     for (const id in online) {
-        const item = online[id];
+        const item: TWebsocketOnlineStreamPayloadData = JSON.parse(online[id]);
         data.push(
             <tr key={`queue-online-${id}`}>
                 <td>

@@ -1,16 +1,16 @@
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
-import { IConsumerRouteParams } from '../../routes/routes/consumer';
 import { TWebsocketHeartbeatStreamPayload } from '../../transport/websocket/streams/websocketHeartbeatStream';
-import ConsumerRates from './ConsumerRates';
 import HeartbeatData from '../common/HeartbeatData/HeartbeatData';
+import { IProducerRouteParams } from '../../routes/routes/producer';
+import ProducerRates from './ProducerRates';
 
-interface IProps extends IConsumerRouteParams {
+interface IProps extends IProducerRouteParams {
     heartbeat: TWebsocketHeartbeatStreamPayload | null;
     isLoading: boolean;
 }
 
-const Render: React.FC<IProps> = ({ isLoading, heartbeat, namespace, queueName, consumerId }) => {
+const Render: React.FC<IProps> = ({ isLoading, heartbeat, namespace, queueName, producerId }) => {
     if (isLoading) {
         return <Spinner animation={'border'} />;
     }
@@ -26,21 +26,21 @@ const Render: React.FC<IProps> = ({ isLoading, heartbeat, namespace, queueName, 
     return (
         <div className={'mb-4'}>
             <h2 className={'display-5'}>Rates</h2>
-            <ConsumerRates namespace={namespace} queueName={queueName} consumerId={consumerId} />
+            <ProducerRates namespace={namespace} queueName={queueName} producerId={producerId} />
             <h2 className={'display-5'}>RAM & CPU</h2>
             <HeartbeatData {...heartbeat} />
         </div>
     );
 };
 
-const ConsumerPage: React.FC<IProps> = (props) => {
-    const { consumerId } = props;
+const ProducerPage: React.FC<IProps> = (props) => {
+    const { producerId } = props;
     return (
         <>
-            <h1 className={'display-4'}>Consumer ID {consumerId}</h1>
+            <h1 className={'display-4'}>Producer ID {producerId}</h1>
             <Render {...props} />
         </>
     );
 };
 
-export default ConsumerPage;
+export default ProducerPage;

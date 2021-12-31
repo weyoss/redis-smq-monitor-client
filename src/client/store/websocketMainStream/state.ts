@@ -16,6 +16,7 @@ export const initialWebsocketMainStreamState: IWebsocketMainStreamState = {
         deadLetteredMessagesCount: 0,
         scheduledMessagesCount: 0,
         acknowledgedMessagesCount: 0,
+        multiQueueProducersCount: 0,
         queues: {}
     }
 };

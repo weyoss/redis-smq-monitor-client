@@ -61,3 +61,15 @@ export const getConsumerDeadLetteredTimeSeries = async (
         `${API_URL}/api/ns/${ns}/queues/${queueName}/consumers/${consumerId}/dead-lettered-time-series?from=${from}&to=${to}`
     );
 };
+
+export const getProducerPublishedTimeSeries = async (
+    ns: string,
+    queueName: string,
+    producerId: string,
+    from: number,
+    to: number
+) => {
+    return axios.get<TGetTimeSeriesHTTPResponse>(
+        `${API_URL}/api/ns/${ns}/queues/${queueName}/producers/${producerId}/published-time-series?from=${from}&to=${to}`
+    );
+};
