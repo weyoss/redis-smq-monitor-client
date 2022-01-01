@@ -15,12 +15,7 @@ const Render: React.FC<IProps> = ({ isLoading, heartbeat, producerId }) => {
         return <Spinner animation={'border'} />;
     }
     if (!heartbeat) {
-        return (
-            <div>
-                <h2>Producer not found!</h2>
-                <p>The producer you are looking for does not exists or went offline.</p>
-            </div>
-        );
+        return <p>Producer does not exists or went offline.</p>;
     }
 
     return (

@@ -15,12 +15,7 @@ const Render: React.FC<IProps> = ({ isLoading, heartbeat, namespace, queueName, 
         return <Spinner animation={'border'} />;
     }
     if (!heartbeat) {
-        return (
-            <div>
-                <h2>Consumer not found!</h2>
-                <p>The consumer you are looking for does not exists or went offline.</p>
-            </div>
-        );
+        return <p>Consumer does not exists or went offline.</p>;
     }
 
     return (

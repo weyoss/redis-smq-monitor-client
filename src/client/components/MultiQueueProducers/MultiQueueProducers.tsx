@@ -11,8 +11,9 @@ const MultiQueueProducers: React.FC = () => {
             <h1 className={'display-4'}>Multi-Queue Producers</h1>
             <OnlineStream
                 stream={`streamOnlineMultiQueueProducers`}
-                getOnlineItemLink={getOnlineStreamItemLink}
-                noItemsMessage={`No producers yet.`}
+                getOnlineListItemLink={getOnlineStreamItemLink}
+                emptyListMessage={`No producers yet.`}
+                heartbeatIdsKey={'multiQueueProducers'}
             />
         </>
     );

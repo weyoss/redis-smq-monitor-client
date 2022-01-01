@@ -31,7 +31,7 @@ const TimeSeriesChart: React.FC<IChartProps> = ({ label, scale, stream, FetchCha
                 isSubscribed: false
             };
         });
-    }, [liveTimeSeries]);
+    }, [stream, liveTimeSeries]);
 
     const subscribe = useCallback(() => {
         setLiveTimeSeries((prev) => {
@@ -41,7 +41,7 @@ const TimeSeriesChart: React.FC<IChartProps> = ({ label, scale, stream, FetchCha
                 isLoading: true
             };
         });
-    }, [liveTimeSeries]);
+    }, [stream, liveTimeSeries]);
 
     useEffect(() => {
         if (liveTimeSeries.isSubscribed) {

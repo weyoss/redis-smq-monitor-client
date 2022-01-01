@@ -5,3 +5,9 @@ export type TWebsocketHeartbeatStreamPayload = {
         cpu: { user: number; system: number; percentage: string };
     };
 };
+
+export type TWebsocketHeartbeatIdsStreamPayload = {
+    producers: string[];
+    consumers: string[];
+    multiQueueProducers: string[];
+};

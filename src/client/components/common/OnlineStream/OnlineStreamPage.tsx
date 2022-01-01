@@ -4,38 +4,47 @@ import { Table } from 'react-bootstrap';
 import { TWebsocketOnlineStreamPayloadData } from '../../../transport/websocket/streams/websocketOnlineStream';
 import { IQueueOnlineStreamProps } from './OnlineStream';
 
-interface IProps extends Omit<IQueueOnlineStreamProps, 'stream'> {
-    online: Record<string, string> | null;
+interface IProps extends Omit<IQueueOnlineStreamProps, 'stream' | 'heartbeatIdsKey'> {
+    onlineList: Record<string, string> | null;
+    heartbeatIds: string[];
 }
 
-const OnlineStreamPage: React.FC<IProps> = ({ online = {}, getOnlineItemLink, noItemsMessage }) => {
+const OnlineStreamPage: React.FC<IProps> = ({
+    onlineList = {},
+    getOnlineListItemLink,
+    emptyListMessage,
+    heartbeatIds
+}) => {
     const data: JSX.Element[] = [];
-    for (const id in online) {
-        const item: TWebsocketOnlineStreamPayloadData = JSON.parse(online[id]);
+    for (const id in onlineList) {
+        const item: TWebsocketOnlineStreamPayloadData = JSON.parse(onlineList[id]);
+        const isOnline = heartbeatIds.includes(id);
+        const { pid, hostname, ipAddress, createdAt } = item;
         data.push(
             <tr key={`queue-online-${id}`}>
                 <td>
-                    <Link key={`queue-online-${id}-link`} to={getOnlineItemLink(id)}>
-                        {id}
-                    </Link>
+                    {isOnline ? (
+                        <Link key={`queue-online-${id}-link`} to={getOnlineListItemLink(id)}>
+                            {id}
+                        </Link>
+                    ) : (
+                        id
+                    )}
                 </td>
                 <td>
-                    {item.pid} /
+                    {pid} /
                     <br />
-                    {item.hostname}
+                    {hostname}
                 </td>
-                <td>
-                    {item.ipAddress.map((ip, index) => (
-                        <div key={index}>{ip}</div>
-                    ))}
-                </td>
-                <td>{new Date(item.createdAt).toUTCString()}</td>
+                <td>{ipAddress.length ? ipAddress.map((ip, index) => <div key={index}>{ip}</div>) : 'NA'}</td>
+                <td>{new Date(createdAt).toUTCString()}</td>
+                <td>{isOnline ? 'online' : 'offline'}</td>
             </tr>
         );
     }
 
     if (!data.length) {
-        return <p>{noItemsMessage}</p>;
+        return <p>{emptyListMessage}</p>;
     }
 
     return (
@@ -57,8 +66,9 @@ const OnlineStreamPage: React.FC<IProps> = ({ online = {}, getOnlineItemLink, no
                         <th>
                             Started
                             <br />
-                            Since
+                            at
                         </th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>{data}</tbody>

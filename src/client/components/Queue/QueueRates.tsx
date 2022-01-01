@@ -1,6 +1,6 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import useUrlParams from '../../hooks/useUrlParams';
-import { Nav } from 'react-bootstrap';
+import { Nav, Spinner } from 'react-bootstrap';
 import TimeSeriesChart from '../common/TimeSeriesChart/TimeSeriesChart';
 import {
     getQueueAcknowledgedTimeSeries,
@@ -16,11 +16,7 @@ enum ENavigationTab {
 
 const QueueRates: React.FC<{ namespace: string; queueName: string }> = ({ queueName, namespace }) => {
     const { getUrlParam, setUrlParam } = useUrlParams();
-
-    const activeTab = useMemo(() => getUrlParam('rates') ?? ENavigationTab.ACKNOWLEDGED, [
-        location.pathname,
-        location.search
-    ]);
+    const [activeTab, setActiveTab] = useState<ENavigationTab | null>(null);
 
     const FetchAcknowledgedTimeSeries = useCallback(
         (from: number, to: number) => () => getQueueAcknowledgedTimeSeries(namespace, queueName, from, to),
@@ -36,6 +32,23 @@ const QueueRates: React.FC<{ namespace: string; queueName: string }> = ({ queueN
         (from: number, to: number) => () => getQueuePublishedTimeSeries(namespace, queueName, from, to),
         [namespace, queueName]
     );
+
+    useEffect(() => {
+        setActiveTab(null);
+        setTimeout(() => {
+            const tab = getUrlParam('rates') ?? ENavigationTab.ACKNOWLEDGED;
+            setActiveTab(tab as ENavigationTab);
+        }, 250);
+    }, [location.pathname]);
+
+    useEffect(() => {
+        const tab = getUrlParam('rates') ?? ENavigationTab.ACKNOWLEDGED;
+        setActiveTab(tab as ENavigationTab);
+    }, [location.search]);
+
+    if (!activeTab) {
+        return <Spinner animation={'border'} />;
+    }
 
     return (
         <>

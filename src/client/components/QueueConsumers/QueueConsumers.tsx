@@ -16,8 +16,9 @@ const QueueConsumers: React.FC<RouteComponentProps<IQueueRouteParams>> = ({ matc
             </h1>
             <OnlineStream
                 stream={`streamOnlineQueueConsumers:${namespace}:${queueName}`}
-                getOnlineItemLink={getOnlineStreamItemLink}
-                noItemsMessage={`No consumers yet.`}
+                getOnlineListItemLink={getOnlineStreamItemLink}
+                emptyListMessage={`No consumers yet.`}
+                heartbeatIdsKey={'consumers'}
             />
         </>
     );
