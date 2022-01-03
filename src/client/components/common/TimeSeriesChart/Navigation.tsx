@@ -11,7 +11,7 @@ const Navigation: React.FC<INavigationProps> = ({ offset, scrollTo }) => {
         <ul className="nav justify-content-center mb-2">
             <li className={`nav-item`}>
                 <button className={`btn btn-sm btn-link`} type="button" onClick={() => scrollTo(EScrollTo.LEFT)}>
-                    &larr; Scroll to left
+                    &larr; Scroll left
                 </button>
             </li>
             <li className={`nav-item`}>
@@ -29,7 +29,7 @@ const Navigation: React.FC<INavigationProps> = ({ offset, scrollTo }) => {
                     type="button"
                     onClick={() => scrollTo(EScrollTo.RIGHT)}
                 >
-                    Scroll to right &rarr;
+                    Scroll right &rarr;
                 </button>
             </li>
         </ul>
