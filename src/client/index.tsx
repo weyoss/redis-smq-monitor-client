@@ -1,3 +1,7 @@
+// polyfill (needed to fix matchMedia for safari < 14)
+// See https://github.com/leeoniya/uPlot/issues/538
+import 'airbnb-browser-shims/browser-only';
+
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider as ReduxProvider } from 'react-redux';

@@ -60,7 +60,7 @@ const MessageOptions: React.FC<IMessageOptionsProps> = ({
                     onSubmit={onSubmit}
                     onCancel={onCancel}
                     cancelCaption={modalButtonCancelCaption ?? `I'm not sure`}
-                    submitCaption={modalButtonSubmitCaption ?? `Sure, I am`}
+                    submitCaption={modalButtonSubmitCaption ?? `Sure`}
                 >
                     <p>{modalBody}</p>
                 </Modal>
