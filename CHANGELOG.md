@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 6.0.0 (2022-01-03)
+
+* Add support for multi-queue producers
+* Add support for rates time series
+* Refactor and make use of new WebSocket streams
+
 ## 5.0.7 (2021-12-07)
 
 * Use strict package versioning.
