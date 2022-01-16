@@ -8,7 +8,7 @@ export const requeueDeadLetteredMessage = async (
     sequenceId: number
 ) => {
     return axios.post(
-        `${API_URL}/api/ns/${ns}/queues/${queueName}/dead-lettered-messages/${messageId}/requeue?sequenceId=${sequenceId}`
+        `${API_URL}/api/queues/${queueName}/ns/${ns}/dead-lettered-messages/${messageId}/requeue?sequenceId=${sequenceId}`
     );
 };
 
@@ -19,7 +19,7 @@ export const requeueAcknowledgedMessage = async (
     sequenceId: number
 ) => {
     return axios.post(
-        `${API_URL}/api/ns/${ns}/queues/${queueName}/acknowledged-messages/${messageId}/requeue?sequenceId=${sequenceId}`
+        `${API_URL}/api/queues/${queueName}/ns/${ns}/acknowledged-messages/${messageId}/requeue?sequenceId=${sequenceId}`
     );
 };
 
@@ -31,7 +31,7 @@ export const requeueDeadLetteredMessageWithPriority = async (
     priority: number
 ) => {
     return axios.post(
-        `${API_URL}/api/ns/${ns}/queues/${queueName}/dead-lettered-messages/${messageId}/requeue?sequenceId=${sequenceId}&priority=${priority}`
+        `${API_URL}/api/queues/${queueName}/ns/${ns}/dead-lettered-messages/${messageId}/requeue?sequenceId=${sequenceId}&priority=${priority}`
     );
 };
 
@@ -43,6 +43,6 @@ export const requeueAcknowledgedMessageWithPriority = async (
     priority: number
 ) => {
     return axios.post(
-        `${API_URL}/api/ns/${ns}/queues/${queueName}/acknowledged-messages/${messageId}/requeue?sequenceId=${sequenceId}&priority=${priority}`
+        `${API_URL}/api/queues/${queueName}/ns/${ns}/acknowledged-messages/${messageId}/requeue?sequenceId=${sequenceId}&priority=${priority}`
     );
 };
