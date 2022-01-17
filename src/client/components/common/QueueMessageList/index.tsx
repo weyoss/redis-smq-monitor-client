@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import Paginator from '../Paginator';
 import MessageOptions, { IMessageOptionsSharedProps } from './MessageOptions';
 import { ListGroup, Table } from 'react-bootstrap';
-import DeleteMessages from './DeleteMessages';
 import { TQueryRequest } from '../../../hooks/useQuery';
 import { IMessage } from '../../../transport/http/api/common/IMessage';
+import SButton from '../SButton/SButton';
 
 interface IProps extends IMessageOptionsSharedProps {
     messages: { total: number; items: { message: IMessage; sequenceId?: number }[] };
@@ -35,9 +35,12 @@ const QueueMessageList: React.FC<IProps> = (props) => {
         <>
             <ListGroup horizontal className={'mb-3 justify-content-end'}>
                 <ListGroup.Item>
-                    <DeleteMessages
+                    <SButton
                         onSuccess={deleteMessagesRequestSuccessCallback}
                         request={deleteMessagesRequestCallback}
+                        btnCaption={'Delete all'}
+                        modalBody={<p>Are you sure you want to delete all messages?</p>}
+                        modalTitle={'Deleting all messages'}
                     />
                 </ListGroup.Item>
             </ListGroup>

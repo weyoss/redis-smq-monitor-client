@@ -4,12 +4,16 @@ import { Link } from 'react-router-dom';
 import { Badge, ListGroup } from 'react-bootstrap';
 import { TWebsocketMainStreamPayloadQueue } from '../../transport/websocket/streams/websocketMainStream';
 import QueueRates from './QueueRates';
+import { TQueryRequest } from '../../hooks/useQuery';
+import SButton from '../common/SButton/SButton';
 
 interface IProps {
     queue: TWebsocketMainStreamPayloadQueue | undefined;
+    deleteQueueRequestCallback: TQueryRequest<void>;
+    deleteQueueRequestSuccessCallback: () => void;
 }
 
-const QueuePage: React.FC<IProps> = ({ queue }) => {
+const QueuePage: React.FC<IProps> = ({ queue, deleteQueueRequestCallback, deleteQueueRequestSuccessCallback }) => {
     if (!queue) {
         return (
             <div>
@@ -34,6 +38,28 @@ const QueuePage: React.FC<IProps> = ({ queue }) => {
             <h1 className={'display-4'}>
                 {name}@{ns}
             </h1>
+            <ListGroup horizontal className={'mb-3 justify-content-end'}>
+                <ListGroup.Item>
+                    <SButton
+                        onSuccess={deleteQueueRequestSuccessCallback}
+                        request={deleteQueueRequestCallback}
+                        btnCaption={'Delete queue'}
+                        modalBody={
+                            <p>
+                                Are you sure you want to delete this message queue?
+                                <br />
+                                <br />
+                                The queue will be deleted from the system alongside with its messages (acknowledged,
+                                pending, dead-lettered).
+                                <br />
+                                <br />
+                                Before confirming, make sure that this queue is not used by a consumer or a producer.
+                            </p>
+                        }
+                        modalTitle={'Queue Deletion'}
+                    />
+                </ListGroup.Item>
+            </ListGroup>
             <h2 className={'display-5'}>Rates</h2>
             <QueueRates namespace={ns} queueName={name} />
             <h2 className={'display-5'}>Messages</h2>

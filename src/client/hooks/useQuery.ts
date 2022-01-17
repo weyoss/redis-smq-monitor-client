@@ -41,16 +41,13 @@ const useQuery = <T>() => {
             })
             .catch(function (error: AxiosError) {
                 if (error.response) {
-                    dispatch(
-                        addNotificationAction(
-                            `Server responded with a status code that falls out of the range of 2xx (${error.response.status}).`,
-                            ENotificationType.ERROR
-                        )
-                    );
+                    const msg = error.response.data?.error?.message ?? error.response.statusText;
+                    const errorMessage = `Request failed with status ${error.response.status}: ${msg}`;
+                    dispatch(addNotificationAction(errorMessage, ENotificationType.ERROR));
                     setState({
                         ...state,
                         status: EQueryStatus.ERROR,
-                        errorMessage: `Request failed with status code ${error.response.status} (${error.response.statusText})`,
+                        errorMessage,
                         errorDetails: error.response.status === 422 ? error.response.data.error : undefined
                     });
                     console.log(error.response.data);
