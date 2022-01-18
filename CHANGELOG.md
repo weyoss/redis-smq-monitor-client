@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 6.1.0 (2022-01-18)
+
+* Fix npm vulnerability warnings
+* Integrate queue deletion into Web UI, refactor
+* Update HTTP API endpoints
+
 ## 6.0.0 (2022-01-03)
 
 * Add support for multi-queue producers
