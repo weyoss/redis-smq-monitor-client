@@ -50,7 +50,6 @@
         "@types/redux-immutable-state-invariant": "2.1.1",
         "@types/socket.io": "3.0.2",
         "@types/socket.io-client": "3.0.0",
-        "airbnb-browser-shims": "3.3.0",
         "axios": "0.24.0",
         "babel-loader": "8.2.2",
         "bootstrap": "5.1.3",
