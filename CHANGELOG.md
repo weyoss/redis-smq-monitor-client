@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 6.2.0 (2022-01-20)
+
+* Fix window.matchMedia error for Safari < 14
+* Refactor the Web UI to match the latest updates from redis-smq
+
 ## 6.1.0 (2022-01-18)
 
 * Fix npm vulnerability warnings
