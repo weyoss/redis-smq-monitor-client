@@ -5,9 +5,7 @@ export type TWebsocketMainStreamPayload = {
     acknowledgedMessagesCount: number;
     pendingMessagesCount: number;
     pendingMessagesWithPriorityCount: number;
-    producersCount: number;
     consumersCount: number;
-    multiQueueProducersCount: number;
     queues: {
         [ns: string]: {
             [queueName: string]: TWebsocketMainStreamPayloadQueue;
@@ -22,6 +20,5 @@ export type TWebsocketMainStreamPayloadQueue = {
     acknowledgedMessagesCount: number;
     pendingMessagesCount: number;
     pendingMessagesWithPriorityCount: number;
-    producersCount: number;
     consumersCount: number;
 };

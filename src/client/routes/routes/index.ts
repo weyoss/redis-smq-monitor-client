@@ -7,7 +7,3 @@ export { queuePendingMessages } from './queuePendingMessages';
 export { queueAcknowledgedMessages } from './queueAcknowledgedMessages';
 export { scheduledMessages } from './scheduledMessages';
 export { queueConsumers } from './queueConsumers';
-export { queueProducers } from './queueProducers';
-export { producer } from './producer';
-export { multiQueueProducer } from './multiQueueProducer';
-export { multiQueueProducers } from './multiQueueProducers';

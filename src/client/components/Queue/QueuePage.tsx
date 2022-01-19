@@ -29,8 +29,7 @@ const QueuePage: React.FC<IProps> = ({ queue, deleteQueueRequestCallback, delete
         deadLetteredMessagesCount,
         pendingMessagesCount,
         pendingMessagesWithPriorityCount,
-        consumersCount,
-        producersCount
+        consumersCount
     } = queue;
 
     return (
@@ -117,21 +116,8 @@ const QueuePage: React.FC<IProps> = ({ queue, deleteQueueRequestCallback, delete
                     </Link>
                 </ListGroup.Item>
             </ListGroup>
-            <h2 className={'display-5'}>Consumers & Producers</h2>
+            <h2 className={'display-5'}>Consumers</h2>
             <ListGroup horizontal className={'mb-4'}>
-                <ListGroup.Item>
-                    <Link
-                        key={`${ns}-${name}-producers`}
-                        to={routes.queueProducers.getLink({
-                            namespace: ns,
-                            queueName: name
-                        })}
-                    >
-                        Producers
-                        <br />
-                        <Badge pill>{producersCount}</Badge>
-                    </Link>
-                </ListGroup.Item>
                 <ListGroup.Item>
                     <Link
                         key={`${ns}-${name}-consumers`}

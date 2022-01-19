@@ -8,7 +8,6 @@ export interface IWebsocketMainStreamState {
 export const initialWebsocketMainStreamState: IWebsocketMainStreamState = {
     loading: true,
     payload: {
-        producersCount: 0,
         consumersCount: 0,
         queuesCount: 0,
         pendingMessagesWithPriorityCount: 0,
@@ -16,7 +15,6 @@ export const initialWebsocketMainStreamState: IWebsocketMainStreamState = {
         deadLetteredMessagesCount: 0,
         scheduledMessagesCount: 0,
         acknowledgedMessagesCount: 0,
-        multiQueueProducersCount: 0,
         queues: {}
     }
 };

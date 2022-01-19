@@ -61,21 +61,3 @@ export const getConsumerDeadLetteredTimeSeries = async (
         `${API_URL}/api/queues/${queueName}/ns/${ns}/consumers/${consumerId}/time-series/dead-lettered?from=${from}&to=${to}`
     );
 };
-
-export const getProducerPublishedTimeSeries = async (
-    ns: string,
-    queueName: string,
-    producerId: string,
-    from: number,
-    to: number
-) => {
-    return axios.get<TGetTimeSeriesHTTPResponse>(
-        `${API_URL}/api/queues/${queueName}/ns/${ns}/producers/${producerId}/time-series/published?from=${from}&to=${to}`
-    );
-};
-
-export const getMultiQueueProducerPublishedTimeSeries = async (producerId: string, from: number, to: number) => {
-    return axios.get<TGetTimeSeriesHTTPResponse>(
-        `${API_URL}/api/main/multi-queue-producers/${producerId}/time-series/published?from=${from}&to=${to}`
-    );
-};

@@ -7,7 +7,5 @@ export type TWebsocketHeartbeatStreamPayload = {
 };
 
 export type TWebsocketHeartbeatIdsStreamPayload = {
-    producers: string[];
     consumers: string[];
-    multiQueueProducers: string[];
 };

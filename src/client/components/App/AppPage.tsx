@@ -12,7 +12,6 @@ import { INotificationsState } from '../../store/notifications/state';
 import Notification from '../common/Notification/Notification';
 import SchedulerPanelMenu from '../ScheduledPanelMenu';
 import { IWebsocketMainStreamState } from '../../store/websocketMainStream/state';
-import MultiQueueProducersPanelMenu from '../MultiQueueProducersPanelMenu/MultiQueueProducersPanelMenu';
 
 interface IProps {
     websocketMainStreamState: IWebsocketMainStreamState;
@@ -33,7 +32,6 @@ const Page: React.FC<IProps> = (props) => {
                     <Logo />
                     <QueuesPanelMenu />
                     <SchedulerPanelMenu />
-                    <MultiQueueProducersPanelMenu />
                 </div>
                 <div className={'page'}>
                     <Routes />
