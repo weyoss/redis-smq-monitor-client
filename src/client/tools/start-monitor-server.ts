@@ -1,6 +1,6 @@
 // Using redis-smq from a local repository
 // Fix this according to your preferences
-import { MonitorServer } from '../../../../redis-smq';
+import { MonitorServer, setConfiguration } from '../../../../redis-smq';
 import { IConfig, RedisClientName } from '../../../../redis-smq/dist/types';
 
 export const config: IConfig = {
@@ -19,8 +19,7 @@ export const config: IConfig = {
     }
 };
 
-MonitorServer(config)
-    .listen()
-    .then(() => {
-        console.log('It works!');
-    });
+setConfiguration(config);
+
+const server = new MonitorServer();
+server.listen();
