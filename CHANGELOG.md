@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 6.3.0 (2022-01-31)
+
+* Sync latest updates from redis-smq
+
 ## 6.2.0 (2022-01-20)
 
 * Fix window.matchMedia error for Safari < 14

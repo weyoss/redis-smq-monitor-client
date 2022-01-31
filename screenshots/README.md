@@ -6,6 +6,4 @@
 ![screenshot-00007](screenshot-00007.png)
 ![screenshot-00008](screenshot-00008.png)
 ![screenshot-00009](screenshot-00009.png)
-![screenshot-00010](screenshot-00010.png)
-![screenshot-00011](screenshot-00011.png)
 ![screenshot-00012](screenshot-00012.png)
