@@ -8,7 +8,7 @@ export const deleteQueueDeadLetteredMessage = async (
     sequenceId: number
 ) => {
     return axios.delete(
-        `${API_URL}/api/queues/${queueName}/ns/${ns}/dead-lettered-messages/${messageId}?sequenceId=${sequenceId}`
+        `${API_URL}/api/ns/${ns}/queues/${queueName}/dead-lettered-messages/${messageId}?sequenceId=${sequenceId}`
     );
 };
 
@@ -19,12 +19,12 @@ export const deleteQueuePendingMessage = async (
     sequenceId: number
 ) => {
     return axios.delete(
-        `${API_URL}/api/queues/${queueName}/ns/${ns}/pending-messages/${messageId}?sequenceId=${sequenceId}`
+        `${API_URL}/api/ns/${ns}/queues/${queueName}/pending-messages/${messageId}?sequenceId=${sequenceId}`
     );
 };
 
 export const deleteQueuePendingMessageWithPriority = async (ns: string, queueName: string, messageId: string) => {
-    return axios.delete(`${API_URL}/api/queues/${queueName}/ns/${ns}/pending-messages-with-priority/${messageId}`);
+    return axios.delete(`${API_URL}/api/ns/${ns}/queues/${queueName}/pending-messages-with-priority/${messageId}`);
 };
 
 export const deleteQueueAcknowledgedMessage = async (
@@ -34,7 +34,7 @@ export const deleteQueueAcknowledgedMessage = async (
     sequenceId: number
 ) => {
     return axios.delete(
-        `${API_URL}/api/queues/${queueName}/ns/${ns}/acknowledged-messages/${messageId}?sequenceId=${sequenceId}`
+        `${API_URL}/api/ns/${ns}/queues/${queueName}/acknowledged-messages/${messageId}?sequenceId=${sequenceId}`
     );
 };
 

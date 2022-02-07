@@ -9,26 +9,35 @@ export enum EMessagePriority {
     HIGHEST = 0
 }
 
-export interface IMessage {
+export interface IMessageQueue {
+    name: string;
+    ns: string;
+}
+
+export interface IMessageMetadata {
     uuid: string;
+    publishedAt: number | null;
+    scheduledAt: number | null;
+    scheduledCronFired: boolean;
+    scheduledRepeatCount: number;
     attempts: number;
+    nextScheduledDelay: number;
+    nextRetryDelay: number;
+    expired: boolean;
+}
+
+export interface IMessage {
     createdAt: number;
-    ttl: number | null;
-    retryThreshold: number | null;
-    retryDelay: number | null;
-    consumeTimeout: number | null;
+    ttl: number;
+    retryThreshold: number;
+    retryDelay: number;
+    consumeTimeout: number;
     body: unknown;
     scheduledCron: string | null;
-    scheduledCronFired: boolean;
     scheduledDelay: number | null;
-    scheduledPeriod: number | null;
+    scheduledRepeatPeriod: number | null;
     scheduledRepeat: number;
-    scheduledRepeatCount: number;
-    delayed: boolean;
-    priority: EMessagePriority | null;
-    expired: boolean;
-    queue: {
-        ns: string;
-        name: string;
-    };
+    priority: number | null;
+    queue: IMessageQueue;
+    metadata: IMessageMetadata;
 }
