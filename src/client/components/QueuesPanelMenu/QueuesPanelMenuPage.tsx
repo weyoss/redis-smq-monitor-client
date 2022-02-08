@@ -4,14 +4,24 @@ import { Spinner } from 'react-bootstrap';
 import { IQueueRouteParams } from '../../routes/routes/queue';
 import * as routes from '../../routes/routes';
 import { TWebsocketMainStreamPayload } from '../../transport/websocket/streams/websocketMainStream';
+import SButton from '../common/SButton/SButton';
+import { TQueryRequest } from '../../hooks/useQuery';
 
 interface IProps {
+    deleteNamespaceRequestSuccessCallback: () => void;
+    deleteNamespaceRequestCallback: (ns: string) => TQueryRequest<void>;
     websocketMainStreamPayload: TWebsocketMainStreamPayload;
     matchedQueueParams: Partial<IQueueRouteParams> | null;
     loading: boolean;
 }
 
-const RenderData: React.FC<IProps> = ({ websocketMainStreamPayload, matchedQueueParams, loading }) => {
+const RenderData: React.FC<IProps> = ({
+    deleteNamespaceRequestCallback,
+    deleteNamespaceRequestSuccessCallback,
+    websocketMainStreamPayload,
+    matchedQueueParams,
+    loading
+}) => {
     if (loading) {
         return <Spinner animation={'border'} />;
     }
@@ -42,7 +52,24 @@ const RenderData: React.FC<IProps> = ({ websocketMainStreamPayload, matchedQueue
         data.push(
             <div key={ns} className={'mb-3'}>
                 <header className={'mb-1 mx-2 d-flex justify-content-between align-items-center text-break'}>
-                    {ns} <small>{li.length}</small>
+                    {ns}
+                    <SButton
+                        onSuccess={deleteNamespaceRequestSuccessCallback}
+                        request={deleteNamespaceRequestCallback(ns)}
+                        btnCaption={'delete'}
+                        modalBody={
+                            <p>
+                                Are you sure you want to delete this namespace?
+                                <br />
+                                <br />
+                                The namespace will be deleted from the system alongside with its queues.
+                                <br />
+                                <br />
+                                Before confirming, make sure that this namespace is not used by a message handler.
+                            </p>
+                        }
+                        modalTitle={`Deleting namespace [${ns}]`}
+                    />
                 </header>
                 <div className={'list-group'}>{li}</div>
             </div>

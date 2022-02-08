@@ -89,7 +89,11 @@ const QueueMessageList: React.FC<IProps> = (props) => {
                                     )}
                                 </td>
                                 <td>
-                                    <MessageOptions {...rest} messageId={message.metadata.uuid} sequenceId={sequenceId} />
+                                    <MessageOptions
+                                        {...rest}
+                                        messageId={message.metadata.uuid}
+                                        sequenceId={sequenceId}
+                                    />
                                 </td>
                             </tr>
                         );

@@ -10,19 +10,19 @@ export type TGetTimeSeriesHTTPResponse = IHTTPResponse<
 
 export const getQueueAcknowledgedTimeSeries = async (ns: string, queueName: string, from: number, to: number) => {
     return axios.get<TGetTimeSeriesHTTPResponse>(
-        `${API_URL}/api/queues/${queueName}/ns/${ns}/time-series/acknowledged?from=${from}&to=${to}`
+        `${API_URL}/api/ns/${ns}/queues/${queueName}/time-series/acknowledged?from=${from}&to=${to}`
     );
 };
 
 export const getQueueDeadLetteredTimeSeries = async (ns: string, queueName: string, from: number, to: number) => {
     return axios.get<TGetTimeSeriesHTTPResponse>(
-        `${API_URL}/api/queues/${queueName}/ns/${ns}/time-series/dead-lettered?from=${from}&to=${to}`
+        `${API_URL}/api/ns/${ns}/queues/${queueName}/time-series/dead-lettered?from=${from}&to=${to}`
     );
 };
 
 export const getQueuePublishedTimeSeries = async (ns: string, queueName: string, from: number, to: number) => {
     return axios.get<TGetTimeSeriesHTTPResponse>(
-        `${API_URL}/api/queues/${queueName}/ns/${ns}/time-series/published?from=${from}&to=${to}`
+        `${API_URL}/api/ns/${ns}/queues/${queueName}/time-series/published?from=${from}&to=${to}`
     );
 };
 
@@ -46,7 +46,7 @@ export const getConsumerAcknowledgedTimeSeries = async (
     to: number
 ) => {
     return axios.get<TGetTimeSeriesHTTPResponse>(
-        `${API_URL}/api/queues/${queueName}/ns/${ns}/consumers/${consumerId}/time-series/acknowledged?from=${from}&to=${to}`
+        `${API_URL}/api/ns/${ns}/queues/${queueName}/consumers/${consumerId}/time-series/acknowledged?from=${from}&to=${to}`
     );
 };
 
@@ -58,6 +58,6 @@ export const getConsumerDeadLetteredTimeSeries = async (
     to: number
 ) => {
     return axios.get<TGetTimeSeriesHTTPResponse>(
-        `${API_URL}/api/queues/${queueName}/ns/${ns}/consumers/${consumerId}/time-series/dead-lettered?from=${from}&to=${to}`
+        `${API_URL}/api/ns/${ns}/queues/${queueName}/consumers/${consumerId}/time-series/dead-lettered?from=${from}&to=${to}`
     );
 };
