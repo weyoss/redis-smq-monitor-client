@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 6.4.0 (2022-02-08)
+
+* Allow deleting namespaces
+* Sync API updates from redis-smq@6.0.0-rc.12
+
 ## 6.3.0 (2022-01-31)
 
 * Sync latest updates from redis-smq
