@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 6.5.0 (2022-02-18)
+
+* Update docs
+* Allow to configure queue rate limiting, clean up
+
 ## 6.4.0 (2022-02-08)
 
 * Allow deleting namespaces
