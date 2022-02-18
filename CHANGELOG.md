@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 6.5.1 (2022-02-18)
+
+* Fix consumer time series
+* Fix npm vulnerability warnings
+
 ## 6.5.0 (2022-02-18)
 
 * Update docs
