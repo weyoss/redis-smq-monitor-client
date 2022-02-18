@@ -2,6 +2,7 @@ import { Button } from 'react-bootstrap';
 import React, { useCallback, useEffect, useState } from 'react';
 import useQuery, { EQueryStatus, TQueryRequest } from '../../../hooks/useQuery';
 import Modal from '../Modal/Modal';
+import { ButtonProps } from 'react-bootstrap/Button';
 
 interface IProps {
     onSuccess: () => void;
@@ -9,9 +10,19 @@ interface IProps {
     btnCaption: string;
     modalBody: JSX.Element;
     modalTitle: string;
+    variant?: ButtonProps['variant'];
+    className?: string;
 }
 
-const SButton: React.FC<IProps> = ({ btnCaption, modalTitle, modalBody, request, onSuccess }) => {
+const SButton: React.FC<IProps> = ({
+    className,
+    btnCaption,
+    modalTitle,
+    modalBody,
+    request,
+    onSuccess,
+    variant = 'link'
+}) => {
     const [showModal, setShowModal] = useState(false);
     const query = useQuery();
 
@@ -32,7 +43,7 @@ const SButton: React.FC<IProps> = ({ btnCaption, modalTitle, modalBody, request,
 
     return (
         <>
-            <Button variant={'link'} onClick={() => setShowModal(true)}>
+            <Button className={className} variant={variant} onClick={() => setShowModal(true)}>
                 {btnCaption}
             </Button>
             {showModal && (

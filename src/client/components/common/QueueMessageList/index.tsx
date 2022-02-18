@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Paginator from '../Paginator';
 import MessageOptions, { IMessageOptionsSharedProps } from './MessageOptions';
-import { ListGroup, Table } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import { TQueryRequest } from '../../../hooks/useQuery';
 import { IMessage } from '../../../transport/http/api/common/IMessage';
 import SButton from '../SButton/SButton';
@@ -33,17 +33,16 @@ const QueueMessageList: React.FC<IProps> = (props) => {
     }
     return (
         <>
-            <ListGroup horizontal className={'mb-3 justify-content-end'}>
-                <ListGroup.Item>
-                    <SButton
-                        onSuccess={deleteMessagesRequestSuccessCallback}
-                        request={deleteMessagesRequestCallback}
-                        btnCaption={'Delete all'}
-                        modalBody={<p>Are you sure you want to delete all messages?</p>}
-                        modalTitle={'Deleting all messages'}
-                    />
-                </ListGroup.Item>
-            </ListGroup>
+            <div className={'mb-3 d-flex flex-row-reverse'}>
+                <SButton
+                    variant={'outline-danger'}
+                    onSuccess={deleteMessagesRequestSuccessCallback}
+                    request={deleteMessagesRequestCallback}
+                    btnCaption={'Delete all'}
+                    modalBody={<p>Are you sure you want to delete all messages?</p>}
+                    modalTitle={'Deleting all messages'}
+                />
+            </div>
             <Table className={'table table-striped .messages'} hover>
                 <thead>
                     <tr>

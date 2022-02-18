@@ -80,7 +80,7 @@ const QueueRates: React.FC<{ namespace: string; queueName: string }> = ({ queueN
             </Nav>
             {activeTab === ENavigationTab.ACKNOWLEDGED && (
                 <TimeSeriesChart
-                    label={'Queue acknowledged'}
+                    label={`Acknowledged (queue ${queueName}@${namespace})`}
                     scale={'messages'}
                     stream={`streamQueueAcknowledged:${namespace}:${queueName}`}
                     FetchCharDataRequestFactory={FetchAcknowledgedTimeSeries}
@@ -88,7 +88,7 @@ const QueueRates: React.FC<{ namespace: string; queueName: string }> = ({ queueN
             )}
             {activeTab === ENavigationTab.DEAD_LETTERED && (
                 <TimeSeriesChart
-                    label={'Queue dead-lettered'}
+                    label={`Dead-lettered (queue ${queueName}@${namespace})`}
                     scale={'messages'}
                     stream={`streamQueueDeadLettered:${namespace}:${queueName}`}
                     FetchCharDataRequestFactory={FetchDeadLetteredTimeSeries}
@@ -96,7 +96,7 @@ const QueueRates: React.FC<{ namespace: string; queueName: string }> = ({ queueN
             )}
             {activeTab === ENavigationTab.PUBLISHED && (
                 <TimeSeriesChart
-                    label={'Queue published'}
+                    label={`Published (queue ${queueName}@${namespace})`}
                     scale={'messages'}
                     stream={`streamQueuePublished:${namespace}:${queueName}`}
                     FetchCharDataRequestFactory={FetchPublishedTimeSeries}
