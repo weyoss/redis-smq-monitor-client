@@ -13,8 +13,8 @@ enum ENavigationTab {
 }
 
 const ConsumerRates: React.FC<{ namespace: string; queueName: string; consumerId: string }> = ({
-    queueName,
     namespace,
+    queueName,
     consumerId
 }) => {
     const { getUrlParam, setUrlParam } = useUrlParams();
@@ -25,15 +25,13 @@ const ConsumerRates: React.FC<{ namespace: string; queueName: string; consumerId
     ]);
 
     const FetchAcknowledgedTimeSeries = useCallback(
-        (from: number, to: number) => () =>
-            getConsumerAcknowledgedTimeSeries(namespace, queueName, consumerId, from, to),
-        [namespace, queueName]
+        (from: number, to: number) => () => getConsumerAcknowledgedTimeSeries(consumerId, from, to),
+        [namespace, queueName, consumerId]
     );
 
     const FetchDeadLetteredTimeSeries = useCallback(
-        (from: number, to: number) => () =>
-            getConsumerDeadLetteredTimeSeries(namespace, queueName, consumerId, from, to),
-        [namespace, queueName]
+        (from: number, to: number) => () => getConsumerDeadLetteredTimeSeries(consumerId, from, to),
+        [namespace, queueName, consumerId]
     );
 
     return (

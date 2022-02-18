@@ -38,26 +38,14 @@ export const getGlobalPublishedTimeSeries = async (from: number, to: number) => 
     return axios.get<TGetTimeSeriesHTTPResponse>(`${API_URL}/api/main/time-series/published?from=${from}&to=${to}`);
 };
 
-export const getConsumerAcknowledgedTimeSeries = async (
-    ns: string,
-    queueName: string,
-    consumerId: string,
-    from: number,
-    to: number
-) => {
+export const getConsumerAcknowledgedTimeSeries = async (consumerId: string, from: number, to: number) => {
     return axios.get<TGetTimeSeriesHTTPResponse>(
-        `${API_URL}/api/ns/${ns}/queues/${queueName}/consumers/${consumerId}/time-series/acknowledged?from=${from}&to=${to}`
+        `${API_URL}/api/consumers/${consumerId}/time-series/acknowledged?from=${from}&to=${to}`
     );
 };
 
-export const getConsumerDeadLetteredTimeSeries = async (
-    ns: string,
-    queueName: string,
-    consumerId: string,
-    from: number,
-    to: number
-) => {
+export const getConsumerDeadLetteredTimeSeries = async (consumerId: string, from: number, to: number) => {
     return axios.get<TGetTimeSeriesHTTPResponse>(
-        `${API_URL}/api/ns/${ns}/queues/${queueName}/consumers/${consumerId}/time-series/dead-lettered?from=${from}&to=${to}`
+        `${API_URL}/api/consumers/${consumerId}/time-series/dead-lettered?from=${from}&to=${to}`
     );
 };
