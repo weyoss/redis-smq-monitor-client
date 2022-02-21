@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 6.5.2 (2022-02-21)
+
+* Refactor time series chart and clean up
+
 ## 6.5.1 (2022-02-18)
 
 * Fix consumer time series
