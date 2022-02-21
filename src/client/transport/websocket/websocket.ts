@@ -1,7 +1,7 @@
 import { io, Socket } from 'socket.io-client';
 
 const API_URL = process.env.API_URL ?? '';
-let socket: Socket | undefined;
+let socket: Socket | null = null;
 
 const connect = async (): Promise<Socket> => {
     console.log('Trying to connect to WS server...');
@@ -21,6 +21,9 @@ const connect = async (): Promise<Socket> => {
 const Websocket = async () => {
     if (!socket) {
         socket = await connect();
+        socket.once('disconnect', () => {
+            socket = null;
+        });
     }
     return socket;
 };
