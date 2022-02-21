@@ -76,7 +76,7 @@ const Home: React.FC<RouteComponentProps> = ({ location }) => {
                     label={'Acknowledged (global)'}
                     scale={'messages'}
                     stream={`streamGlobalAcknowledged`}
-                    FetchCharDataRequestFactory={FetchAcknowledgedTimeSeries}
+                    FetchTimeSeriesRequestFactory={FetchAcknowledgedTimeSeries}
                 />
             )}
             {activeTab === ENavigationTab.DEAD_LETTERED && (
@@ -84,7 +84,7 @@ const Home: React.FC<RouteComponentProps> = ({ location }) => {
                     label={'Dead-lettered (global)'}
                     scale={'messages'}
                     stream={`streamGlobalDeadLettered`}
-                    FetchCharDataRequestFactory={FetchDeadLetteredTimeSeries}
+                    FetchTimeSeriesRequestFactory={FetchDeadLetteredTimeSeries}
                 />
             )}
             {activeTab === ENavigationTab.PUBLISHED && (
@@ -92,7 +92,7 @@ const Home: React.FC<RouteComponentProps> = ({ location }) => {
                     label={'Published (global)'}
                     scale={'messages'}
                     stream={`streamGlobalPublished`}
-                    FetchCharDataRequestFactory={FetchPublishedTimeSeries}
+                    FetchTimeSeriesRequestFactory={FetchPublishedTimeSeries}
                 />
             )}
         </>

@@ -83,7 +83,7 @@ const QueueRates: React.FC<{ namespace: string; queueName: string }> = ({ queueN
                     label={`Acknowledged (queue ${queueName}@${namespace})`}
                     scale={'messages'}
                     stream={`streamQueueAcknowledged:${namespace}:${queueName}`}
-                    FetchCharDataRequestFactory={FetchAcknowledgedTimeSeries}
+                    FetchTimeSeriesRequestFactory={FetchAcknowledgedTimeSeries}
                 />
             )}
             {activeTab === ENavigationTab.DEAD_LETTERED && (
@@ -91,7 +91,7 @@ const QueueRates: React.FC<{ namespace: string; queueName: string }> = ({ queueN
                     label={`Dead-lettered (queue ${queueName}@${namespace})`}
                     scale={'messages'}
                     stream={`streamQueueDeadLettered:${namespace}:${queueName}`}
-                    FetchCharDataRequestFactory={FetchDeadLetteredTimeSeries}
+                    FetchTimeSeriesRequestFactory={FetchDeadLetteredTimeSeries}
                 />
             )}
             {activeTab === ENavigationTab.PUBLISHED && (
@@ -99,7 +99,7 @@ const QueueRates: React.FC<{ namespace: string; queueName: string }> = ({ queueN
                     label={`Published (queue ${queueName}@${namespace})`}
                     scale={'messages'}
                     stream={`streamQueuePublished:${namespace}:${queueName}`}
-                    FetchCharDataRequestFactory={FetchPublishedTimeSeries}
+                    FetchTimeSeriesRequestFactory={FetchPublishedTimeSeries}
                 />
             )}
         </>

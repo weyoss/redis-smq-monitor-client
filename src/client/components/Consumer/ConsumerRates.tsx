@@ -59,7 +59,7 @@ const ConsumerRates: React.FC<{ namespace: string; queueName: string; consumerId
                     label={`Acknowledged (consumer ${consumerId})`}
                     scale={'messages'}
                     stream={`streamConsumerAcknowledged:${consumerId}`}
-                    FetchCharDataRequestFactory={FetchAcknowledgedTimeSeries}
+                    FetchTimeSeriesRequestFactory={FetchAcknowledgedTimeSeries}
                 />
             )}
             {activeTab === ENavigationTab.DEAD_LETTERED && (
@@ -67,7 +67,7 @@ const ConsumerRates: React.FC<{ namespace: string; queueName: string; consumerId
                     label={`Dead-lettered (consumer ${consumerId})`}
                     scale={'messages'}
                     stream={`streamConsumerDeadLettered:${consumerId}`}
-                    FetchCharDataRequestFactory={FetchDeadLetteredTimeSeries}
+                    FetchTimeSeriesRequestFactory={FetchDeadLetteredTimeSeries}
                 />
             )}
         </>
