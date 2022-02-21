@@ -25,7 +25,6 @@ export const LiveTimeSeries: React.FC<{
         payload: []
     });
     useEffect(() => {
-        console.log(`SUBSCRIBING TO ${stream}`);
         setLiveTimeSeries((prev) => {
             return {
                 ...prev,
@@ -53,7 +52,6 @@ export const LiveTimeSeries: React.FC<{
             });
         return () => {
             Websocket().then((socket) => {
-                console.log(`UNSUBSCRIBING FROM ${stream}`);
                 socket.removeAllListeners(stream);
             });
         };
