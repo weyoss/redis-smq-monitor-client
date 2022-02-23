@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 6.5.3 (2022-02-23)
+
+* Remove debug info
+* Destroy websocket connection instance upon disconnect event
+
 ## 6.5.2 (2022-02-21)
 
 * Refactor time series chart and clean up
