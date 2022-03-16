@@ -3,10 +3,12 @@ const path = require('path');
 const pkg = require('./package.json');
 
 // variables
-const env = process.env.NODE_ENV || 'development';
-const isProduction = env === 'production';
+const isProduction = process.env.NODE_ENV === 'production';
 const sourcePath = path.join(__dirname, './src/client');
 const outPath = path.join(__dirname, './dist');
+
+// Only prod and dev environments are supported
+const env = isProduction ? 'production' : 'development';
 
 // plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -14,14 +16,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-    mode: isProduction ? 'production' : 'development',
+    mode: env,
     context: sourcePath,
     entry: {
         app: './index.tsx'
     },
     output: {
         path: `${outPath}/assets/`,
-        publicPath: isProduction ? '/assets/' : '/',
+        publicPath: isProduction ? 'assets/' : '/',
         filename: isProduction ? '[contenthash].js' : '[chunkhash].js',
         chunkFilename: isProduction ? '[name].[contenthash].js' : '[name].[chunkhash].js'
     },
@@ -71,9 +73,9 @@ module.exports = {
     },
     plugins: [
         new webpack.EnvironmentPlugin({
-            API_URL: isProduction ? '' : 'http://localhost:3000',
             NODE_ENV: env,
-            DEBUG: false
+            API_URL: isProduction ? null : 'http://localhost:3000',
+            DEBUG: !isProduction
         }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
@@ -114,5 +116,5 @@ module.exports = {
             'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
         }
     },
-    devtool: isProduction ? undefined : 'cheap-module-source-map'
+    devtool: isProduction ? false : 'cheap-module-source-map'
 };

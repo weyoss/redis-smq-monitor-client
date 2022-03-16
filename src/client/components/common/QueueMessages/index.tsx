@@ -60,7 +60,11 @@ const QueueMessages: React.FC<IProps> = ({
     // Pagination navigation
     const history = useHistory();
     const onSelectPageCallback = useCallback((page: number) => {
-        history.push(`${location.pathname}?page=${page}`);
+        const params = queryString.parse(location.search);
+        params.page = String(page);
+        history.push({
+            search: queryString.stringify(params)
+        });
     }, []);
 
     const onMessageOperationSuccessCallback = useCallback(() => {

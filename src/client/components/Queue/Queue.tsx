@@ -25,7 +25,7 @@ const Queue: React.FC<RouteComponentProps<IQueueRouteParams>> = ({ match }) => {
                 ENotificationType.SUCCESS
             )
         );
-        history.push(`/`);
+        history.push('/');
     }, [namespace, queueName]);
     return (
         <QueuePage

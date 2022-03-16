@@ -19,7 +19,7 @@ const QueuesPanelMenu: React.FC<RouteComponentProps> = (props) => {
     const deleteNamespaceRequestCallback = useCallback((ns: string) => () => deleteNamespace(ns), [payload]);
     const deleteNamespaceRequestSuccessCallback = useCallback(() => {
         dispatch(addNotificationAction(`Namespace has been successfully deleted.`, ENotificationType.SUCCESS));
-        history.push(`/`);
+        history.push('/');
     }, [payload]);
     // This component is not a child of the Router, so we can not access current route parameters.
     // This is a workaround to get the parameters.

@@ -9,7 +9,9 @@ const useUrlParams = () => {
         (key: string, value: string) => {
             const params = queryString.parse(location.search);
             params[key] = value;
-            history.push(`${location.pathname}?${queryString.stringify(params)}`);
+            history.push({
+                search: queryString.stringify(params)
+            });
         },
         [location.search]
     );

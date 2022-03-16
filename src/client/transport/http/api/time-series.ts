@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { API_URL, IHTTPResponse } from './index';
+import { IHTTPResponse } from './index';
+import { API_URL } from '../../endpoints';
 
 export type TGetTimeSeriesHTTPResponse = IHTTPResponse<
     {

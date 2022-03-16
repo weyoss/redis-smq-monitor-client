@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_URL } from './index';
+import { API_URL } from '../../endpoints';
 
 export const deleteQueueDeadLetteredMessage = async (
     ns: string,

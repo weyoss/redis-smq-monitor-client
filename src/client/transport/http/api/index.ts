@@ -4,8 +4,6 @@ export * from './purge-messages';
 export * from './requeue-message';
 export * from './namespaces';
 
-export const API_URL = process.env.API_URL ?? '';
-
 export interface IHTTPResponse<T> {
     data: T;
 }

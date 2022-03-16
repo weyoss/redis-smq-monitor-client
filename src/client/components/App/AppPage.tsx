@@ -12,6 +12,7 @@ import { INotificationsState } from '../../store/notifications/state';
 import Notification from '../common/Notification/Notification';
 import SchedulerPanelMenu from '../ScheduledPanelMenu';
 import { IWebsocketMainStreamState } from '../../store/websocketMainStream/state';
+import { BASE_PATH } from '../../transport/endpoints';
 
 interface IProps {
     websocketMainStreamState: IWebsocketMainStreamState;
@@ -44,7 +45,7 @@ const Page: React.FC<IProps> = (props) => {
 
 const AppPage: React.FC<IProps> = (props) => {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename={BASE_PATH}>
             <Page {...props} />
         </BrowserRouter>
     );
