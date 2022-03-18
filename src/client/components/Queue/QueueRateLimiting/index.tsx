@@ -12,21 +12,31 @@ import { ENotificationType } from '../../../store/notifications/state';
 
 const QueueRateLimiting: React.FC<{ name: string; ns: string }> = ({ name, ns }) => {
     const [reload, setReload] = useState(Date.now());
+    /**
+     * Mapping (ns, name) -> (reload)
+     *
+     * Explicitly using useMemo instead of useEffect
+     * When the QueueRateLimiting component is mounted for the first time, useEffect will always get triggered and will cause (reload) to be updated a second time
+     * On the other hand useMemo is only dependant on (ns, name) changes
+     */
+    useMemo(() => {
+        setReload(Date.now());
+    }, [ns, name]);
     const dispatch = useDispatch();
-    const request = useMemo(() => () => getQueueRateLimit(ns, name), [ns, name, reload]);
-    const clearRateLimitRequestCallback = useCallback(() => clearQueueRateLimit(ns, name), [ns, name]);
+    const request = useMemo(() => () => getQueueRateLimit(ns, name), [reload]);
+    const clearRateLimitRequestCallback = useCallback(() => clearQueueRateLimit(ns, name), [reload]);
     const setRateLimitRequestCallback = useCallback(
         (limit: number, interval: number) => () => setQueueRateLimit(ns, name, interval, limit),
-        [ns, name]
+        [reload]
     );
     const onSetRateLimitSuccess = useCallback(() => {
         dispatch(addNotificationAction(`Queue rate limit has been successfully set.`, ENotificationType.SUCCESS));
         setReload(Date.now());
-    }, [ns, name, reload]);
+    }, [reload]);
     const onClearRateLimitSuccess = useCallback(() => {
         dispatch(addNotificationAction(`Queue rate limit has been successfully cleared.`, ENotificationType.SUCCESS));
         setReload(Date.now());
-    }, [ns, name, reload]);
+    }, [reload]);
     return useMemo(
         () => (
             <Query request={request}>

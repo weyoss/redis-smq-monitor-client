@@ -41,7 +41,7 @@ const QueueRateLimitingPage: React.FC<{
                         onSuccess={clearRateLimitRequestSuccessCallback}
                         request={clearRateLimitRequestCallback}
                         btnCaption={'Clear rate limit'}
-                        modalBody={<p>Are you sure you want to clear the rate limit</p>}
+                        modalBody={<p>Are you sure you want to clear the rate limit?</p>}
                         modalTitle={'Clear Queue Rate Limit'}
                     />
                 )}
