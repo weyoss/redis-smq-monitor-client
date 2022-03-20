@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 6.5.4 (2022-03-20)
+
+* Handle properly trailing slash in basePath
+* Fix queue rate limit not being updated when selecting a queue
+* Support basePath when using the web ui from behind a reverse proxy
+
 ## 6.5.3 (2022-02-23)
 
 * Remove debug info
