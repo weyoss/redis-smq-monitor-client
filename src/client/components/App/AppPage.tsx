@@ -12,7 +12,6 @@ import { INotificationsState } from '../../store/notifications/state';
 import Notification from '../common/Notification/Notification';
 import SchedulerPanelMenu from '../ScheduledPanelMenu';
 import { IWebsocketMainStreamState } from '../../store/websocketMainStream/state';
-import { BASE_PATH } from '../../transport/endpoints';
 
 interface IProps {
     websocketMainStreamState: IWebsocketMainStreamState;
@@ -44,8 +43,9 @@ const Page: React.FC<IProps> = (props) => {
 };
 
 const AppPage: React.FC<IProps> = (props) => {
+    const path = basePath !== '/' ? basePath.replace(/\/+$/, '') : undefined;
     return (
-        <BrowserRouter basename={BASE_PATH}>
+        <BrowserRouter basename={path}>
             <Page {...props} />
         </BrowserRouter>
     );
