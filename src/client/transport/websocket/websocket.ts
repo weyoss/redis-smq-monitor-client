@@ -6,7 +6,7 @@ let socket: Socket | null = null;
 const connect = async (): Promise<Socket> => {
     console.log('Trying to connect to WS server...');
     return new Promise((resolve, reject) => {
-        const ws = io(HOST);
+        const ws = io(HOST, { path: `${basePath}socket.io/` });
         ws.once('connect', () => {
             console.log('Successfully connected to WS server.');
             resolve(ws);
