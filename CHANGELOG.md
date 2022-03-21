@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 6.5.5 (2022-03-21)
+
+* Fix WebSocket ignoring basePath when opening a ws connection
+
 ## 6.5.4 (2022-03-20)
 
 * Handle properly trailing slash in basePath
