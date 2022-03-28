@@ -3,7 +3,7 @@ import { Spinner } from 'react-bootstrap';
 import { IConsumerRouteParams } from '../../routes/routes/consumer';
 import { TWebsocketHeartbeatStreamPayload } from '../../transport/websocket/streams/websocketHeartbeatStream';
 import ConsumerRates from './ConsumerRates';
-import HeartbeatData from '../common/HeartbeatData/HeartbeatData';
+import ConsumerResourcesUsage from './ConsumerResourcesUsage';
 
 interface IProps extends IConsumerRouteParams {
     heartbeat: TWebsocketHeartbeatStreamPayload | null;
@@ -23,7 +23,7 @@ const Render: React.FC<IProps> = ({ isLoading, heartbeat, namespace, queueName, 
             <h2 className={'display-5'}>Rates</h2>
             <ConsumerRates namespace={namespace} queueName={queueName} consumerId={consumerId} />
             <h2 className={'display-5'}>RAM & CPU</h2>
-            <HeartbeatData {...heartbeat} />
+            <ConsumerResourcesUsage {...heartbeat} />
         </div>
     );
 };

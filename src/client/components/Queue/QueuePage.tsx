@@ -3,10 +3,10 @@ import * as routes from '../../routes/routes';
 import { Link } from 'react-router-dom';
 import { Badge, ListGroup } from 'react-bootstrap';
 import { TWebsocketMainStreamPayloadQueue } from '../../transport/websocket/streams/websocketMainStream';
-import QueueRates from './QueueRates';
+import MessageRates from './MessageRates';
 import { TQueryRequest } from '../../hooks/useQuery';
-import SButton from '../common/SButton/SButton';
-import QueueRateLimiting from './QueueRateLimiting';
+import ModalLink from '../common/ModalLink';
+import RateLimiting from './RateLimiting/RateLimiting';
 
 interface IProps {
     queue: TWebsocketMainStreamPayloadQueue | undefined;
@@ -39,7 +39,7 @@ const QueuePage: React.FC<IProps> = ({ queue, deleteQueueRequestCallback, delete
                 {name}@{ns}
             </h1>
             <div className={'mb-3 d-flex flex-row-reverse'}>
-                <SButton
+                <ModalLink
                     variant={'outline-danger'}
                     onSuccess={deleteQueueRequestSuccessCallback}
                     request={deleteQueueRequestCallback}
@@ -60,15 +60,15 @@ const QueuePage: React.FC<IProps> = ({ queue, deleteQueueRequestCallback, delete
                 />
             </div>
             <h2 className={'display-5'}>Rates</h2>
-            <QueueRates namespace={ns} queueName={name} />
+            <MessageRates namespace={ns} queueName={name} />
             <h2 className={'display-5'}>Queue Rate Limiting</h2>
-            <QueueRateLimiting name={name} ns={ns} />
+            <RateLimiting name={name} ns={ns} />
             <h2 className={'display-5'}>Messages</h2>
             <ListGroup horizontal className={'mb-4'}>
                 <Link
                     className={'list-group-item list-group-item-action'}
                     key={`${ns}-${name}-pending-messages`}
-                    to={routes.queuePendingMessages.getLink({
+                    to={routes.pendingMessages.getLink({
                         namespace: ns,
                         queueName: name
                     })}
@@ -80,7 +80,7 @@ const QueuePage: React.FC<IProps> = ({ queue, deleteQueueRequestCallback, delete
                 <Link
                     className={'list-group-item list-group-item-action'}
                     key={`${ns}-${name}-pending-messages-with-priority`}
-                    to={routes.queuePendingMessagesWithPriority.getLink({
+                    to={routes.pendingMessagesWithPriority.getLink({
                         namespace: ns,
                         queueName: name
                     })}
@@ -92,7 +92,7 @@ const QueuePage: React.FC<IProps> = ({ queue, deleteQueueRequestCallback, delete
                 <Link
                     className={'list-group-item list-group-item-action'}
                     key={`${ns}-${name}-acknowledged-messages`}
-                    to={routes.queueAcknowledgedMessages.getLink({
+                    to={routes.acknowledgedMessages.getLink({
                         namespace: ns,
                         queueName: name
                     })}
@@ -104,7 +104,7 @@ const QueuePage: React.FC<IProps> = ({ queue, deleteQueueRequestCallback, delete
                 <Link
                     className={'list-group-item list-group-item-action'}
                     key={`${ns}-${name}-dead-lettered-messages`}
-                    to={routes.queueDeadLetteredMessages.getLink({
+                    to={routes.deadLetteredMessages.getLink({
                         namespace: ns,
                         queueName: name
                     })}
@@ -119,7 +119,7 @@ const QueuePage: React.FC<IProps> = ({ queue, deleteQueueRequestCallback, delete
                 <Link
                     className={'list-group-item list-group-item-action w-25'}
                     key={`${ns}-${name}-consumers`}
-                    to={routes.queueConsumers.getLink({
+                    to={routes.consumers.getLink({
                         namespace: ns,
                         queueName: name
                     })}

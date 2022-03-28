@@ -2,16 +2,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 
 import React from 'react';
-import Logo from '../common/Logo';
-import Footer from '../common/Footer';
+import Logo from '../common/Logo/Logo';
+import Footer from '../common/Footer/Footer';
 import Routes from '../../routes';
 import { BrowserRouter } from 'react-router-dom';
-import QueuesPanelMenu from '../QueuesPanelMenu';
+import QueuesPanelMenu from '../QueuesPanelBox/QueuesPanelBox';
 import { Spinner } from 'react-bootstrap';
 import { INotificationsState } from '../../store/notifications/state';
-import Notification from '../common/Notification/Notification';
-import SchedulerPanelMenu from '../ScheduledPanelMenu';
-import { IWebsocketMainStreamState } from '../../store/websocketMainStream/state';
+import Notification from '../common/Notification';
+import SchedulerPanelBox from '../ScheduledPanelBox/ScheduledPanelBox';
+import { IWebsocketMainStreamState } from '../../store/websocket-main-stream/state';
 
 interface IProps {
     websocketMainStreamState: IWebsocketMainStreamState;
@@ -31,7 +31,7 @@ const Page: React.FC<IProps> = (props) => {
                 <div className={'sidePanel'}>
                     <Logo />
                     <QueuesPanelMenu />
-                    <SchedulerPanelMenu />
+                    <SchedulerPanelBox />
                 </div>
                 <div className={'page'}>
                     <Routes />
