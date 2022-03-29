@@ -1,7 +1,7 @@
 import Koa from 'koa';
 import send from 'koa-send';
 import { promises, constants } from 'fs';
-import { join } from 'path';
+import { join, posix } from 'path';
 import { tmpdir } from 'os';
 import { renderFile } from 'ejs';
 
@@ -23,7 +23,13 @@ async function serveIndex(ctx: Koa.ParameterizedContext, basePath: string): Prom
 }
 
 export const Middleware = (ignorePaths: string[] = [], basePath = '/'): Koa.Middleware => async (ctx, next) => {
-    if (ignorePaths.map((i) => ctx.path.indexOf(i)).find((i) => i === 0) === undefined) {
+    if (
+        !ignorePaths.length ||
+        ignorePaths.find((i) => {
+            const match = posix.join('/', basePath, i).replace(/\/+$/, '');
+            return ctx.path.indexOf(match) === 0;
+        }) === undefined
+    ) {
         await ('/' === ctx.path || ctx.path.indexOf('/assets/') !== 0
             ? serveIndex(ctx, basePath)
             : send(ctx, ctx.path, { root: assetsDir }));
