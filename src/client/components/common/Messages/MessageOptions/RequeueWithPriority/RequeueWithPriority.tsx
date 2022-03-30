@@ -14,7 +14,7 @@ export interface IRequeueMessageWithPriorityProps {
     requeueMessageSuccessCallback: () => void;
 }
 
-const RequeueMessageWithPriority: React.FC<IRequeueMessageWithPriorityProps> = (props) => {
+const RequeueWithPriority: React.FC<IRequeueMessageWithPriorityProps> = (props) => {
     const [openHandler, setOpenHandler] = useState<boolean>(false);
     const closeHandler = useCallback(() => setOpenHandler(false), []);
     return (
@@ -33,4 +33,4 @@ const RequeueMessageWithPriority: React.FC<IRequeueMessageWithPriorityProps> = (
     );
 };
 
-export default RequeueMessageWithPriority;
+export default RequeueWithPriority;

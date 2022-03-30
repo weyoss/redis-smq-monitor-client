@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Paginator from '../Paginator';
-import MessageOptions, { IMessageOptionsSharedProps } from './MessageOptions';
+import MessageOptions, { IMessageOptionsSharedProps } from './MessageOptions/MessageOptions';
 import { Table } from 'react-bootstrap';
 import { TQueryRequest } from '../../../hooks/useQuery';
 import { IMessage } from '../../../transport/http/api/common/IMessage';

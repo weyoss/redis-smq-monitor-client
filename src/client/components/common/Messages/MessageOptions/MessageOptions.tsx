@@ -3,7 +3,7 @@ import Delete from './Delete';
 import React from 'react';
 import { TQueryRequest } from '../../../../hooks/useQuery';
 import Requeue from './Requeue';
-import RequeueMessageWithPriority from './RequeueWithPriority';
+import RequeueWithPriority from './RequeueWithPriority/RequeueWithPriority';
 import { EMessagePriority } from '../../../../transport/http/api/common/IMessage';
 
 export interface IMessageOptionsSharedProps {
@@ -40,15 +40,14 @@ const MessageOptions: React.FC<IMessageOptionsProps> = ({
             <Requeue
                 key={`${messageId}-requeue`}
                 messageId={messageId}
-                sequenceId={sequenceId}
-                requeueMessageSuccessCallback={requeueMessageSuccessCallback}
-                RequeueMessageRequestFactory={RequeueMessageRequestFactory}
+                successCallback={requeueMessageSuccessCallback}
+                RequestFactory={RequeueMessageRequestFactory(messageId, sequenceId)}
             />
         );
     }
     if (RequeueMessageWithPriorityRequestFactory && requeueMessageWithPrioritySuccessCallback && sequenceId) {
         options.push(
-            <RequeueMessageWithPriority
+            <RequeueWithPriority
                 key={`${messageId}-requeue-w-priority`}
                 messageId={messageId}
                 sequenceId={sequenceId}
@@ -61,9 +60,8 @@ const MessageOptions: React.FC<IMessageOptionsProps> = ({
         <Delete
             key={`${messageId}-delete`}
             messageId={messageId}
-            sequenceId={sequenceId}
-            deleteMessageSuccessCallback={deleteMessageSuccessCallback}
-            DeleteMessageRequestFactory={DeleteMessageRequestFactory}
+            successCallback={deleteMessageSuccessCallback}
+            RequestFactory={DeleteMessageRequestFactory(messageId, sequenceId)}
         />
     );
     return (

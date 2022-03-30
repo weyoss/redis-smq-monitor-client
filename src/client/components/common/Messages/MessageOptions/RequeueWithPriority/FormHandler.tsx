@@ -5,7 +5,7 @@ import { addNotificationAction } from '../../../../../store/notifications/action
 import { ENotificationType } from '../../../../../store/notifications/state';
 import Modal from '../../../Modal';
 import FormBody from './FormBody';
-import { IRequeueMessageWithPriorityProps } from './index';
+import { IRequeueMessageWithPriorityProps } from './RequeueWithPriority';
 import { EMessagePriority } from '../../../../../transport/http/api/common/IMessage';
 
 interface IHandlerProps extends IRequeueMessageWithPriorityProps {
