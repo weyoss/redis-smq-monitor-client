@@ -57,7 +57,22 @@ module.exports = {
                 ]
             },
             // static assets
-            { test: /\.html$/, use: 'html-loader' },
+            {
+                test: /\.html$/,
+                use: [
+                    !isProduction && {
+                        loader: 'string-replace-loader',
+                        options: {
+                            search: '<%= basePath; %>',
+                            replace: '/',
+                            flags: 'g'
+                        }
+                    },
+                    {
+                        loader: 'html-loader'
+                    }
+                ].filter(Boolean)
+            },
             { test: /\.(a?png|svg)$/, use: 'url-loader?limit=10000' },
             {
                 test: /\.(jpe?g|gif|bmp|mp3|mp4|ogg|wav|eot|ttf|woff|woff2)$/,
