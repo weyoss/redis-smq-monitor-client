@@ -35,7 +35,7 @@ const MessageOptions: React.FC<IMessageOptionsProps> = ({
     sequenceId
 }) => {
     const options: JSX.Element[] = [];
-    if (RequeueMessageRequestFactory && requeueMessageSuccessCallback && sequenceId) {
+    if (RequeueMessageRequestFactory && requeueMessageSuccessCallback && sequenceId !== undefined) {
         options.push(
             <Requeue
                 key={`${messageId}-requeue`}
@@ -45,7 +45,11 @@ const MessageOptions: React.FC<IMessageOptionsProps> = ({
             />
         );
     }
-    if (RequeueMessageWithPriorityRequestFactory && requeueMessageWithPrioritySuccessCallback && sequenceId) {
+    if (
+        RequeueMessageWithPriorityRequestFactory &&
+        requeueMessageWithPrioritySuccessCallback &&
+        sequenceId !== undefined
+    ) {
         options.push(
             <RequeueWithPriority
                 key={`${messageId}-requeue-w-priority`}
