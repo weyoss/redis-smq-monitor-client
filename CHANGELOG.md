@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 6.5.6 (2022-04-22)
+
+* Fix NPM security warnings
+* Fix incomplete message options when message sequence ID equals 0
+* Fix broken dev environment
+* Refactor MessageOptions, remove redundant code
+* Fix minor middleware bug ignoring basePath
+* Update LICENSE
+* Clean up
+* Fix npm security warnings
+
 ## 6.5.5 (2022-03-21)
 
 * Fix WebSocket ignoring basePath when opening a ws connection
