@@ -91,7 +91,7 @@
     },
     "dependencies": {
         "@types/ejs": "3.1.0",
-        "ejs": "3.1.6",
+        "ejs": "3.1.7",
         "koa": "2.13.1",
         "koa-send": "5.0.1"
     }
