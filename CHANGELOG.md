@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 6.5.7 (2022-05-02)
+
+* Fix NPM vulnerability warnings
+
 ## 6.5.6 (2022-04-22)
 
 * Fix NPM security warnings
