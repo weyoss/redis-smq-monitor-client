@@ -42,10 +42,7 @@ const RenderData: React.FC<IProps> = ({
                     className={`${className}text-break list-group-item list-group-item-action d-flex justify-content-between align-items-center`}
                     to={routes.queue.getLink({ queueName, namespace: ns })}
                 >
-                    {queue.name}{' '}
-                    <span className="badge bg-primary rounded-pill">
-                        {queue.pendingMessagesCount + queue.pendingMessagesWithPriorityCount}
-                    </span>
+                    {queue.name} <span className="badge bg-primary rounded-pill">{queue.pendingMessagesCount}</span>
                 </Link>
             );
         }

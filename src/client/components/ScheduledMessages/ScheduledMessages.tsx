@@ -23,8 +23,8 @@ const ScheduledMessages: React.FC = () => {
                 };
             });
     }, []);
-    const DeleteQueueMessageRequestFactory = useCallback((messageId: string) => {
-        return () => deleteScheduledMessage(messageId);
+    const DeleteQueueMessageRequestFactory = useCallback((messageId: string, sequenceId: number) => {
+        return () => deleteScheduledMessage(messageId, sequenceId);
     }, []);
 
     return (

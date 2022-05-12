@@ -13,7 +13,7 @@ interface IProps extends RouteComponentProps<IQueueRouteParams> {
         skip: number,
         take: number
     ) => TQueryRequest<TPaginatedHTTPResponse<{ message: IMessage; sequenceId?: number }>>;
-    DeleteQueueMessageRequestFactory(messageId: string, sequenceId?: number): TQueryRequest<void>;
+    DeleteQueueMessageRequestFactory(messageId: string, sequenceId: number): TQueryRequest<void>;
     RequeueMessageRequestFactory?: (messageId: string, sequenceId: number) => TQueryRequest<void>;
     deleteMessagesRequestCallback: TQueryRequest<void>;
     RequeueMessageWithPriorityRequestFactory?: (

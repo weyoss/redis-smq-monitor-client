@@ -10,7 +10,6 @@ export const initialWebsocketMainStreamState: IWebsocketMainStreamState = {
     payload: {
         consumersCount: 0,
         queuesCount: 0,
-        pendingMessagesWithPriorityCount: 0,
         pendingMessagesCount: 0,
         deadLetteredMessagesCount: 0,
         scheduledMessagesCount: 0,

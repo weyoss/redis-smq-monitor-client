@@ -13,10 +13,6 @@ export const purgePendingMessages = async (ns: string, queueName: string) => {
     return axios.delete(`${API_URL}/api/ns/${ns}/queues/${queueName}/pending-messages`);
 };
 
-export const purgePendingMessagesWithPriority = async (ns: string, queueName: string) => {
-    return axios.delete(`${API_URL}/api/ns/${ns}/queues/${queueName}/pending-messages-with-priority`);
-};
-
 export const purgeScheduledMessages = async () => {
     return axios.delete(`${API_URL}/api/main/scheduled-messages`);
 };

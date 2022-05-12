@@ -26,17 +26,17 @@ const QueuePage: React.FC<IProps> = ({ queue, deleteQueueRequestCallback, delete
     const {
         ns,
         name,
+        priorityQueuing,
         acknowledgedMessagesCount,
         deadLetteredMessagesCount,
         pendingMessagesCount,
-        pendingMessagesWithPriorityCount,
         consumersCount
     } = queue;
 
     return (
         <div className={'queue fullWidth'}>
             <h1 className={'display-4'}>
-                {name}@{ns}
+                {name}@{ns} <small>({priorityQueuing ? 'Priority Queue' : 'LIFO Queue'})</small>
             </h1>
             <div className={'mb-3 d-flex flex-row-reverse'}>
                 <ModalLink
@@ -76,18 +76,6 @@ const QueuePage: React.FC<IProps> = ({ queue, deleteQueueRequestCallback, delete
                     Pending messages
                     <br />
                     <Badge pill>{pendingMessagesCount}</Badge>
-                </Link>
-                <Link
-                    className={'list-group-item list-group-item-action'}
-                    key={`${ns}-${name}-pending-messages-with-priority`}
-                    to={routes.pendingMessagesWithPriority.getLink({
-                        namespace: ns,
-                        queueName: name
-                    })}
-                >
-                    Pending messages with priority
-                    <br />
-                    <Badge pill>{pendingMessagesWithPriorityCount}</Badge>
                 </Link>
                 <Link
                     className={'list-group-item list-group-item-action'}

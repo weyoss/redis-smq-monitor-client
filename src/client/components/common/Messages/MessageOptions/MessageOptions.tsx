@@ -7,7 +7,7 @@ import RequeueWithPriority from './RequeueWithPriority/RequeueWithPriority';
 import { EMessagePriority } from '../../../../transport/http/api/common/IMessage';
 
 export interface IMessageOptionsSharedProps {
-    DeleteMessageRequestFactory: (messageId: string, sequenceId?: number) => TQueryRequest<void>;
+    DeleteMessageRequestFactory: (messageId: string, sequenceId: number) => TQueryRequest<void>;
     deleteMessageSuccessCallback: () => void;
     RequeueMessageRequestFactory?: (messageId: string, sequenceId: number) => TQueryRequest<void>;
     requeueMessageSuccessCallback?: () => void;
@@ -21,7 +21,7 @@ export interface IMessageOptionsSharedProps {
 
 interface IMessageOptionsProps extends IMessageOptionsSharedProps {
     messageId: string;
-    sequenceId?: number;
+    sequenceId: number;
 }
 
 const MessageOptions: React.FC<IMessageOptionsProps> = ({
@@ -35,7 +35,7 @@ const MessageOptions: React.FC<IMessageOptionsProps> = ({
     sequenceId
 }) => {
     const options: JSX.Element[] = [];
-    if (RequeueMessageRequestFactory && requeueMessageSuccessCallback && sequenceId !== undefined) {
+    if (RequeueMessageRequestFactory && requeueMessageSuccessCallback) {
         options.push(
             <Requeue
                 key={`${messageId}-requeue`}
@@ -45,11 +45,7 @@ const MessageOptions: React.FC<IMessageOptionsProps> = ({
             />
         );
     }
-    if (
-        RequeueMessageWithPriorityRequestFactory &&
-        requeueMessageWithPrioritySuccessCallback &&
-        sequenceId !== undefined
-    ) {
+    if (RequeueMessageWithPriorityRequestFactory && requeueMessageWithPrioritySuccessCallback) {
         options.push(
             <RequeueWithPriority
                 key={`${messageId}-requeue-w-priority`}

@@ -1,7 +1,6 @@
 export { home } from './home';
 export { queue } from './queue';
 export { consumer } from './consumer';
-export { pendingMessagesWithPriority } from './pending-messages-with-priority';
 export { deadLetteredMessages } from './dead-lettered-messages';
 export { pendingMessages } from './pending-messages';
 export { acknowledgedMessages } from './acknowledged-messages';

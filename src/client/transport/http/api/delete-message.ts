@@ -23,10 +23,6 @@ export const deleteQueuePendingMessage = async (
     );
 };
 
-export const deleteQueuePendingMessageWithPriority = async (ns: string, queueName: string, messageId: string) => {
-    return axios.delete(`${API_URL}/api/ns/${ns}/queues/${queueName}/pending-messages-with-priority/${messageId}`);
-};
-
 export const deleteQueueAcknowledgedMessage = async (
     ns: string,
     queueName: string,
@@ -38,6 +34,6 @@ export const deleteQueueAcknowledgedMessage = async (
     );
 };
 
-export const deleteScheduledMessage = async (messageId: string) => {
-    return axios.delete(`${API_URL}/api/main/scheduled-messages/${messageId}`);
+export const deleteScheduledMessage = async (messageId: string, sequenceId: number) => {
+    return axios.delete(`${API_URL}/api/main/scheduled-messages/${messageId}?sequenceId=${sequenceId}`);
 };

@@ -7,7 +7,7 @@ import { IMessage } from '../../../transport/http/api/common/IMessage';
 import ModalLink from '../ModalLink';
 
 interface IProps extends IMessageOptionsSharedProps {
-    messages: { total: number; items: { message: IMessage; sequenceId?: number }[] };
+    messages: { total: number; items: { message: IMessage; sequenceId: number }[] };
     pageParams: {
         skip: number;
         take: number;

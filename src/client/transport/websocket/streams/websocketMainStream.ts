@@ -4,7 +4,6 @@ export type TWebsocketMainStreamPayload = {
     deadLetteredMessagesCount: number;
     acknowledgedMessagesCount: number;
     pendingMessagesCount: number;
-    pendingMessagesWithPriorityCount: number;
     consumersCount: number;
     queues: {
         [ns: string]: {
@@ -16,9 +15,13 @@ export type TWebsocketMainStreamPayload = {
 export type TWebsocketMainStreamPayloadQueue = {
     name: string;
     ns: string;
+    priorityQueuing: boolean;
+    rateLimit: {
+        interval: number;
+        limit: number;
+    } | null;
     deadLetteredMessagesCount: number;
     acknowledgedMessagesCount: number;
     pendingMessagesCount: number;
-    pendingMessagesWithPriorityCount: number;
     consumersCount: number;
 };
