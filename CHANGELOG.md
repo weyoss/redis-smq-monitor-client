@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 7.0.0-rc.0 (2022-05-13)
+
+* Remove PendingMessagesWithPriority component, refactor and clean up
+* Sync up with redis-smq@7.0.0-rc.0
+
 ## 6.5.7 (2022-05-02)
 
 * Fix NPM vulnerability warnings
