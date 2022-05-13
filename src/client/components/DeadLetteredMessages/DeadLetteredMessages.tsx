@@ -3,13 +3,11 @@ import React, { useCallback } from 'react';
 import QueueMessages from '../common/Messages/Messages';
 import {
     requeueDeadLetteredMessage,
-    requeueDeadLetteredMessageWithPriority,
     purgeDeadLetteredMessages,
     deleteQueueDeadLetteredMessage,
     getQueueDeadLetteredMessages
 } from '../../transport/http/api';
 import { IQueueRouteParams } from '../../routes/routes/queue';
-import { EMessagePriority } from '../../transport/http/api/common/IMessage';
 
 const DeadLetteredMessages: React.FC<RouteComponentProps<IQueueRouteParams>> = (props) => {
     const { namespace, queueName } = props.match.params;
@@ -22,12 +20,6 @@ const DeadLetteredMessages: React.FC<RouteComponentProps<IQueueRouteParams>> = (
     const RequeueQueueMessageRequestFactory = useCallback((messageId: string, sequenceId: number) => {
         return () => requeueDeadLetteredMessage(namespace, queueName, messageId, sequenceId);
     }, []);
-    const RequeueQueueMessageRequestWithPriorityFactory = useCallback(
-        (messageId: string, sequenceId: number, priority: EMessagePriority) => {
-            return () => requeueDeadLetteredMessageWithPriority(namespace, queueName, messageId, sequenceId, priority);
-        },
-        []
-    );
     const deleteMessagesRequestCallback = useCallback(() => purgeDeadLetteredMessages(namespace, queueName), []);
     return (
         <>
@@ -39,7 +31,6 @@ const DeadLetteredMessages: React.FC<RouteComponentProps<IQueueRouteParams>> = (
                 DeleteQueueMessageRequestFactory={DeleteQueueMessageRequestFactory}
                 RequeueMessageRequestFactory={RequeueQueueMessageRequestFactory}
                 deleteMessagesRequestCallback={deleteMessagesRequestCallback}
-                RequeueMessageWithPriorityRequestFactory={RequeueQueueMessageRequestWithPriorityFactory}
             />
         </>
     );

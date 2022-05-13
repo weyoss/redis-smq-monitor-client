@@ -3,20 +3,12 @@ import Delete from './Delete';
 import React from 'react';
 import { TQueryRequest } from '../../../../hooks/useQuery';
 import Requeue from './Requeue';
-import RequeueWithPriority from './RequeueWithPriority/RequeueWithPriority';
-import { EMessagePriority } from '../../../../transport/http/api/common/IMessage';
 
 export interface IMessageOptionsSharedProps {
     DeleteMessageRequestFactory: (messageId: string, sequenceId: number) => TQueryRequest<void>;
     deleteMessageSuccessCallback: () => void;
     RequeueMessageRequestFactory?: (messageId: string, sequenceId: number) => TQueryRequest<void>;
     requeueMessageSuccessCallback?: () => void;
-    RequeueMessageWithPriorityRequestFactory?: (
-        messageId: string,
-        sequenceId: number,
-        priority: EMessagePriority
-    ) => TQueryRequest<void>;
-    requeueMessageWithPrioritySuccessCallback?: () => void;
 }
 
 interface IMessageOptionsProps extends IMessageOptionsSharedProps {
@@ -29,8 +21,6 @@ const MessageOptions: React.FC<IMessageOptionsProps> = ({
     deleteMessageSuccessCallback,
     RequeueMessageRequestFactory,
     requeueMessageSuccessCallback,
-    RequeueMessageWithPriorityRequestFactory,
-    requeueMessageWithPrioritySuccessCallback,
     messageId,
     sequenceId
 }) => {
@@ -42,17 +32,6 @@ const MessageOptions: React.FC<IMessageOptionsProps> = ({
                 messageId={messageId}
                 successCallback={requeueMessageSuccessCallback}
                 RequestFactory={RequeueMessageRequestFactory(messageId, sequenceId)}
-            />
-        );
-    }
-    if (RequeueMessageWithPriorityRequestFactory && requeueMessageWithPrioritySuccessCallback) {
-        options.push(
-            <RequeueWithPriority
-                key={`${messageId}-requeue-w-priority`}
-                messageId={messageId}
-                sequenceId={sequenceId}
-                RequeueMessageRequestFactory={RequeueMessageWithPriorityRequestFactory}
-                requeueMessageSuccessCallback={requeueMessageWithPrioritySuccessCallback}
             />
         );
     }

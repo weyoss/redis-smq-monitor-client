@@ -6,7 +6,7 @@ import { TQueryRequest } from '../../../hooks/useQuery';
 import Query from '../Query';
 import { TPaginatedHTTPResponse } from '../../../transport/http/api';
 import { IQueueRouteParams } from '../../../routes/routes/queue';
-import { EMessagePriority, IMessage } from 'client/transport/http/api/common/IMessage';
+import { IMessage } from 'client/transport/http/api/common/IMessage';
 
 interface IProps extends RouteComponentProps<IQueueRouteParams> {
     FetchQueueMessagesRequestFactory: (
@@ -16,11 +16,6 @@ interface IProps extends RouteComponentProps<IQueueRouteParams> {
     DeleteQueueMessageRequestFactory(messageId: string, sequenceId: number): TQueryRequest<void>;
     RequeueMessageRequestFactory?: (messageId: string, sequenceId: number) => TQueryRequest<void>;
     deleteMessagesRequestCallback: TQueryRequest<void>;
-    RequeueMessageWithPriorityRequestFactory?: (
-        messageId: string,
-        sequenceId: number,
-        priority: EMessagePriority
-    ) => TQueryRequest<void>;
 }
 
 const getPaginationParams = (path: string, take = 10) => {
@@ -39,8 +34,7 @@ const QueueMessages: React.FC<IProps> = ({
     deleteMessagesRequestCallback,
     FetchQueueMessagesRequestFactory,
     DeleteQueueMessageRequestFactory,
-    RequeueMessageRequestFactory,
-    RequeueMessageWithPriorityRequestFactory
+    RequeueMessageRequestFactory
 }) => {
     const [paginationParams, setPaginationParams] = useState<{ skip: number; take: number; page: number }>(
         getPaginationParams(location.search)
@@ -88,8 +82,6 @@ const QueueMessages: React.FC<IProps> = ({
                         requeueMessageSuccessCallback={onMessageOperationSuccessCallback}
                         deleteMessagesRequestCallback={deleteMessagesRequestCallback}
                         deleteMessagesRequestSuccessCallback={onMessageOperationSuccessCallback}
-                        RequeueMessageWithPriorityRequestFactory={RequeueMessageWithPriorityRequestFactory}
-                        requeueMessageWithPrioritySuccessCallback={onMessageOperationSuccessCallback}
                     />
                 );
             }}
