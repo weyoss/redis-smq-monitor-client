@@ -1,17 +1,26 @@
 {
-    "name": "redis-smq-monitor",
-    "description": "A monitoring tool for RedisSMQ message queue",
-    "version": "7.0.0-rc.0",
+    "name": "redis-smq-monitor-client",
+    "description": "A Web UI for the RedisSMQ Monitor application",
+    "version": "1.0.0-rc.0",
     "author": "Weyoss <weyoss@protonmail.com>",
     "license": "MIT",
     "keywords": [
         "redis",
         "message queue",
+        "message-queue",
         "message",
         "queue",
         "job queue",
+        "job-queue",
         "jobs",
-        "redis-smq"
+        "redis-smq",
+        "priority",
+        "priority queue",
+        "priority-queue",
+        "scheduler",
+        "broker",
+        "message broker",
+        "message-broker"
     ],
     "repository": {
         "type": "git",
