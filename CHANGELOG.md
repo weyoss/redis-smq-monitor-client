@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 7.0.0-rc.1 (2022-05-26)
+
+* Update docs
+
 ## 7.0.0-rc.0 (2022-05-13)
 
 * Remove PendingMessagesWithPriority component, refactor and clean up
