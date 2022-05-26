@@ -24,11 +24,11 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/weyoss/redis-smq-monitor.git"
+        "url": "https://github.com/weyoss/redis-smq-monitor-client.git"
     },
-    "homepage": "https://github.com/weyoss/redis-smq-monitor",
+    "homepage": "https://github.com/weyoss/redis-smq-monitor-client",
     "bugs": {
-        "url": "https://github.com/weyoss/redis-smq-monitor/issues"
+        "url": "https://github.com/weyoss/redis-smq-monitor-client/issues"
     },
     "main": "dist/index.js",
     "types": "dist/index.d.ts",

@@ -6,8 +6,8 @@
 # RedisSMQ Monitor Client
 
 <p>
-    <a href="https://npmjs.org/package/redis-smq" rel="nofollow"><img src="https://img.shields.io/npm/v/redis-smq.svg" alt="NPM version" /></a>
-    <a href="https://lgtm.com/projects/g/weyoss/redis-smq/context:javascript" rel="nofollow"><img src="https://img.shields.io/lgtm/grade/javascript/github/weyoss/redis-smq.svg?logo=lgtm&logoWidth=18" alt="Code quality" /></a>
+    <a href="https://npmjs.org/package/redis-smq-monitor-client" rel="nofollow"><img src="https://img.shields.io/npm/v/redis-smq-monitor-client.svg" alt="NPM version" /></a>
+    <a href="https://lgtm.com/projects/g/weyoss/redis-smq-monitor-client/context:javascript" rel="nofollow"><img src="https://img.shields.io/lgtm/grade/javascript/github/weyoss/redis-smq-monitor-client.svg?logo=lgtm&logoWidth=18" alt="Code quality" /></a>
 </p>
 
 `RedisSMQ Monitor Client` is a Web UI for the RedisSMQ Monitor application which lets you monitor, debug, and manage 
@@ -16,7 +16,7 @@ your RedisSMQ message queue from your web browser in real-time.
 The Web UI is shipped with the `redis-smq-monitor` package. To start using it, you need to install and 
 configure the [RedisSMQ Monitor](https://github.com/weyoss/redis-smq-monitor) application.
 
-![RedisSMQ Monitor home](./screenshots/screenshot-00002.png)
+![RedisSMQ Monitor Client Screenshot](./screenshots/screenshot-00002.png)
 
 [More screenshots can be found here](./screenshots).
 
