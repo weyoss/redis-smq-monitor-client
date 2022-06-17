@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import { deleteNamespace } from '../../transport/http/api';
 
 const QueuesPanelBox: React.FC<RouteComponentProps> = (props) => {
-    const { payload, loading } = useSelector<IStoreState, IWebsocketMainStreamState>(
+    const { payload } = useSelector<IStoreState, IWebsocketMainStreamState>(
         (state) => state.websocketMainStream
     );
     const dispatch = useDispatch();
@@ -31,7 +31,6 @@ const QueuesPanelBox: React.FC<RouteComponentProps> = (props) => {
             deleteNamespaceRequestSuccessCallback={deleteNamespaceRequestSuccessCallback}
             websocketMainStreamPayload={payload}
             matchedQueueParams={params}
-            loading={loading}
         />
     );
 };

@@ -11,7 +11,7 @@ import { Spinner } from 'react-bootstrap';
 import { INotificationsState } from '../../store/notifications/state';
 import Notification from '../common/Notification';
 import SchedulerPanelBox from '../ScheduledPanelBox/ScheduledPanelBox';
-import { IWebsocketMainStreamState } from '../../store/websocket-main-stream/state';
+import { EWebsocketMainStreamStatus, IWebsocketMainStreamState } from '../../store/websocket-main-stream/state';
 
 interface IProps {
     websocketMainStreamState: IWebsocketMainStreamState;
@@ -20,9 +20,18 @@ interface IProps {
 
 const Page: React.FC<IProps> = (props) => {
     const { websocketMainStreamState, notificationsState } = props;
-    const { loading } = websocketMainStreamState;
-    if (loading) {
-        return <Spinner animation={'border'} />;
+    const { status } = websocketMainStreamState;
+    if (status === EWebsocketMainStreamStatus.INIT) {
+        return (<>
+            <span className={'me-2'}>Initializing...</span>
+            <Spinner animation={'border'} />
+        </>);
+    }
+    if (status === EWebsocketMainStreamStatus.LOADING) {
+        return (<>
+            <span className={'me-2'}>Waiting for upstream data... </span>
+            <Spinner animation={'border'} />
+        </>);
     }
     return (
         <>

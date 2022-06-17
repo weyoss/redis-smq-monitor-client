@@ -1,4 +1,4 @@
-// Using redis-smq from a local repository
+// Using redis-smq-monitor from a local repository
 // Fix this according to your preferences
 import { RedisClientName } from '../../../../redis-smq-common/dist/types';
 import { MonitorServer } from '../../../../redis-smq-monitor';

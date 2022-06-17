@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Spinner } from 'react-bootstrap';
 import { IQueueRouteParams } from '../../routes/routes/queue';
 import * as routes from '../../routes/routes';
 import { TWebsocketMainStreamPayload } from '../../transport/websocket/streams/websocketMainStream';
@@ -12,7 +11,6 @@ interface IProps {
     deleteNamespaceRequestCallback: (ns: string) => TQueryRequest<void>;
     websocketMainStreamPayload: TWebsocketMainStreamPayload;
     matchedQueueParams: Partial<IQueueRouteParams> | null;
-    loading: boolean;
 }
 
 const RenderData: React.FC<IProps> = ({
@@ -20,11 +18,7 @@ const RenderData: React.FC<IProps> = ({
     deleteNamespaceRequestSuccessCallback,
     websocketMainStreamPayload,
     matchedQueueParams,
-    loading
 }) => {
-    if (loading) {
-        return <Spinner animation={'border'} />;
-    }
     const data = [];
     for (const ns in websocketMainStreamPayload.queues) {
         const nsQueues = websocketMainStreamPayload.queues[ns];

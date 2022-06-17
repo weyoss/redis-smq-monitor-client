@@ -1,12 +1,19 @@
 import { TWebsocketMainStreamPayload } from '../../transport/websocket/streams/websocketMainStream';
 
+
+export enum EWebsocketMainStreamStatus {
+    INIT,
+    LOADING,
+    LOADED,
+}
+
 export interface IWebsocketMainStreamState {
-    loading: boolean;
+    status: EWebsocketMainStreamStatus;
     payload: TWebsocketMainStreamPayload;
 }
 
 export const initialWebsocketMainStreamState: IWebsocketMainStreamState = {
-    loading: true,
+    status: EWebsocketMainStreamStatus.INIT,
     payload: {
         consumersCount: 0,
         queuesCount: 0,

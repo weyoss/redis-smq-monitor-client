@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 import { EActionType } from './action';
-import { initialWebsocketMainStreamState, IWebsocketMainStreamState } from './state';
+import { EWebsocketMainStreamStatus, initialWebsocketMainStreamState, IWebsocketMainStreamState } from './state';
 
 export const websocketMainStreamReducer: Reducer<IWebsocketMainStreamState> = (
     state = initialWebsocketMainStreamState,
@@ -11,16 +11,18 @@ export const websocketMainStreamReducer: Reducer<IWebsocketMainStreamState> = (
         const payload = action.payload;
         return {
             ...state,
+            status: EWebsocketMainStreamStatus.LOADED,
             payload: {
                 ...payload
             }
         };
     }
-    if (type === EActionType.SET_LOADED) {
+    if (type === EActionType.SET_LOADING) {
         return {
             ...state,
-            loading: false
+            status: EWebsocketMainStreamStatus.LOADING
         };
     }
     return state;
 };
+

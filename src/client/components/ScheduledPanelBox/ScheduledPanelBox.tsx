@@ -5,10 +5,10 @@ import SchedulerPanelBoxPage from './SchedulerPanelBoxPage';
 import { IWebsocketMainStreamState } from '../../store/websocket-main-stream/state';
 
 const SchedulerPanelBox = () => {
-    const { payload, loading } = useSelector<IStoreState, IWebsocketMainStreamState>(
+    const { payload } = useSelector<IStoreState, IWebsocketMainStreamState>(
         (state) => state.websocketMainStream
     );
-    return <SchedulerPanelBoxPage count={payload.scheduledMessagesCount} loading={loading} />;
+    return <SchedulerPanelBoxPage count={payload.scheduledMessagesCount} />;
 };
 
 export default SchedulerPanelBox;

@@ -6,8 +6,8 @@ import { useDispatch } from 'react-redux';
 import { IStoreState } from '../../store/state';
 import useSelector from '../../hooks/useSelector';
 import { INotificationsState } from '../../store/notifications/state';
-import { IWebsocketMainStreamState } from '../../store/websocket-main-stream/state';
-import { setLoadedAction, setPayloadAction } from '../../store/websocket-main-stream/action';
+import { EWebsocketMainStreamStatus, IWebsocketMainStreamState } from '../../store/websocket-main-stream/state';
+import { setLoadingAction, setPayloadAction } from '../../store/websocket-main-stream/action';
 import { TWebsocketMainStreamPayload } from '../../transport/websocket/streams/websocketMainStream';
 
 const App = () => {
@@ -17,10 +17,10 @@ const App = () => {
     const notificationsState = useSelector<IStoreState, INotificationsState>((state) => state.notifications);
     const dispatch = useDispatch();
     useEffect(() => {
-        if (websocketMainStreamState.loading) {
+        if (websocketMainStreamState.status === EWebsocketMainStreamStatus.INIT) {
+            dispatch(setLoadingAction());
             Websocket()
                 .then((socket: Socket) => {
-                    dispatch(setLoadedAction());
                     socket.on('streamMain', (payload: TWebsocketMainStreamPayload) => {
                         dispatch(setPayloadAction(payload));
                     });
