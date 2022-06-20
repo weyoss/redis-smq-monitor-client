@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 7.0.0 (2022-06-20)
+
+* Improve WebsocketMainStream updates handling
+* Update docs
+
 ## 7.0.0-rc.1 (2022-05-26)
 
 * Update docs
