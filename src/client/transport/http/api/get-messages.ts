@@ -13,12 +13,10 @@ export type TGetQueueMessagesHTTPResponse = TPaginatedHTTPResponse<{
     message: IMessage;
 }>;
 
-export type TGetScheduledMessagesHTTPResponse = TPaginatedHTTPResponse<IMessage>;
-
 export type TGetPendingMessagesWithPriorityHTTPResponse = TPaginatedHTTPResponse<IMessage>;
 
 export const getScheduledMessages = async (skip: number, take: number) => {
-    return axios.get<TGetScheduledMessagesHTTPResponse>(
+    return axios.get<TGetQueueMessagesHTTPResponse>(
         `${API_URL}/api/main/scheduled-messages?skip=${skip}&take=${take}`
     );
 };

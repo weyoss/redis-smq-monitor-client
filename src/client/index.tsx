@@ -20,6 +20,5 @@ render(
     document.getElementById('app')
 );
 export { TGetPendingMessagesWithPriorityHTTPResponse } from './transport/http/api';
-export { TGetScheduledMessagesHTTPResponse } from './transport/http/api';
 export { TGetQueueMessagesHTTPResponse } from './transport/http/api';
 export { TPaginatedHTTPResponse } from './transport/http/api';
