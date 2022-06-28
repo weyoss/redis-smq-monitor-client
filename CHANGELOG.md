@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 7.0.2 (2022-06-28)
+
+* Bump up webpack-cli to v4.10.0
+
 ## 7.0.1 (2022-06-28)
 
 * Fix 'npm install' warnings
