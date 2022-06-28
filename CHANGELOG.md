@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 7.0.3 (2022-06-28)
+
+* Clean up dev dependencies
+
 ## 7.0.2 (2022-06-28)
 
 * Bump up webpack-cli to v4.10.0
