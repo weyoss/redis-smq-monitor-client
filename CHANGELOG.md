@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 7.0.1 (2022-06-28)
+
+* Fix 'npm install' warnings
+* Fix 'message.metadata undefined' error from ScheduledMessages
+
 ## 7.0.0 (2022-06-20)
 
 * Improve WebsocketMainStream updates handling

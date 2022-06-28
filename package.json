@@ -1,7 +1,7 @@
 {
     "name": "redis-smq-monitor-client",
     "description": "A Web UI for the RedisSMQ Monitor application",
-    "version": "7.0.0",
+    "version": "7.0.1",
     "author": "Weyoss <weyoss@protonmail.com>",
     "license": "MIT",
     "keywords": [
