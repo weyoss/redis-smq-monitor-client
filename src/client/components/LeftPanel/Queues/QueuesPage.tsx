@@ -10,14 +10,14 @@ interface IProps {
     deleteNamespaceRequestSuccessCallback: () => void;
     deleteNamespaceRequestCallback: (ns: string) => TQueryRequest<void>;
     websocketMainStreamPayload: TWebsocketMainStreamPayload;
-    matchedQueueParams: Partial<IQueueRouteParams> | null;
+    selectedQueue: Partial<IQueueRouteParams> | null;
 }
 
 const RenderData: React.FC<IProps> = ({
     deleteNamespaceRequestCallback,
     deleteNamespaceRequestSuccessCallback,
     websocketMainStreamPayload,
-    matchedQueueParams,
+    selectedQueue,
 }) => {
     const data = [];
     for (const ns in websocketMainStreamPayload.queues) {
@@ -26,9 +26,9 @@ const RenderData: React.FC<IProps> = ({
         for (const queueName in nsQueues) {
             const queue = nsQueues[queueName];
             const isActiveQueue =
-                matchedQueueParams &&
-                matchedQueueParams.queueName === queue.name &&
-                matchedQueueParams.namespace === queue.ns;
+                selectedQueue &&
+                selectedQueue.queueName === queue.name &&
+                selectedQueue.namespace === queue.ns;
             const className = isActiveQueue ? 'active ' : '';
             li.push(
                 <Link

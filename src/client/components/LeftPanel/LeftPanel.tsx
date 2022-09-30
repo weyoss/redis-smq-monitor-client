@@ -1,16 +1,18 @@
 import Logo from './Logo/Logo';
-import QueuesPanelMenu from './Queues/Queues';
+import Queues from './Queues/Queues';
 import Scheduled from './Scheduled/Scheduled';
 import React from 'react';
-import { Exchanges } from './Exchanges/Exchanges';
+import Exchanges from './Exchanges/Exchanges';
 
-export const LeftPanel = () => {
+const LeftPanel = () => {
     return (
         <div className={'leftPanel'}>
             <Logo />
-            <QueuesPanelMenu />
-            <Scheduled />
+            <Queues />
             <Exchanges />
+            <Scheduled />
         </div>
     )
 }
+
+export default LeftPanel;

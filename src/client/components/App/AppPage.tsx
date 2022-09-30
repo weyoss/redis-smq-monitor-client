@@ -9,7 +9,7 @@ import { Spinner } from 'react-bootstrap';
 import { INotificationsState } from '../../store/notifications/state';
 import Notification from '../common/Notification';
 import { EWebsocketMainStreamStatus, IWebsocketMainStreamState } from '../../store/websocket-main-stream/state';
-import { LeftPanel } from '../LeftPanel/LeftPanel';
+import LeftPanel from '../LeftPanel/LeftPanel';
 
 interface IProps {
     websocketMainStreamState: IWebsocketMainStreamState;

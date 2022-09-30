@@ -30,7 +30,7 @@ const Queues = () => {
             deleteNamespaceRequestCallback={deleteNamespaceRequestCallback}
             deleteNamespaceRequestSuccessCallback={deleteNamespaceRequestSuccessCallback}
             websocketMainStreamPayload={payload}
-            matchedQueueParams={params}
+            selectedQueue={params}
         />
     );
 };
