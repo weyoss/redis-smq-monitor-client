@@ -1,16 +1,16 @@
 import React, { useCallback } from 'react';
 import { RouteComponentProps, useHistory, withRouter } from 'react-router';
-import QueuesPanelBoxPage from './QueuesPanelBoxPage';
-import { IStoreState } from '../../store/state';
-import useSelector from '../../hooks/useSelector';
-import { matchRoute } from '../../routes/common';
-import { IWebsocketMainStreamState } from '../../store/websocket-main-stream/state';
-import { addNotificationAction } from '../../store/notifications/action';
-import { ENotificationType } from '../../store/notifications/state';
+import QueuesPage from './QueuesPage';
+import { IStoreState } from '../../../store/state';
+import useSelector from '../../../hooks/useSelector';
+import { matchRoute } from '../../../routes/common';
+import { IWebsocketMainStreamState } from '../../../store/websocket-main-stream/state';
+import { addNotificationAction } from '../../../store/notifications/action';
+import { ENotificationType } from '../../../store/notifications/state';
 import { useDispatch } from 'react-redux';
-import { deleteNamespace } from '../../transport/http/api';
+import { deleteNamespace } from '../../../transport/http/api';
 
-const QueuesPanelBox: React.FC<RouteComponentProps> = (props) => {
+const Queues: React.FC<RouteComponentProps> = (props) => {
     const { payload } = useSelector<IStoreState, IWebsocketMainStreamState>(
         (state) => state.websocketMainStream
     );
@@ -26,7 +26,7 @@ const QueuesPanelBox: React.FC<RouteComponentProps> = (props) => {
     const match = matchRoute(props.location.pathname);
     const params = match?.params ?? {};
     return (
-        <QueuesPanelBoxPage
+        <QueuesPage
             deleteNamespaceRequestCallback={deleteNamespaceRequestCallback}
             deleteNamespaceRequestSuccessCallback={deleteNamespaceRequestSuccessCallback}
             websocketMainStreamPayload={payload}
@@ -35,4 +35,4 @@ const QueuesPanelBox: React.FC<RouteComponentProps> = (props) => {
     );
 };
 
-export default withRouter(QueuesPanelBox);
+export default withRouter(Queues);

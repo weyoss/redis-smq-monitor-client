@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import * as routes from '../../routes/routes';
+import * as routes from '../../../routes/routes';
 
 interface IProps {
     count: number;
 }
 
-const SchedulerPanelBoxPage: React.FC<IProps> = ({ count }) => {
+const ScheduledPage: React.FC<IProps> = ({ count }) => {
     return (
         <div className={'mb-4'}>
             <h2 className={'display-6'}>Scheduled</h2>
@@ -26,4 +26,4 @@ const SchedulerPanelBoxPage: React.FC<IProps> = ({ count }) => {
     );
 };
 
-export default SchedulerPanelBoxPage;
+export default ScheduledPage;

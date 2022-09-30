@@ -53,10 +53,10 @@ const MessagesPage: React.FC<IProps> = (props) => {
                 </thead>
                 <tbody>
                     {messages.items.map(({ message, sequenceId }) => {
-                        const mid = `${message.metadata.uuid}${sequenceId ? `-${sequenceId}` : ''}`;
+                        const mid = `${message.messageState.uuid}${sequenceId ? `-${sequenceId}` : ''}`;
                         return (
                             <tr key={mid}>
-                                <td className={'text-break text-start w-25'}>{message.metadata.uuid}</td>
+                                <td className={'text-break text-start w-25'}>{message.messageState.uuid}</td>
                                 <td className={'text-break text-start'}>
                                     {activeMessageId === mid ? (
                                         <>
@@ -90,7 +90,7 @@ const MessagesPage: React.FC<IProps> = (props) => {
                                 <td>
                                     <MessageOptions
                                         {...rest}
-                                        messageId={message.metadata.uuid}
+                                        messageId={message.messageState.uuid}
                                         sequenceId={sequenceId}
                                     />
                                 </td>

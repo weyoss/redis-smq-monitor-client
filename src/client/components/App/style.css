@@ -54,7 +54,7 @@ a {
     flex: 1;
 }
 
-#app .mainContainer .sidePanel {
+#app .mainContainer .leftPanel {
     flex-basis: 20rem;
     max-width: 20rem;
     min-width: 20rem;

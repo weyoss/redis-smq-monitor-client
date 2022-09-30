@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { IQueueRouteParams } from '../../routes/routes/queue';
-import * as routes from '../../routes/routes';
-import { TWebsocketMainStreamPayload } from '../../transport/websocket/streams/websocketMainStream';
-import ModalLink from '../common/ModalLink';
-import { TQueryRequest } from '../../hooks/useQuery';
+import { IQueueRouteParams } from '../../../routes/routes/queue';
+import * as routes from '../../../routes/routes';
+import { TWebsocketMainStreamPayload } from '../../../transport/websocket/streams/websocketMainStream';
+import ModalLink from '../../common/ModalLink';
+import { TQueryRequest } from '../../../hooks/useQuery';
 
 interface IProps {
     deleteNamespaceRequestSuccessCallback: () => void;
@@ -72,11 +72,11 @@ const RenderData: React.FC<IProps> = ({
     return <>{data}</>;
 };
 
-const QueuesPanelBoxPage: React.FC<IProps> = (props) => (
+const QueuesPage: React.FC<IProps> = (props) => (
     <div className={'mb-4'}>
         <h2 className={'display-6'}>Queues</h2>
         <RenderData {...props} />
     </div>
 );
 
-export default QueuesPanelBoxPage;
+export default QueuesPage;
