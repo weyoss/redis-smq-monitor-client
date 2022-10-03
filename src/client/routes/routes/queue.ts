@@ -7,7 +7,7 @@ export interface IQueueRouteParams {
 }
 
 export const queue = ParameterizedRoute<IQueueRouteParams>({
-    path: '/queues/:queueName/namespace/:namespace',
+    path: '/namespaces/:namespace/queues/:queueName',
     exact: true,
     component: Queue,
     caption: 'Queue'

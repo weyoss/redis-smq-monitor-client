@@ -20,7 +20,7 @@ const DeleteQueue: React.FC<IDeleteQueueProps> = ({ queue }) => {
     useEffect(() => {
         if (query.state.status === EQueryStatus.SUCCESS) {
             dispatch(addNotificationAction(`Queue ${queue.ns}@${queue.name} has been successfully deleted.`, ENotificationType.SUCCESS));
-            history.push(queues.getLink({}));
+            history.push(queues.getLink({namespace: queue.ns}));
         }
     }, [query.state.status]);
     const deleteQueueRequest = useCallback(() => {

@@ -4,8 +4,11 @@ import useSelector from '../../hooks/useSelector';
 import { IStoreState } from '../../store/state';
 import { IWebsocketMainStreamState } from '../../store/websocket-main-stream/state';
 import { IMessageQueue } from '../../transport/http/api/common/IMessage';
+import { RouteComponentProps } from 'react-router';
+import { IQueuesRouteParams } from '../../routes/routes/queues';
 
-const Queues = () => {
+const Queues: React.FC<RouteComponentProps<IQueuesRouteParams>> = ({ match }) => {
+    const { namespace } = match.params;
     const [queues, setQueues] = useState<IMessageQueue[]>([]);
     const { payload } = useSelector<IStoreState, IWebsocketMainStreamState>(
         (state) => state.websocketMainStream
@@ -13,12 +16,12 @@ const Queues = () => {
     useEffect(() => {
         const list: IMessageQueue[] = [];
         for(const ns in payload.queues)
-            for (const name in payload.queues[ns]) list.push({ name, ns });
+            if (ns === namespace) for (const name in payload.queues[ns]) list.push({ name, ns });
         setQueues(list);
-    }, [payload]);
+    }, [payload, namespace]);
     return <>
-        <h1 className={'display-4'}>Queues</h1>
-        <QueuesPage queues={queues} />
+        <h1 className={'display-4'}>Queues under namespace [{namespace}]</h1>
+        <QueuesPage queues={queues} namespace={namespace} />
         </>
 }
 

@@ -14,11 +14,11 @@ export const Exchanges = () => {
         return state.components.LeftPanel.Exchanges
     });
     const request = useCallback(() => getExchanges(), []);
-    const matchedParams: Partial<IExchangeRouteParams> = useParams(exchange.path);
+    const matchedParams: Partial<IExchangeRouteParams> | undefined = useParams(exchange.path);
     return (
         <div key={version}>
             <Query request={request}>
-                {({ state }) => <ExchangesPage fanOuts={state.data.data} selectedExchange={matchedParams.name} />}
+                {({ state }) => <ExchangesPage fanOuts={state.data.data} selectedExchange={matchedParams?.name} />}
             </Query>
         </div>
     );
