@@ -7,3 +7,4 @@ export { acknowledgedMessages } from './acknowledged-messages';
 export { scheduledMessages } from './scheduled-messages';
 export { consumers } from './consumers';
 export { exchange } from './exchange';
+export { queues } from './queues';
