@@ -1,22 +1,25 @@
 import React, { useCallback, useEffect, useRef } from 'react';
+import { IBindQueueProps } from './BindQueue';
 import useQuery, { EQueryStatus, TQueryRequest } from '../../../hooks/useQuery';
 import { Field, Form, Formik, FormikProps } from 'formik';
-import { FormControl, FormGroup, FormLabel, Spinner } from 'react-bootstrap';
+import { FormGroup, FormLabel, FormSelect, Spinner } from 'react-bootstrap';
 import { FieldProps } from 'formik/dist/Field';
 import Modal from '../../common/Modal';
+import { IMessageQueue } from '../../../transport/http/api/common/IMessage';
 
 interface IFormFields {
+    queue: string;
+}
+
+interface IHandlerProps extends IBindQueueProps {
+    RequestFactory: (queue: string) => TQueryRequest<void>;
+    requestSuccessCallback: () => void;
+    closeHandlerCallback: () => void;
+    queues: IMessageQueue[];
     exchangeName: string;
 }
 
-interface IFormModalProps {
-    RequestFactory: (exchangeName: string) => TQueryRequest<void>;
-    requestSuccessCallback: () => void;
-    closeHandlerCallback: () => void;
-    onSubmitCallback: (values: any) => void;
-}
-
-const FormModal: React.FC<IFormModalProps> = ({ RequestFactory, requestSuccessCallback, closeHandlerCallback }) => {
+const FormModal: React.FC<IHandlerProps> = ({ queues, RequestFactory, requestSuccessCallback, closeHandlerCallback }) => {
     const formRef = useRef<FormikProps<IFormFields> | null>(null);
     const query = useQuery();
 
@@ -38,7 +41,7 @@ const FormModal: React.FC<IFormModalProps> = ({ RequestFactory, requestSuccessCa
                 .then(form.validateForm)
                 .then((errors) => {
                     if (!Object.keys(errors).length) {
-                        query.sendQuery(RequestFactory(form.values.exchangeName));
+                        query.sendQuery(RequestFactory(form.values.queue));
                     }
                 })
                 .catch((e) => {
@@ -47,36 +50,35 @@ const FormModal: React.FC<IFormModalProps> = ({ RequestFactory, requestSuccessCa
         }
     }, []);
 
-    const validateExchangeName = (key?: string): string | void => {
+    const validateQueue = (key?: string): string | void => {
         if (!key || !key.length) {
             return 'Required'
-        }
-        const filtered = key
-            .toLowerCase()
-            .replace(/(?:[a-z][a-z0-9]?)+(?:[-_.]?[a-z0-9])*/, '');
-        if (filtered.length) {
-            return 'Valid characters are letters (a-z) and numbers (0-9). (-_) are allowed between alphanumerics. Use a dot (.) to denote hierarchies.';
         }
     };
 
     return (
-        <Modal title={'Create a fanout exchange'} onSubmit={onSubmit} onCancel={closeHandlerCallback}>
+        <Modal title={'Exchange queue binding'} onSubmit={onSubmit} onCancel={closeHandlerCallback}>
             {query.state.status === EQueryStatus.LOADING ? (
                 <Spinner animation={'border'} />
             ) : (
-                <Formik innerRef={formRef} initialValues={{ exchangeName: '' }} onSubmit={() => void 0}>
+                <Formik innerRef={formRef} initialValues={{ queue: '' }} onSubmit={() => void 0}>
                     {({ errors, touched }) => (
                         <Form id={'foo'}>
                             <Field
-                                name={'exchangeName'}
-                                validate={validateExchangeName}
+                                name={'queue'}
+                                validate={validateQueue}
                                 render={({ field }: FieldProps) => {
                                     return (
                                         <FormGroup className="mb-3">
-                                            <FormLabel>Exchange Name</FormLabel>
-                                            <FormControl id={'exchangeName'} type={'text'} {...field} />
-                                            {errors.exchangeName && touched.exchangeName && (
-                                                <p className={'text-danger'}>{errors.exchangeName}</p>
+                                            <FormLabel>Please select a queue</FormLabel>
+                                            <FormSelect id={'queue'} {...field}>
+                                                <option key={'queue-idx0'} />
+                                                { queues.map((value, idx) => {
+                                                    return <option key={`queue-idx-${idx+1}`} value={`${value.ns}@${value.name}`}>{value.ns}@{value.name}</option>
+                                                }) }
+                                            </FormSelect>
+                                            {errors.queue && touched.queue && (
+                                                <p className={'text-danger'}>{errors.queue}</p>
                                             )}
                                         </FormGroup>
                                     );

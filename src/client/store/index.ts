@@ -6,16 +6,20 @@ import { notificationsReducer } from './notifications/reducer';
 import { initialNotificationsState } from './notifications/state';
 import { websocketMainStreamReducer } from './websocket-main-stream/reducer';
 import { initialWebsocketMainStreamState } from './websocket-main-stream/state';
+import { componentsReducer } from './components/reducer';
+import { initialComponentsState } from './components/state';
 
 const createRootReducer = () =>
     combineReducers<IStoreState>({
         websocketMainStream: websocketMainStreamReducer,
-        notifications: notificationsReducer
+        notifications: notificationsReducer,
+        components: componentsReducer,
     });
 
 export const initialState: IStoreState = {
     websocketMainStream: initialWebsocketMainStreamState,
-    notifications: initialNotificationsState
+    notifications: initialNotificationsState,
+    components: initialComponentsState,
 };
 
 export default function configureStore(state: IStoreState = initialState): Store<IStoreState> {

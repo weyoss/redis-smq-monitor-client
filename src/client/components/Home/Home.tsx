@@ -9,10 +9,6 @@ import {
 import TimeSeriesChart from '../common/TimeSeriesChart/TimeSeriesChart';
 import useUrlParams from '../../hooks/useUrlParams';
 import CreateExchange from './CreateExchange/CreateExchange';
-import { createExchange } from '../../transport/http/api/exchanges';
-import { addNotificationAction } from '../../store/notifications/action';
-import { ENotificationType } from '../../store/notifications/state';
-import { useDispatch } from 'react-redux';
 
 enum ENavigationTab {
     ACKNOWLEDGED = 'acknowledged',
@@ -22,7 +18,6 @@ enum ENavigationTab {
 
 const Home: React.FC<RouteComponentProps> = ({ location }) => {
     const { getUrlParam, setUrlParam } = useUrlParams();
-    const dispatch = useDispatch();
 
     const activeTab = useMemo(() => getUrlParam('rates') ?? ENavigationTab.ACKNOWLEDGED, [
         location.pathname,
@@ -44,19 +39,10 @@ const Home: React.FC<RouteComponentProps> = ({ location }) => {
         []
     );
 
-    const createExchangeCallback = useCallback(
-        (exchangeName) => () => createExchange(exchangeName),
-        []
-    );
-
-    const onCreateExchangeSuccess = useCallback(() => {
-        dispatch(addNotificationAction(`Exchange has been successfully created.`, ENotificationType.SUCCESS));
-    }, []);
-
     return (
         <>
             <p className={'text-end mb-4'}>
-                <CreateExchange RequestFactory={createExchangeCallback} requestSuccessCallback={onCreateExchangeSuccess} />
+                <CreateExchange  />
                 <a className={'ms-4'}>Create Queue</a>
             </p>
             <h1 className={'display-4'}>Global Rates</h1>
