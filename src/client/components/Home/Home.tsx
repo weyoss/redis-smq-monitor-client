@@ -9,6 +9,7 @@ import {
 import TimeSeriesChart from '../common/TimeSeriesChart/TimeSeriesChart';
 import useUrlParams from '../../hooks/useUrlParams';
 import CreateExchange from './CreateExchange/CreateExchange';
+import CreateQueue from './CreateQueue/CreateQueue';
 
 enum ENavigationTab {
     ACKNOWLEDGED = 'acknowledged',
@@ -43,7 +44,7 @@ const Home: React.FC<RouteComponentProps> = ({ location }) => {
         <>
             <p className={'text-end mb-4'}>
                 <CreateExchange  />
-                <a className={'ms-4'}>Create Queue</a>
+                <CreateQueue />
             </p>
             <h1 className={'display-4'}>Global Rates</h1>
             <p>

@@ -27,7 +27,7 @@ const QueuesPage: React.FC<IQueuesPageProps> = ({ namespace, queues }) => {
                                     key={index}
                                 >
                                     <div className="ms-2 me-auto">
-                                        <Link to={queue.getLink({ namespace: q.ns, queueName: q.name })}>{q.ns}@{q.name}</Link>
+                                        <Link to={queue.getLink({ namespace: q.ns, queueName: q.name })}>{q.name}@{q.ns}</Link>
                                     </div>
                                     <Badge bg="light" pill>
                                         <DeleteQueue queue={q} />
