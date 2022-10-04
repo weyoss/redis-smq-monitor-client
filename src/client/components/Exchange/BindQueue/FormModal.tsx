@@ -74,7 +74,7 @@ const FormModal: React.FC<IHandlerProps> = ({ queues, RequestFactory, requestSuc
                                             <FormSelect id={'queue'} {...field}>
                                                 <option key={'queue-idx0'} />
                                                 { queues.map((value, idx) => {
-                                                    return <option key={`queue-idx-${idx+1}`} value={`${value.ns}@${value.name}`}>{value.ns}@{value.name}</option>
+                                                    return <option key={`queue-idx-${idx+1}`} value={`${value.name}@${value.ns}`}>{value.name}@{value.ns}</option>
                                                 }) }
                                             </FormSelect>
                                             {errors.queue && touched.queue && (

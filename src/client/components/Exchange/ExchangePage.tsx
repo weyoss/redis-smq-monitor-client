@@ -25,7 +25,7 @@ const ExchangeQueues: React.FC<IExchangePageProps> = ({ exchangeName, queues }) 
                         key={index}
                     >
                         <div className="ms-2 me-auto">
-                            {queue.ns}@{queue.name}
+                            {queue.name}@{queue.ns}
                         </div>
                         <Badge bg="light" pill>
                             <UnbindQueue exchangeName={exchangeName} queue={queue} />

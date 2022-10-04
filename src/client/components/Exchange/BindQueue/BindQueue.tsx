@@ -42,7 +42,7 @@ const BindQueue: React.FC<IBindQueueProps> = ({ exchangeName }) => {
     }, [queues, openHandler]);
 
     const RequestFactory = useCallback((queue: string) => {
-        const [ns, name] = queue.split('@');
+        const [name, ns] = queue.split('@');
         return () => bindQueue({ ns, name }, exchangeName);
     }, [exchangeName]);
 
