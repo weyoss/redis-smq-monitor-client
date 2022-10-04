@@ -4,6 +4,8 @@ import BindQueue from './BindQueue/BindQueue';
 import UnbindQueue from './UnbindQueue/UnbindQueue';
 import { Badge, ListGroup } from 'react-bootstrap';
 import DeleteExchange from './DeleteExchange/DeleteExchange';
+import { queue } from '../../routes/routes';
+import { Link } from 'react-router-dom';
 
 interface IExchangePageProps {
     exchangeName: string;
@@ -18,17 +20,17 @@ const ExchangeQueues: React.FC<IExchangePageProps> = ({ exchangeName, queues }) 
     return (
         <ListGroup as="ol" numbered>
         {
-            queues.map((queue, index) => {
+            queues.map((q, index) => {
                 return <ListGroup.Item
                         as="li"
                         className="d-flex justify-content-between align-items-start"
                         key={index}
                     >
                         <div className="ms-2 me-auto">
-                            {queue.name}@{queue.ns}
+                            <Link to={queue.getLink({ queueName: q.name, namespace: q.ns })}>{q.name}@{q.ns}</Link>
                         </div>
                         <Badge bg="light" pill>
-                            <UnbindQueue exchangeName={exchangeName} queue={queue} />
+                            <UnbindQueue exchangeName={exchangeName} queue={q} />
                         </Badge>
                     </ListGroup.Item>
 
