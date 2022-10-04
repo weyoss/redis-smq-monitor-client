@@ -38,7 +38,7 @@ const QueuePage: React.FC<IProps> = ({ queue, deleteQueueRequestCallback, delete
             <h1 className={'display-4'}>
                 {name}@{ns} <small>({priorityQueuing ? 'Priority Queue' : 'LIFO Queue'})</small>
             </h1>
-            <div className={'mb-3 d-flex flex-row-reverse'}>
+            <div className={'mb-4 d-flex flex-row-reverse'}>
                 <ModalLink
                     variant={'outline-danger'}
                     onSuccess={deleteQueueRequestSuccessCallback}

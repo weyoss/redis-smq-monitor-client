@@ -53,7 +53,7 @@ const BindQueue: React.FC<IBindQueueProps> = ({ exchangeName }) => {
 
     return (
         <>
-            <Button variant={'outline-primary'} onClick={bindQueuesFn} className={'me-3'} size={'sm'}>
+            <Button variant={'outline-primary'} onClick={bindQueuesFn} className={'me-3'}>
                 Bind Queue
             </Button>
             {openHandler && (

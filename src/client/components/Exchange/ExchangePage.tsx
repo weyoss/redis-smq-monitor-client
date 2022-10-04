@@ -42,10 +42,10 @@ const ExchangePage: React.FC<IExchangePageProps> = ({ exchangeName, queues }) =>
     return <>
         <div className={'exchange fullWidth'}>
             <h1 className={'display-4'}>{exchangeName}</h1>
-            <p className={'mb-4'}>
-                <BindQueue exchangeName={exchangeName} />
+            <div className={'mb-4 d-flex flex-row-reverse'}>
                 <DeleteExchange exchangeName={exchangeName} />
-            </p>
+                <BindQueue exchangeName={exchangeName} />
+            </div>
             <ExchangeQueues queues={queues} exchangeName={exchangeName} />
         </div>
     </>

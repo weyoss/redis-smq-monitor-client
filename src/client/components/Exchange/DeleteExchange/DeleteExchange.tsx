@@ -26,7 +26,7 @@ const DeleteExchange: React.FC<IDeleteExchangeProps> = ({ exchangeName }) => {
     }, [exchangeName]);
     return (
         <>
-            <Button variant={'outline-primary'} onClick={deleteExchangeRequest} className={'me-3'} size={'sm'}>
+            <Button variant={'outline-danger'} onClick={deleteExchangeRequest} className={'me-3'}>
                 Delete exchange
             </Button>
         </>
