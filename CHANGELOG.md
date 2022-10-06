@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## 7.1.0 (2022-10-06)
+
+* build: fix npm vulnerability warnings (35cb15c)
+* feat(Exchange): make queue listing items clickable (02f09b6)
+* feat(Home): add CreateQueue component (bac20c3)
+* fix: fix incorrect queue namespace notation (fe2319e)
+* fix: fix buttons styling (32ec8be)
+* refactor(LeftPanel): group queues by namespace (c61e20d)
+* feat: add Queues component (d2564a5)
+* feat: bind/unbind a queue, create/delete an exchange (d82f558)
+* feat(Home): allow to create an exchange from home page (34cd46c)
+* feat(Exchange): add Exchange component (5de18f9)
+* refactor(LeftPanel): clean up (dbf3325)
+* feat(LeftPanel/Queues): use custom useParams() hook (6a631d3)
+* feat(hooks): add custom useParams() hook (1b70007)
+* feat(LeftPanel): add fanout exchanges listing (07dfcb4)
+* refactor: sync up with the latest changes from redis-smq (fb72567)
+
 ## 7.0.3 (2022-06-28)
 
 * Clean up dev dependencies
