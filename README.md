@@ -15,7 +15,7 @@ RedisSMQ Monitor Client is a Web UI for the [RedisSMQ Monitor](https://github.co
 From your browser, it allows you to manage RedisSMQ in real-time. The Web UI is shipped with the `redis-smq-monitor` 
 package. To start using it, you need to install and configure the [RedisSMQ Monitor](https://github.com/weyoss/redis-smq-monitor).
 
-![RedisSMQ Monitor Client Screenshot](./screenshots/screenshot-00002.png)
+![RedisSMQ Monitor Client Screenshot](./screenshots/screenshot-00001.png)
 
 [More screenshots can be found here](./screenshots).
 
