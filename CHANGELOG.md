@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 7.1.1 (2022-10-11)
+
+* docs: update screenshots (22ffdad)
+
 ## 7.1.0 (2022-10-06)
 
 * build: fix npm vulnerability warnings (35cb15c)
