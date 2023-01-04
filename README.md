@@ -7,7 +7,7 @@
 
 <p>
     <a href="https://npmjs.org/package/redis-smq-monitor-client" rel="nofollow"><img src="https://img.shields.io/npm/v/redis-smq-monitor-client.svg" alt="NPM version" /></a>
-    <a href="https://lgtm.com/projects/g/weyoss/redis-smq-monitor-client/context:javascript" rel="nofollow"><img src="https://img.shields.io/lgtm/grade/javascript/github/weyoss/redis-smq-monitor-client.svg?logo=lgtm&logoWidth=18" alt="Code quality" /></a>
+    <a href="https://github.com/weyoss/redis-smq-monitor-client/actions/workflows/codeql.yml" rel="nofollow"><img src="https://github.com/weyoss/redis-smq-monitor-client/actions/workflows/codeql.yml/badge.svg" alt="Code quality" /></a>
 </p>
 
 RedisSMQ Monitor Client is a Web UI for the [RedisSMQ Monitor](https://github.com/weyoss/redis-smq-monitor) application. 
