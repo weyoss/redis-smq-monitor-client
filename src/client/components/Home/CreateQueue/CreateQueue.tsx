@@ -4,14 +4,14 @@ import { Button } from 'react-bootstrap';
 import { addNotificationAction } from '../../../store/notifications/action';
 import { ENotificationType } from '../../../store/notifications/state';
 import { useDispatch } from 'react-redux';
-import { createQueue } from '../../../transport/http/api/create-queue';
+import { saveQueue } from '../../../transport/http/api/save-queue';
 
 const CreateQueue: React.FC = () => {
     const dispatch = useDispatch();
     const [openHandler, setOpenHandler] = useState<boolean>(false);
     const closeHandler = useCallback(() => setOpenHandler(false), []);
     const RequestFactory = useCallback(
-        (queue, enablePriorityQueuing) => () => createQueue(queue, enablePriorityQueuing),
+        (queue, type) => () => saveQueue(queue, type),
         []
     );
     const requestSuccessCallback = useCallback(() => {

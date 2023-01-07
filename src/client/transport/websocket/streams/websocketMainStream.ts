@@ -16,6 +16,7 @@ export type TWebsocketMainStreamPayloadQueue = {
     name: string;
     ns: string;
     priorityQueuing: boolean;
+    type: EQueueType;
     rateLimit: {
         interval: number;
         limit: number;
@@ -25,3 +26,9 @@ export type TWebsocketMainStreamPayloadQueue = {
     pendingMessagesCount: number;
     consumersCount: number;
 };
+
+export enum EQueueType {
+    LIFO_QUEUE,
+    FIFO_QUEUE,
+    PRIORITY_QUEUE,
+}

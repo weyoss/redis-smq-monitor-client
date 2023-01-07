@@ -2,7 +2,7 @@ import React from 'react';
 import * as routes from '../../routes/routes';
 import { Link } from 'react-router-dom';
 import { Badge, ListGroup } from 'react-bootstrap';
-import { TWebsocketMainStreamPayloadQueue } from '../../transport/websocket/streams/websocketMainStream';
+import { EQueueType, TWebsocketMainStreamPayloadQueue } from '../../transport/websocket/streams/websocketMainStream';
 import MessageRates from './MessageRates';
 import { TQueryRequest } from '../../hooks/useQuery';
 import ModalLink from '../common/ModalLink';
@@ -26,7 +26,7 @@ const QueuePage: React.FC<IProps> = ({ queue, deleteQueueRequestCallback, delete
     const {
         ns,
         name,
-        priorityQueuing,
+        type,
         acknowledgedMessagesCount,
         deadLetteredMessagesCount,
         pendingMessagesCount,
@@ -36,7 +36,7 @@ const QueuePage: React.FC<IProps> = ({ queue, deleteQueueRequestCallback, delete
     return (
         <div className={'queue fullWidth'}>
             <h1 className={'display-4'}>
-                {name}@{ns} <small>({priorityQueuing ? 'Priority Queue' : 'LIFO Queue'})</small>
+                {name}@{ns} <small>({type === EQueueType.LIFO_QUEUE ? 'LIFO Queue' : (type === EQueueType.FIFO_QUEUE ? 'FIFO Queue' : 'Priority Queue')})</small>
             </h1>
             <div className={'mb-4 d-flex flex-row-reverse'}>
                 <ModalLink

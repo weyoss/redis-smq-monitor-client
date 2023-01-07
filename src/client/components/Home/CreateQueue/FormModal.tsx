@@ -1,19 +1,20 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import useQuery, { EQueryStatus, TQueryRequest } from '../../../hooks/useQuery';
 import { Field, Form, Formik, FormikProps } from 'formik';
-import { FormControl, FormGroup, FormLabel, FormCheck, Spinner } from 'react-bootstrap';
+import { FormControl, FormGroup, FormLabel, Spinner, FormSelect } from 'react-bootstrap';
 import { FieldProps } from 'formik/dist/Field';
 import Modal from '../../common/Modal';
 import { IMessageQueue } from '../../../transport/http/api/common/IMessage';
+import { EQueueType } from '../../../transport/websocket/streams/websocketMainStream';
 
 interface IFormFields {
     ns: string;
     name: string;
-    enablePriorityQueuing: boolean;
+    type: number;
 }
 
 interface IFormModalProps {
-    RequestFactory: (queue: IMessageQueue, enablePriorityQueuing: boolean) => TQueryRequest<void>;
+    RequestFactory: (queue: IMessageQueue, type: number) => TQueryRequest<void>;
     requestSuccessCallback: () => void;
     closeHandlerCallback: () => void;
     onSubmitCallback: (values: any) => void;
@@ -41,7 +42,7 @@ const FormModal: React.FC<IFormModalProps> = ({ RequestFactory, requestSuccessCa
                 .then(form.validateForm)
                 .then((errors) => {
                     if (!Object.keys(errors).length) {
-                        query.sendQuery(RequestFactory({ ns: form.values.ns, name: form.values.name }, form.values.enablePriorityQueuing));
+                        query.sendQuery(RequestFactory({ ns: form.values.ns, name: form.values.name }, Number(form.values.type)));
                     }
                 })
                 .catch((e) => {
@@ -73,12 +74,18 @@ const FormModal: React.FC<IFormModalProps> = ({ RequestFactory, requestSuccessCa
         }
     }
 
+    const validateType = (key?: string): string | void => {
+        if (![0,1,2].includes(Number(key))) {
+            return 'Required'
+        }
+    };
+
     return (
         <Modal title={'Create a queue'} onSubmit={onSubmit} onCancel={closeHandlerCallback}>
             {query.state.status === EQueryStatus.LOADING ? (
                 <Spinner animation={'border'} />
             ) : (
-                <Formik innerRef={formRef} initialValues={{ name: '', ns: '', enablePriorityQueuing: false }} onSubmit={() => void 0}>
+                <Formik innerRef={formRef} initialValues={{ name: '', ns: '', type: 1 }} onSubmit={() => void 0}>
                     {({ errors, values, touched, setFieldValue }) => (
                         <Form id={'foo'}>
                             <Field
@@ -113,11 +120,26 @@ const FormModal: React.FC<IFormModalProps> = ({ RequestFactory, requestSuccessCa
                                 }}
                             />
 
-                            <FormGroup className="mb-3">
-                                <FormCheck id={'enablePriorityQueuing'} name={'enablePriorityQueuing'} type={'checkbox'} label={'Enable Priority Queuing (optional)'}
-                                           checked={values.enablePriorityQueuing}
-                                           onChange={e => setFieldValue('enablePriorityQueuing', e.target.checked)}/>
-                            </FormGroup>
+                            <Field
+                                name={'type'}
+                                validate={validateType}
+                                render={({ field }: FieldProps) => {
+                                    return (
+                                        <FormGroup className="mb-3">
+                                            <FormLabel>Queue type</FormLabel>
+                                            <FormSelect id={'type'} {...field}>
+                                                <option value={-1} />
+                                                <option value={EQueueType.LIFO_QUEUE}>LIFO Queue</option>
+                                                <option value={EQueueType.FIFO_QUEUE}>FIFO Queue</option>
+                                                <option value={EQueueType.PRIORITY_QUEUE}>Priority Queue</option>
+                                            </FormSelect>
+                                            {errors.type && touched.type && (
+                                                <p className={'text-danger'}>{errors.type}</p>
+                                            )}
+                                        </FormGroup>
+                                    );
+                                }}
+                            />
                         </Form>
                     )}
                 </Formik>
