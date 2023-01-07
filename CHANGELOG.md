@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 7.2.0 (2023-01-07) 
+
+* feat: add support for FIFO queues (b492423)
+* build: bump up socket.io-client to 4.5.4 (7218434)
+* chore: update license (e827a92)
+* build(npm): fix NPM vulnerability warnings (ce6f9f4)
+* docs(readme): use code quality badge (3496c93)
+* build: migrate from lgtm to github code scanning (0be37a3)
+
 ## 7.1.1 (2022-10-11)
 
 * docs: update screenshots (22ffdad)
