@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 7.3.0 (2023-03-26)
+
+* refactor: use latest websocket streams, clean up components (31b6a3c)
+* build: bump up webpack and its dependencies to the latest releases (3082a48)
+
 ## 7.2.0 (2023-01-07) 
 
 * feat: add support for FIFO queues (b492423)
