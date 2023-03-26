@@ -5,7 +5,7 @@ import { FormControl, FormGroup, FormLabel, Spinner, FormSelect } from 'react-bo
 import { FieldProps } from 'formik/dist/Field';
 import Modal from '../../common/Modal';
 import { IMessageQueue } from '../../../transport/http/api/common/IMessage';
-import { EQueueType } from '../../../transport/websocket/streams/websocketMainStream';
+import { EQueueType } from '../../../transport/websocket/streams/mainStream';
 
 interface IFormFields {
     ns: string;

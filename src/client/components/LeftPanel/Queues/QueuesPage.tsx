@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import * as routes from '../../../routes/routes';
-import { TWebsocketMainStreamPayload } from '../../../transport/websocket/streams/websocketMainStream';
+import { TWebsocketMainStreamPayload } from '../../../transport/websocket/streams/mainStream';
 
 interface IProps {
     websocketMainStreamPayload: TWebsocketMainStreamPayload;

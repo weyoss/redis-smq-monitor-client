@@ -4,7 +4,7 @@ import QueuePage from './QueuePage';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps, useHistory } from 'react-router';
 import { IQueueRouteParams } from '../../routes/routes/queue';
-import { TWebsocketMainStreamPayloadQueue } from '../../transport/websocket/streams/websocketMainStream';
+import { TWebsocketMainStreamPayloadQueue } from '../../transport/websocket/streams/mainStream';
 import { addNotificationAction } from '../../store/notifications/action';
 import { ENotificationType } from '../../store/notifications/state';
 import { deleteQueue } from '../../transport/http/api/delete-queue';

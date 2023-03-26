@@ -1,12 +1,12 @@
 import React, { useCallback } from 'react';
 import { IQueueRouteParams } from '../../routes/routes/queue';
 import { RouteComponentProps } from 'react-router';
-import OnlineConsumers from './OnlineConsumers/OnlineConsumers';
+import QueueConsumersListing from './QueueConsumersListing/QueueConsumersListing';
 import { consumer } from '../../routes/routes';
 
-const Consumers: React.FC<RouteComponentProps<IQueueRouteParams>> = ({ match }) => {
+const QueueConsumers: React.FC<RouteComponentProps<IQueueRouteParams>> = ({ match }) => {
     const { namespace, queueName } = match.params;
-    const getOnlineStreamItemLink = useCallback((consumerId: string) => {
+    const getConsumerLink = useCallback((consumerId: string) => {
         return consumer.getLink({ queueName, namespace, consumerId });
     }, []);
     return (
@@ -14,14 +14,14 @@ const Consumers: React.FC<RouteComponentProps<IQueueRouteParams>> = ({ match }) 
             <h1 className={'display-4'}>
                 {queueName}@{namespace} / Consumers
             </h1>
-            <OnlineConsumers
-                stream={`streamOnlineQueueConsumers:${namespace}:${queueName}`}
-                getOnlineListItemLink={getOnlineStreamItemLink}
+            <QueueConsumersListing
+                queueConsumersStreamName={`streamQueueConsumers:${namespace}:${queueName}`}
+                queueOnlineConsumersStreamName={`streamQueueOnlineConsumers:${namespace}:${queueName}`}
+                getConsumerLink={getConsumerLink}
                 emptyListMessage={`No consumers yet.`}
-                heartbeatIdsKey={'consumers'}
             />
         </>
     );
 };
 
-export default Consumers;
+export default QueueConsumers;

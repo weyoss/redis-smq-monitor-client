@@ -1,10 +1,10 @@
 import { ParameterizedRoute } from '../common';
 import { IQueueRouteParams } from './queue';
-import Consumers from '../../components/Consumers/Consumers';
+import QueueConsumers from '../../components/QueueConsumers/QueueConsumers';
 
 export const consumers = ParameterizedRoute<IQueueRouteParams>({
     path: '/namespaces/:namespace/queues/:queueName/consumers',
     exact: true,
-    component: Consumers,
+    component: QueueConsumers,
     caption: 'Consumers'
 });

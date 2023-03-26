@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import Chart from './Chart';
-import { TWebsocketRateStream } from '../../../transport/websocket/streams/websocketRateStream';
+import { TRateStream } from '../../../transport/websocket/streams/rateStream';
 import Websocket from '../../../transport/websocket/websocket';
 import { Socket } from 'socket.io-client';
 
@@ -19,7 +19,7 @@ export const LiveTimeSeries: React.FC<{
 }> = ({ stream, scale, label, onReady }) => {
     const [liveTimeSeries, setLiveTimeSeries] = useState<{
         progress: ELiveTimeSeriesLoadingProgress;
-        payload: TWebsocketRateStream;
+        payload: TRateStream;
     }>({
         progress: ELiveTimeSeriesLoadingProgress.CONNECTING,
         payload: []

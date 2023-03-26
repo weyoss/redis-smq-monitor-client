@@ -8,7 +8,7 @@ import useSelector from '../../hooks/useSelector';
 import { INotificationsState } from '../../store/notifications/state';
 import { EWebsocketMainStreamStatus, IWebsocketMainStreamState } from '../../store/websocket-main-stream/state';
 import { setLoadingAction, setPayloadAction } from '../../store/websocket-main-stream/action';
-import { TWebsocketMainStreamPayload } from '../../transport/websocket/streams/websocketMainStream';
+import { TWebsocketMainStreamPayload } from '../../transport/websocket/streams/mainStream';
 
 const App = () => {
     const websocketMainStreamState = useSelector<IStoreState, IWebsocketMainStreamState>(

@@ -1,30 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Table } from 'react-bootstrap';
-import { TWebsocketOnlineStreamPayloadData } from '../../../transport/websocket/streams/websocketOnlineStream';
-import { IQueueOnlineStreamProps } from './OnlineConsumers';
+import { TWebsocketQueueConsumersPayloadConsumerInfo } from '../../../transport/websocket/streams/queueConsumersStream';
+import { IQueueConsumersListingProps } from './QueueConsumersListing';
 
-interface IProps extends Omit<IQueueOnlineStreamProps, 'stream' | 'heartbeatIdsKey'> {
-    onlineList: Record<string, string> | null;
-    heartbeatIds: string[];
+interface IQueueConsumersListingPageProps extends Omit<IQueueConsumersListingProps, 'queueConsumersStreamName' | 'queueOnlineConsumersStreamName'> {
+    queueConsumers: Record<string, string>;
+    onlineConsumerIds: string[];
 }
 
-const OnlineConsumersPage: React.FC<IProps> = ({
-    onlineList = {},
-    getOnlineListItemLink,
+const QueueConsumersListingPage: React.FC<IQueueConsumersListingPageProps> = ({
+    queueConsumers,
+    getConsumerLink,
     emptyListMessage,
-    heartbeatIds
+    onlineConsumerIds
 }) => {
     const data: JSX.Element[] = [];
-    for (const id in onlineList) {
-        const item: TWebsocketOnlineStreamPayloadData = JSON.parse(onlineList[id]);
-        const isOnline = heartbeatIds.includes(id);
+    for (const id in queueConsumers) {
+        const item: TWebsocketQueueConsumersPayloadConsumerInfo = JSON.parse(queueConsumers[id]);
+        const isOnline = onlineConsumerIds.includes(id);
         const { pid, hostname, ipAddress, createdAt } = item;
         data.push(
             <tr key={`queue-online-${id}`}>
                 <td>
                     {isOnline ? (
-                        <Link key={`queue-online-${id}-link`} to={getOnlineListItemLink(id)}>
+                        <Link key={`queue-online-${id}-link`} to={getConsumerLink(id)}>
                             {id}
                         </Link>
                     ) : (
@@ -77,4 +77,4 @@ const OnlineConsumersPage: React.FC<IProps> = ({
     );
 };
 
-export default OnlineConsumersPage;
+export default QueueConsumersListingPage;

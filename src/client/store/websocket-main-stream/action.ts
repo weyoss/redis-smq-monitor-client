@@ -1,4 +1,4 @@
-import { TWebsocketMainStreamPayload } from '../../transport/websocket/streams/websocketMainStream';
+import { TWebsocketMainStreamPayload } from '../../transport/websocket/streams/mainStream';
 
 export enum EActionType {
     SET_LOADING = 'SET_LOADING',

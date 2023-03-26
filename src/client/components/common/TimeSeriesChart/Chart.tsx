@@ -1,17 +1,17 @@
 import React, { useEffect, useMemo } from 'react';
 import {
-    TWebsocketRateStream,
-    TWebsocketRateStreamItem
-} from '../../../transport/websocket/streams/websocketRateStream';
+    TRateStream,
+    TRateStreamItem
+} from '../../../transport/websocket/streams/rateStream';
 import UPlotChartEngine, { IUPlotChartProps } from './UPlotChartEngine';
 
-const formatTimeSeries = (data: TWebsocketRateStream, label: string, scale: string) => {
+const formatTimeSeries = (data: TRateStream, label: string, scale: string) => {
     const formatted: IUPlotChartProps = {
         lines: [],
         series: [[]]
     };
     const lineData: number[] = [];
-    data.forEach((i: TWebsocketRateStreamItem) => {
+    data.forEach((i: TRateStreamItem) => {
         formatted.series[0].push(i.timestamp);
         lineData.push(i.value);
     });
@@ -26,7 +26,7 @@ const formatTimeSeries = (data: TWebsocketRateStream, label: string, scale: stri
 };
 
 const Chart: React.FC<{
-    timeSeries: TWebsocketRateStream;
+    timeSeries: TRateStream;
     scale: string;
     label: string;
     onReady: () => void;

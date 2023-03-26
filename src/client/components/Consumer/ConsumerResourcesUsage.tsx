@@ -1,9 +1,9 @@
 import { Table } from 'react-bootstrap';
 import { bytesToMB } from '../../tools/utils';
 import React from 'react';
-import { TWebsocketHeartbeatStreamPayload } from '../../transport/websocket/streams/websocketHeartbeatStream';
+import { TConsumerHeartbeatStreamPayload } from '../../transport/websocket/streams/consumerHeartbeatStream';
 
-const ConsumerResourcesUsage: React.FC<TWebsocketHeartbeatStreamPayload> = ({ data }) => {
+const ConsumerResourcesUsage: React.FC<TConsumerHeartbeatStreamPayload> = ({ data }) => {
     return (
         <>
             <p>

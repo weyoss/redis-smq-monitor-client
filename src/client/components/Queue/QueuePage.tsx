@@ -2,7 +2,7 @@ import React from 'react';
 import * as routes from '../../routes/routes';
 import { Link } from 'react-router-dom';
 import { Badge, ListGroup } from 'react-bootstrap';
-import { EQueueType, TWebsocketMainStreamPayloadQueue } from '../../transport/websocket/streams/websocketMainStream';
+import { EQueueType, TWebsocketMainStreamPayloadQueue } from '../../transport/websocket/streams/mainStream';
 import MessageRates from './MessageRates';
 import { TQueryRequest } from '../../hooks/useQuery';
 import ModalLink from '../common/ModalLink';

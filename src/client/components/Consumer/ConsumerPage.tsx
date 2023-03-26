@@ -1,12 +1,12 @@
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
 import { IConsumerRouteParams } from '../../routes/routes/consumer';
-import { TWebsocketHeartbeatStreamPayload } from '../../transport/websocket/streams/websocketHeartbeatStream';
+import { TConsumerHeartbeatStreamPayload } from '../../transport/websocket/streams/consumerHeartbeatStream';
 import ConsumerRates from './ConsumerRates';
 import ConsumerResourcesUsage from './ConsumerResourcesUsage';
 
 interface IProps extends IConsumerRouteParams {
-    heartbeat: TWebsocketHeartbeatStreamPayload | null;
+    heartbeat: TConsumerHeartbeatStreamPayload | null;
     isLoading: boolean;
 }
 
