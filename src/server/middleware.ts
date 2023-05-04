@@ -26,8 +26,8 @@ export const Middleware = (ignorePaths: string[] = [], basePath = '/'): Koa.Midd
     if (
         !ignorePaths.length ||
         ignorePaths.find((i) => {
-            const match = posix.join('/', basePath, i).replace(/\/+$/, '');
-            return ctx.path.indexOf(match) === 0;
+            const item = posix.join('/', i).replace(/\/+$/, '');
+            return ctx.path.indexOf(item) === 0;
         }) === undefined
     ) {
         await ('/' === ctx.path || ctx.path.indexOf('/assets/') !== 0
