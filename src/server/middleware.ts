@@ -23,15 +23,17 @@ async function serveIndex(ctx: Koa.ParameterizedContext, basePath: string): Prom
 }
 
 export const Middleware = (ignorePaths: string[] = [], basePath = '/'): Koa.Middleware => async (ctx, next) => {
+    // remove trailing "/" and transform relative paths to absolute paths
+    const normalizedBasePath = basePath === '/' ? basePath : posix.resolve('/', basePath);
     if (
         !ignorePaths.length ||
         ignorePaths.find((i) => {
-            const item = posix.join('/', i).replace(/\/+$/, '');
+            const item = posix.resolve('/', i);
             return ctx.path.indexOf(item) === 0;
         }) === undefined
     ) {
         await ('/' === ctx.path || ctx.path.indexOf('/assets/') !== 0
-            ? serveIndex(ctx, basePath)
+            ? serveIndex(ctx, normalizedBasePath)
             : send(ctx, ctx.path, { root: assetsDir }));
     } else await next();
 };

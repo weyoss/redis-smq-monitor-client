@@ -20,16 +20,20 @@ const Page: React.FC<IProps> = (props) => {
     const { websocketMainStreamState, notificationsState } = props;
     const { status } = websocketMainStreamState;
     if (status === EWebsocketMainStreamStatus.INIT) {
-        return (<>
-            <span className={'me-2'}>Initializing...</span>
-            <Spinner animation={'border'} />
-        </>);
+        return (
+            <>
+                <span className={'me-2'}>Initializing...</span>
+                <Spinner animation={'border'} />
+            </>
+        );
     }
     if (status === EWebsocketMainStreamStatus.LOADING) {
-        return (<>
-            <span className={'me-2'}>Waiting for upstream data... </span>
-            <Spinner animation={'border'} />
-        </>);
+        return (
+            <>
+                <span className={'me-2'}>Waiting for upstream data... </span>
+                <Spinner animation={'border'} />
+            </>
+        );
     }
     return (
         <>
@@ -46,7 +50,7 @@ const Page: React.FC<IProps> = (props) => {
 };
 
 const AppPage: React.FC<IProps> = (props) => {
-    const path = basePath !== '/' ? basePath.replace(/\/+$/, '') : undefined;
+    const path = basePath !== '/' ? basePath : undefined;
     return (
         <BrowserRouter basename={path}>
             <Page {...props} />
