@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 7.3.1 (2023-05-04)
+
+* fix: make sure basePath does not end with a '/' character (a83f9e4)
+* fix: ignorePaths should not include basePath (f1d00bd)
+* refactor(QueueConsumers): clean up and improve handling logic (77c2f1c)
+
 ## 7.3.0 (2023-03-26)
 
 * refactor: use latest websocket streams, clean up components (31b6a3c)
