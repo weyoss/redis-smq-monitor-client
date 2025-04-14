@@ -3,6 +3,16 @@
   <p>A simple high-performance Redis message queue for Node.js.</p>
 </div>
 
+> **Important Notice**
+>
+> This repository has been archived and is no longer maintained. The RedisSMQ Monitor functionality has been moved to the main [redis-smq repository](https://github.com/weyoss/redis-smq). Please refer to the main repository for the latest updates and documentation.
+>
+> **What this means:**
+>
+> - No further issues or pull requests will be accepted in this repository
+> - All future updates and improvements will be made in the main redis-smq repository
+> - Please direct all questions and contributions to the main repository
+
 # RedisSMQ Monitor Client
 
 <p>
